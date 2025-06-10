@@ -1,5 +1,5 @@
 <div><center>
-<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzI4JzY6oUy-dQaiW-HLmn5NQ7qiw7NUOoK-2cDU9cI6JwhPrNv0EkCacuKWFViEgXYrCFzlbCtHZQffY6a73j6_ATFjfeU7r6OxXxN5K8sGjfOlp3vvd6eCXZrozlu34fUG5_cKHmzZWa4axb-vJRKjLr2tryz0Zw30gTv3S0ET57xsCiD25WMPn3wA/s800/LIQUIDGALAXYLOGO.png" height="80" alt="LG logo"> <img src="https://media.licdn.com/dms/image/v2/D5622AQFBOm69p-dqTw/feedshare-shrink_800/feedshare-shrink_800/0/1726943125286?e=2147483647&v=beta&t=lb1DLkLO9TE_f32YzmFLJc7QxIMUEvBjZdu2IvImTdw" height="80" alt="GSoC 2025">
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzI4JzY6oUy-dQaiW-HLmn5NQ7qiw7NUOoK-2cDU9cI6JwhPrNv0EkCacuKWFViEgXYrCFzlbCtHZQffY6a73j6_ATFjfeU7r6OxXxN5K8sGjfOlp3vvd6eCXZrozlu34fUG5_cKHmzZWa4axb-vJRKjLr2tryz0Zw30gTv3S0ET57xsCiD25WMPn3wA/s800/LIQUIDGALAXYLOGO.png" height="80" alt="LG logo"> <img src="https://media.licdn.com/dms/image/v2/D5622AQFBOm69p-dqTw/feedshare-shrink_800/feedshare-shrink_800/0/1726943125286?e=2147483647&v=beta&t=lb1DLkLO9TE_f32YzmFLJc7QxIMUEvBjZdu2IvImTdw" height="80" alt="GSoC 2025"> <img src="images/LGMasterWebAppLogo.png" height="100" alt="LG Master Web App logo">
 </center></div>
 
 
