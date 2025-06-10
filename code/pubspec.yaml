@@ -1,1 +1,109 @@
+# This file manages the project's name, version, metadata, dependencies (like for example Flutter),
+# the SDK environment and other configurations
+# Indentation is VERY important in YAML, and you should use spaces, NOT tabs
+# TWO SPACES is the standard for a SINGLE INDENTATION
 
+# -----------------------------------BASIC INFO-----------------------------------
+name: lg_master_web_app # Name of the project
+                        # Should be unique within your workspace
+                        # Use ONLY lowercase letters, numbers and underscores
+                        # NO spaces or special characters are allowed
+                        
+description: A starter template for a Liquid Galaxy Flutter application # Short description of the project
+                                                                        # This is shown on packages websites or tools
+#publish_to: 'none' # This line means that the package will NOT be published it on pub.dev, the official package repository of Dart and Flutter
+                    # This is useful for private or internal projects
+                    # GSoC is open source, so you should NOT use this line for an open source project, but is useful to know it exists
+
+# -----------------------------------VERSION-----------------------------------
+version: 1.0.0+1  # The app version, helps keep track of updates and changes
+                  # The format is major.minor.patch+build
+                  # The first official and stable release would be 1.0.0+1
+                  # major = 1 for the initial public release of the app
+                  # minor = 0 because there have been no minor updates/additions yet
+                  # patch = 0 because there have been no bug fixes or small changes yet
+                  # build = 1 for the very first build of the app
+                  # The build part is specially important for mobile app stores to differentiate between builds with the same semantic version
+
+# -----------------------------------ENVIRONMENT-----------------------------------
+# It specifies which versions of the SDK the project works with, it helps prevent compatibility issues
+environment:
+  sdk: ">=3.0.0 <4.0.0"  # This is just an example value
+                         # >=3.0.0 means that the project requires AT LEAST version 3.0.0 of the Dart SDK
+                         # <4.0.0 means that the project will work with any Dart SDK version LOWER than 4.0.0
+                         # To sum up, with this example the project will only work if the Dart SDK version is 3.0.0 or higher but less than 4.0.0
+
+# -----------------------------------DEPENDENCIES-----------------------------------
+# Packages needed for the app to work
+dependencies:
+  flutter:
+    sdk: flutter # This is the most basic dependency, as this line means that the project depends on Flutter itself
+                 # This line is mandatory for all Flutter apps, since it provides the core framework and widgets
+
+# Packages needed ONLY during development and testing, for example testing, code formatting or generating files
+# These packages are NOT needed when the app runs for users and are NOT included in the final app that users download
+dev_dependencies:
+  flutter_test:
+    sdk: flutter # This is the most basic developer dependency, as this line means that Flutter helps write tests for the app
+
+# -----------------------------------FLUTTER SETTINGS-----------------------------------
+flutter:
+  uses-material-design: true # Material Design is an open-source design system developed by Google
+                             # This line enables the use of Material Design icons and themes for the app
+                             # If the value of this line was 'false' instead of 'true', Material icons would not be able to use without extra configurations
+
+  # ------------ASSETS------------
+  # Must be INSIDE the flutter section!!!
+  # In this section you can declare the files (images, audio, JSON, etc.) that the app needs
+  # Each asset path is relative to the project root and must match the actual file/folder location
+  # If the files and/or folders do not exist at the specified paths, Flutter will show an error
+  # After adding assets, run 'flutter pub get' to update the project
+
+  assets:
+    - assets/images/logo.png    # Adds a single image file, in this case called 'logo.png' from the 'images' folder
+                                # You could reference this asset in the Dart code using, for example, Image.asset('assets/images/logo.png')
+                            
+    - assets/audio/music.mp3    # Adds a single audio file, in this case called 'music.mp3' from the 'audio' folder
+
+    - assets/data/config.json   # Adds a single JSON configuration file, in this case called 'config.json' from the 'data' folder
+
+    - assets/images/            # If it ends with '/' it adds all the files in a folder, in this case all the files from the 'images' folder
+
+  # ------------FONTS------------
+  # Must be INSIDE the flutter section!!!
+  # In this section you can include custom fonts
+  # Each font is relative to the project root and must match the actual file/folder location
+  # If the files and/or folders do not exist at the specified paths, Flutter will show an error
+  # After adding fonts, run 'flutter pub get' to update the project
+
+  # You must specify a 'family' (font) name and one or more font files for that family
+  # 'fonts:' MUST BE A LIST (using '-'), and INSIDE 'fonts' is where you specify the different families you will be using for your project
+  # Each font file can also specify an optional 'weight' and 'style'
+
+  fonts:
+    # Example with OpenSans:
+    - family: OpenSans # Name that will be used in the Dart code (fontFamily: 'OpenSans')
+                       # You can give the family any name you want, but it's easier if you just name if like the font you are using
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf   # Path to the regular font file
+        - asset: fonts/OpenSans-Italic.ttf    # Path to the italic font file
+          style: italic                       # Optional, in this case specifies this file is the italic style for this font
+      
+        - asset: fonts/OpenSans-Bold.ttf      # Path to the bold font file
+          weight: 700                         # Optional, in this case specifies this file is the bold option for this font and that its weight is 700
+
+      # In Dart code, you can use this font like this:
+      # Text('Hello world', style: TextStyle(fontFamily: 'OpenSans'))
+
+    # Example with Roboto:
+    - family: Roboto # Name that will be used in the Dart code (fontFamily: 'Roboto')
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf   # Path to the regular font file
+        - asset: fonts/Roboto-Italic.ttf    # Path to the italic font file
+          style: italic                     # Optional, in this case specifies this file is the italic style for this font
+      
+        - asset: fonts/Roboto-Bold.ttf      # Path to the bold font file
+          weight: 400                       # Optional, in this case specifies this file is the bold option for this font and that its weight is 400
+
+      # In Dart code, you can use this font like this:
+      # Text('Hello world', style: TextStyle(fontFamily: 'Roboto'))
