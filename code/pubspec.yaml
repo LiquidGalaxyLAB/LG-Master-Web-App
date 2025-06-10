@@ -1,5 +1,4 @@
-# This file manages the project's name, version, metadata, dependencies (like for example Flutter),
-# the SDK environment and other configurations
+# This file manages the project's name, version, metadata, dependencies (like for example Flutter), the SDK environment and other configurations
 # Indentation is VERY important in YAML, and you should use spaces, NOT tabs
 # TWO SPACES is the standard for a SINGLE INDENTATION
 
