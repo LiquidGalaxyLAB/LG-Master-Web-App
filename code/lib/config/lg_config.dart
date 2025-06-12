@@ -1,7 +1,9 @@
 class LGConfig {
   // This constant list that holds the IP adresses as strings
   // The list size should match the LG size, so in this case it should be 5 IPs (one per screen)
+  // The number of screens does not always have to be 5, 3 for example is also valid
   static const List<String> lgIps = [
+    // Through 'ipconfig' you can get these IPs (check this)
     'IP1',   // Master node (screen 1)
     'IP2',   // Screen 2
     'IP3',   // Screen 3
