@@ -2,6 +2,14 @@ class LGConfig {
   // This constant list that holds the IP adresses as strings
   // The list size should match the LG size, so in this case it should be 5 IPs (one per screen)
   // The number of screens does not always have to be 5, 3 for example is also valid
+  // These IPs are usually the local (private) IPs of each device (each screen) on the same network
+  // IMPORTANT!!!!!!! If you're working remotely (from another city or country), you CANNOT access these IPs directly 
+  // unless you are connected to the same local network
+  
+  // To access them remotely, you can use a VPN
+  // This lets your computer join the remote network, and you will be able to the internal IPs as if you were there
+
+  // Once you get the actual IPs, replace the placeholders below:
   static const List<String> lgIps = [
     // Through 'ipconfig' you can get these IPs (check this)
     'IP1',   // Master node (screen 1)
