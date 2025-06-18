@@ -1,12 +1,12 @@
 import 'package:ssh2/ssh2.dart'; // Imports the ssh2 package
                                  // This allows the connection to remote servers via SSH and safely transfer files
+import 'lg_config.dart';    // Imports the file lg_config.dart
+                            // This is the file that configures the connection to the LG, so it is necessary to establish the connection per se
 
 class LGService {
   late SSHClient _client;  // Declares a private variable called '_client' of the type 'SSHClient'
                            // SSHClient needs parameters like host, username, or password that it does not have right now
                            // 'late' indicates to Dart that it will be initialized later, so it won't be treated as 'null'
-  
-  LGService();   // Default constructor for LGService class
 
   void init({
     // These parameters specify the SSH connection details
