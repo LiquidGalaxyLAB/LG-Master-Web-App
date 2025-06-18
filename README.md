@@ -82,7 +82,8 @@ your_Project/
 │   │   └── settings_screen.dart
 │   │
 │   ├── ai/
-│   │   └── ai_utils.py
+│   │   ├── ai_utils.py
+│   │   └── api_config.dart
 │   │
 │   ├── nodejs/
 │   │   ├── server.js
