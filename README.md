@@ -64,19 +64,36 @@ your_Project/
 │
 ├── lib/
 │   ├── main.dart
-│   ├── models/
-│   │
-│   ├── providers/ (optional)
-│   │
 │   ├── config/
+│   │   └── lg_config.dart
+│   │
+│   ├── services/
+│   │   └── lg_connection.dart
+│   │
+│   ├── optional_files/
+│   │   ├── lg_ai.dart
+│   │   ├── lg_google_earth.dart
+│   │   └── lg_nodejs.dart
 │   │
 │   ├── screens/
-│   │   ├── mainScreen.dart
-│   │   ├── secondaryScreenOne.dart
-│   │   ├── ...
-│   │   └── secondaryScreenFinal.dart
-│   ├── services/
+│   │   ├── connection_screen.dart
+│   │   ├── main_screen.dart
+│   │   ├── help_screen.dart
+│   │   └── settings_screen.dart
 │   │
+│   ├── ai/
+│   │   └── ai_utils.py
+│   │
+│   ├── nodejs/
+│   │   ├── server.js
+│   │   └── package.json
+│   │
+│   ├── kml/
+│   │   └── example.kml
+│   │
+│   ├── models/
+│   │
+│   ├── providers/ (optional?)
 │   ├── utils/ (optional?)
 │   │
 │   ├── linux/ (optional, depending on if you want your project to be visualized in this technology)
@@ -88,7 +105,8 @@ your_Project/
 │   └── windows/ (optional, depending on if you want your project to be visualized in this technology)
 │
 ├── test/
-│   │
+│     └── lg_service_test.dart
+│
 ├── pubspec.yaml
 ├── README.md
 └── .gitignore
