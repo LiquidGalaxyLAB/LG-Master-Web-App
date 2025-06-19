@@ -6,8 +6,11 @@ class LGConfig {
   // IMPORTANT!!!!!!! If you're working remotely (from another city or country), you CANNOT access these IPs directly 
   // unless you are connected to the same local network
   
-  // To access them remotely, you can use a VPN
-  // This lets your computer join the remote network, and you will be able to the internal IPs as if you were there
+  // To access them remotely, you can use a Virtual Machine
+  // You will have to install a Virtual Machine, then Ubuntu, and then the Liquid Galaxy software
+  // You will then be able to test your code on the Liquid Galaxy
+  // You can find a tutorial on how to do this on the following URL:
+  // https://youtu.be/CLdUuDHo6lU?si=gG9oY8jTb4qlKun3
 
   // Once you get the actual IPs, replace the placeholders below:
   static const List<String> lgIps = [
