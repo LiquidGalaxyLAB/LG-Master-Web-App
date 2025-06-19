@@ -14,7 +14,7 @@ class LGConfig {
 
   // Once you get the actual IPs, replace the placeholders below:
   static const List<String> lgIps = [
-    // Through 'ipconfig' you can get these IPs (check this)
+    // Through 'ipconfig' you can get these IPs
     'IP1',   // Master node (screen 1)
     'IP2',   // Screen 2
     'IP3',   // Screen 3
