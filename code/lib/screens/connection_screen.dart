@@ -1,3 +1,5 @@
+// This file is the connection screen that loads when you first open your screen (check this)
+
 import 'package:flutter/material.dart'; // This line imports the Flutter tools needed to build an app, so it works as a great example
                                         // What it is doing is importing the library material.dart (which contains common widgets like buttons, text, etc.) from
                                         // Flutter's SDK (Software Development Kit)
