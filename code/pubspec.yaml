@@ -59,14 +59,16 @@ flutter:
   # After adding assets, run 'flutter pub get' to update the project
 
   assets:
-    - assets/images/logo.png    # Adds a single image file, in this case called 'logo.png' from the 'images' folder
-                                # You could reference this asset in the Dart code using, for example, Image.asset('assets/images/logo.png')
+    - assets/images/LGMasterWebAppLogo.png # Line needed to use the project logo on the splash screen
+    # INFO ON HOW TO ADD DIFFERENT ASSETS:
+    # - assets/images/logo.png    # Adds a single image file, in this case called 'logo.png' from the 'images' folder
+                                  # You could reference this asset in the Dart code using, for example, Image.asset('assets/images/logo.png')
                             
-    - assets/audio/music.mp3    # Adds a single audio file, in this case called 'music.mp3' from the 'audio' folder
+    # - assets/audio/music.mp3    # Adds a single audio file, in this case called 'music.mp3' from the 'audio' folder
 
-    - assets/data/config.json   # Adds a single JSON configuration file, in this case called 'config.json' from the 'data' folder
+    # - assets/data/config.json   # Adds a single JSON configuration file, in this case called 'config.json' from the 'data' folder
 
-    - assets/images/            # If it ends with '/' it adds all the files in a folder, in this case all the files from the 'images' folder
+    # - assets/images/            # If it ends with '/' it adds all the files in a folder, in this case all the files from the 'images' folder
 
   # ------------FONTS------------
   # Must be INSIDE the flutter section!!!
