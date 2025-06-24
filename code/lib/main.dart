@@ -64,37 +64,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// -----------------------------------MYAPP CLASS-----------------------------------
-// MyApp class is the root widget of the app's tree, and all other widgets are built from there
-// This means that all the other parts of the app (buttons, text, etc) will be built from this starting point
-// It extends StatelessWidget, which is a type of widget that never changes once it appears on the screen
-// If we wanted the widget to react to the users actions or update automatically (for example, a counter),
-// we would use StatefulWidget
-class MyApp extends StatelessWidget {
-    const MyApp({super.key}); // 'super' indicates that, if this widget receives a key, it will be passed to the parent class so Flutter knows about it
-    
-    @override // This line tells your app that your are replacing a method that already exists ON PURPOSE
-    Widget build(BuildContext context) {
-        // MaterialApp is a widget that seys up the whole app
-        // It provides settings like navigation or themes
-        return MaterialApp(
-            title: 'LG Master Web Application', // The name of the app
-            
-            // For the look of the app (colours, fonts, etc)
-            theme: ThemeData(
-                primarySwatch: Colors.blue, // In this case, sets blue as the main color
-                                            // But you can choose any colour you want
-                visualDensity: VisualDensity.adaptivePlatformDensity  // Visual density controls how compact or spacious UI elements appear
-                                                                      // This line makes that Flutter uses a compact layout (less space between UI elements) on desktop
-                                                                      // and the standard layout (default, more spacious) on mobile 
-            ),
-            home: const HomePage(),                // Sets HomePage() as the first screen 
-            // debugShowCheckedModeBanner: false,  // This makes that Flutter does NOT show the red "DEBUG" banner that appears when running in debug mode
-                                                   // By default this banner is visible during development to remind that the app is running in debug mode
-                                                   // This line is optional, as it has no effect in release mode because the banner never appears in release builds
-        );
-    }
-}
 
 // -----------------------------------PAGE EXAMPLE-----------------------------------
 // Let's create an example of a basic page using HomePage, which is used in the MyApp class in this example
