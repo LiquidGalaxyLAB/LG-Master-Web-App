@@ -14,7 +14,8 @@
    2.2. [What is Flutter?](#id22)  
 3. [Start your project](#id3)  
    3.1. [Code structure](#id31)
-   3.2. [How a Dart project works](#id32)   
+   3.2. [How a Dart project works](#id32)
+   3.3. [Phone and tablet emulator](#id33)    
 5. [Projects used to create this project](#id4)  
 
 ---
@@ -123,6 +124,9 @@ If you make changes to your app, if you want to run it and see those changes you
 - flutter clean
 - flutter pub get
 - flutter run or run the emulation using Android Studio
+
+<h3 id="id33"> 3.3. Phone and tablet emulator </h3>
+Android Studio (research here)
 
 <h2 id="id4"> 4. Projects used to create this project </h2>
 
