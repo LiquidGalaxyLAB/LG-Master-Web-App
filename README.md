@@ -13,8 +13,9 @@
    2.1. [What is Liquid Galaxy?](#id21)  
    2.2. [What is Flutter?](#id22)  
 3. [Start your project](#id3)  
-   3.1. [Code structure](#id31)  
-4. [Projects used to create this project](#id4)  
+   3.1. [Code structure](#id31)
+   3.2. [How a Dart project works](#id32)   
+5. [Projects used to create this project](#id4)  
 
 ---
 
@@ -116,6 +117,12 @@ your_Project/
 - `main.dart`. The 'main' archive serves to execute the app and show the main screen (HomeView). It is the entry point of the Flutter application.
 - `utils/`. Utility files. They can help to maintain consistency through the app and to make it easy to manage global settings and styles, for example.
 
+<h3 id="id32"> 3.2. How a Dart project works </h3>
+
+If you make changes to your app, if you want to run it and see those changes you have to rebuild the app.
+- flutter clean
+- flutter pub get
+- flutter run or run the emulation using Android Studio
 
 <h2 id="id4"> 4. Projects used to create this project </h2>
 
