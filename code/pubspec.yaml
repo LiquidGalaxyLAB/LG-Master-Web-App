@@ -3,16 +3,16 @@
 # TWO SPACES is the standard for a SINGLE INDENTATION
 
 # -----------------------------------BASIC INFO-----------------------------------
-name: lg_master_web_app # Name of the project
-                        # Should be unique within your workspace
-                        # Use ONLY lowercase letters, numbers and underscores
-                        # NO spaces or special characters are allowed
-                        
-description: A starter template for a Liquid Galaxy Flutter application # Short description of the project
-                                                                        # This is shown on packages websites or tools
-#publish_to: 'none' # This line means that the package will NOT be published it on pub.dev, the official package repository of Dart and Flutter
-                    # This is useful for private or internal projects
-                    # GSoC is open source, so you should NOT use this line for an open source project, but is useful to know it exists
+name: lg_master_web_app  # Name of the project
+                         # Should be unique within your workspace
+                         # Use ONLY lowercase letters, numbers and underscores
+                         # NO spaces or special characters are allowed
+description: A starter template for a Liquid Galaxy Flutter application. # Short description of the project
+                                                                         # This is shown on packages websites or tools
+
+#publish_to: 'none'  # This line means that the package will NOT be published it on pub.dev, the official package repository of Dart and Flutter
+                     # This is useful for private or internal projects
+                     # GSoC is open source, so you should NOT use this line for an open source project, but is useful to know it exists
 
 # -----------------------------------VERSION-----------------------------------
 version: 1.0.0+1  # The app version, helps keep track of updates and changes
@@ -23,6 +23,10 @@ version: 1.0.0+1  # The app version, helps keep track of updates and changes
                   # patch = 0 because there have been no bug fixes or small changes yet
                   # build = 1 for the very first build of the app
                   # The build part is specially important for mobile app stores to differentiate between builds with the same semantic version
+                  # Both the version and the builder number may be overridden in flutter build by specifying --build-name and --build-number (respectively)
+                  # In Android, build-name is used as versionName while build-number used as versionCode
+                  # In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion
+                  # In Windows, build-name is used as the major, minor, and patch parts of the product and file versions while build-number is used as the build suffix
 
 # -----------------------------------ENVIRONMENT-----------------------------------
 # It specifies which versions of the SDK the project works with, it helps prevent compatibility issues
@@ -33,25 +37,36 @@ environment:
                          # To sum up, with this example the project will only work if the Dart SDK version is 3.0.0 or higher but less than 4.0.0
 
 # -----------------------------------DEPENDENCIES-----------------------------------
-# Packages needed for the app to work
+# Dependencies specify other packages that your package needs in order to work
+# To automatically upgrade your package dependencies to the latest versions, you can run `flutter pub upgrade --major-versions`
+# Dependencies can also be manually updated by changing the version numbers below to # the latest version available on pub.dev
+# To see which dependencies have newer, versions available, run `flutter pub outdated`
 dependencies:
   flutter:
     sdk: flutter # This is the most basic dependency, as this line means that the project depends on Flutter itself
                  # This line is mandatory for all Flutter apps, since it provides the core framework and widgets
 
-# Packages needed ONLY during development and testing, for example testing, code formatting or generating files
+  cupertino_icons: ^1.0.8   # This line adds the Cupertino Icons font
+                            # You can use it with the CupertinoIcons class for iOS style icons
+
+# dev_dependencies are packages needed ONLY during development and testing, for example testing, code formatting or generating files
 # These packages are NOT needed when the app runs for users and are NOT included in the final app that users download
 dev_dependencies:
   flutter_test:
     sdk: flutter # This is the most basic developer dependency, as this line means that Flutter helps write tests for the app
 
-# -----------------------------------FLUTTER SETTINGS-----------------------------------
+  # The "flutter_lints" package contains a set of recommended lints to encourage good coding practices
+  # The lint set provided by the package is activated in the `analysis_options.yaml` file located at the root of your package
+  # See that file for information about deactivating specific lint rules and activating additional ones
+  flutter_lints: ^5.0.0
+
+# -----------------------------------FLUTTER PACKAGES-----------------------------------
 flutter:
   uses-material-design: true # Material Design is an open-source design system developed by Google
                              # This line enables the use of Material Design icons and themes for the app
                              # If the value of this line was 'false' instead of 'true', Material icons would not be able to use without extra configurations
 
-  # ------------ASSETS------------
+# ------------ASSETS------------
   # Must be INSIDE the flutter section!!!
   # In this section you can declare the files (images, audio, JSON, etc.) that the app needs
   # Each asset path is relative to the project root and must match the actual file/folder location
