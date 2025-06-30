@@ -58,7 +58,7 @@ dev_dependencies:
   # The "flutter_lints" package contains a set of recommended lints to encourage good coding practices
   # The lint set provided by the package is activated in the `analysis_options.yaml` file located at the root of your package
   # See that file for information about deactivating specific lint rules and activating additional ones
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # -----------------------------------FLUTTER PACKAGES-----------------------------------
 flutter:
@@ -66,7 +66,7 @@ flutter:
                              # This line enables the use of Material Design icons and themes for the app
                              # If the value of this line was 'false' instead of 'true', Material icons would not be able to use without extra configurations
 
-# ------------ASSETS------------
+  # ------------ASSETS------------
   # Must be INSIDE the flutter section!!!
   # In this section you can declare the files (images, audio, JSON, etc.) that the app needs
   # Each asset path is relative to the project root and must match the actual file/folder location
@@ -74,7 +74,19 @@ flutter:
   # After adding assets, run 'flutter pub get' to update the project
 
   assets:
-    - assets/images/LGMasterWebAppLogo.png # Line needed to use the project logo on the splash screen
+    - assets/images/LGMasterWebAppLogo.png   # Line needed to use the project logo on the splash screen
+    - assets/images/FacensLogo.png           # Line needed to use the Facens logo on the splash screen
+    - assets/images/FlutterLleidaLogo.jpg    # Line needed to use the Flutter Lleida logo on the splash screen
+    - assets/images/FlutterLogo.png          # Line needed to use the Flutter logo on the splash screen
+    - assets/images/GDGlleidaLogo.png        # Line needed to use the Google Developers Group Lleida logo on the splash screen
+    - assets/images/GsocLogo.png             # Line needed to use the GSoC logo on the splash screen
+    - assets/images/LaboratorisLogo.png      # Line needed to use the Lleida Laboratoris logo on the splash screen
+    - assets/images/LiquidGalaxyEUlogo.png   # Line needed to use the LG EU logo on the splash screen
+    - assets/images/LiquidGalaxyLabLogo.png  # Line needed to use the LG Lab logo on the splash screen 
+    - assets/images/LiquidGalaxyLogo.png     # Line needed to use the LG logo on the splash screen
+    - assets/images/ParcAgroLleidaLogo.jpg   # Line needed to use the Lleida Agroparc logo on the splash screen
+    - assets/images/ParcLleidaLogo.jpg       # Line needed to use the Lleida Parc cientific logo on the splash screen
+    
     # INFO ON HOW TO ADD DIFFERENT ASSETS:
     # - assets/images/logo.png    # Adds a single image file, in this case called 'logo.png' from the 'images' folder
                                   # You could reference this asset in the Dart code using, for example, Image.asset('assets/images/logo.png')
@@ -96,30 +108,30 @@ flutter:
   # 'fonts:' MUST BE A LIST (using '-'), and INSIDE 'fonts' is where you specify the different families you will be using for your project
   # Each font file can also specify an optional 'weight' and 'style'
 
-  fonts:
+  #fonts:
     # Example with OpenSans:
-    - family: OpenSans # Name that will be used in the Dart code (fontFamily: 'OpenSans')
+    # - family: OpenSans # Name that will be used in the Dart code (fontFamily: 'OpenSans')
                        # You can give the family any name you want, but it's easier if you just name if like the font you are using
-      fonts:
-        - asset: fonts/OpenSans-Regular.ttf   # Path to the regular font file
-        - asset: fonts/OpenSans-Italic.ttf    # Path to the italic font file
-          style: italic                       # Optional, in this case specifies this file is the italic style for this font
+      # fonts:
+        # - asset: fonts/OpenSans-Regular.ttf   # Path to the regular font file
+        # - asset: fonts/OpenSans-Italic.ttf    # Path to the italic font file
+        #  style: italic                       # Optional, in this case specifies this file is the italic style for this font
       
-        - asset: fonts/OpenSans-Bold.ttf      # Path to the bold font file
-          weight: 700                         # Optional, in this case specifies this file is the bold option for this font and that its weight is 700
+        # - asset: fonts/OpenSans-Bold.ttf      # Path to the bold font file
+        #  weight: 700                         # Optional, in this case specifies this file is the bold option for this font and that its weight is 700
 
       # In Dart code, you can use this font like this:
       # Text('Hello world', style: TextStyle(fontFamily: 'OpenSans'))
 
     # Example with Roboto:
-    - family: Roboto # Name that will be used in the Dart code (fontFamily: 'Roboto')
-      fonts:
-        - asset: fonts/Roboto-Regular.ttf   # Path to the regular font file
-        - asset: fonts/Roboto-Italic.ttf    # Path to the italic font file
-          style: italic                     # Optional, in this case specifies this file is the italic style for this font
+    #- family: Roboto # Name that will be used in the Dart code (fontFamily: 'Roboto')
+    #  fonts:
+    #    - asset: fonts/Roboto-Regular.ttf   # Path to the regular font file
+    #    - asset: fonts/Roboto-Italic.ttf    # Path to the italic font file
+    #      style: italic                     # Optional, in this case specifies this file is the italic style for this font
       
-        - asset: fonts/Roboto-Bold.ttf      # Path to the bold font file
-          weight: 400                       # Optional, in this case specifies this file is the bold option for this font and that its weight is 400
+    #    - asset: fonts/Roboto-Bold.ttf      # Path to the bold font file
+    #      weight: 400                       # Optional, in this case specifies this file is the bold option for this font and that its weight is 400
 
-      # In Dart code, you can use this font like this:
-      # Text('Hello world', style: TextStyle(fontFamily: 'Roboto'))
+    # In Dart code, you can use this font like this:
+    # Text('Hello world', style: TextStyle(fontFamily: 'Roboto'))
