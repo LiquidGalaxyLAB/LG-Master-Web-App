@@ -103,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 // It should be located in the 'images' folder inside the 'assets' folder
                 // It should also be added in the pubspec.yaml file, check that file to see how
 
-                'assets/images/LGMasterWebAppLogo.png', // Update this line with the path of your own icon
+                'assets/images/LGMasterWebAppLogo.png', // Update this line with the path of your own project logo
                 width:
                     120, // Width of the image (this is just an example value of 120 px, you can use any value you want)
                 height:
@@ -111,9 +111,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
 
-            const SizedBox(
-                height:
-                    30), // Adds vertical space between the icon and the text
+            const SizedBox(height: 30),
+            // Adds vertical space between the icon and the text
             // This is just an example value of 30 px, you can use any value you want
             // This is just an aesthetic choice, since it separates the logo of the projects from the other logos
             // You can add the logos the way you prefer as long as all of them are visible and easy to recognize
