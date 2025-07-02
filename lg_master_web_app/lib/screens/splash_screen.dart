@@ -49,11 +49,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(seconds: 4), () {
       // Navigate to MainScreen after 4 seconds
+      // After 4 seconds, it navigates to the main screen and replaces the splash screen, which means users cannot go back to the Splash screen
+
       // This is just an example value, you can put the time you want
+      // However, keep in mind that this is a splash screen, so do not put a value that is too high
       // Just keep in mind that the value has to be an int (1, 2, 3, 4, etc)!!
       // It CANNOT be a float (1.2, 2.6, 3.1, 4.8, etc)
-      // However, keep in mind that this is a splash screen, so do not put a value that is too high
-      // After 4 seconds, it navigates to the main screen and replaces the splash screen, which means users cannot go back to the Splash screen
+      // If you want a delay like, for example, 2.5 seconds, you can convert it to milliseconds the following way:
+      // Timer(const Duration(milliseconds: 2500), () {});
 
       Navigator.of(
         context,
