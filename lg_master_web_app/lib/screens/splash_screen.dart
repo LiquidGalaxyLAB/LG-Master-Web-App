@@ -47,11 +47,13 @@ class _SplashScreenState extends State<SplashScreen> {
     // super.initState() calls the default setup behavior from the parent class (in this case, the State class from Flutter)
     // It basically indicates Flutter to set up its own things first, and then we'll add our own things later
 
-    Timer(const Duration(seconds: 5), () {
-      // Navigate to MainScreen after 5 seconds
+    Timer(const Duration(seconds: 4), () {
+      // Navigate to MainScreen after 4 seconds
       // This is just an example value, you can put the time you want
+      // Just keep in mind that the value has to be an int (1, 2, 3, 4, etc)!!
+      // It CANNOT be a float (1.2, 2.6, 3.1, 4.8, etc)
       // However, keep in mind that this is a splash screen, so do not put a value that is too high
-      // After 5 seconds, it navigates to the main screen and replaces the splash screen, which means users cannot go back to the Splash screen
+      // After 4 seconds, it navigates to the main screen and replaces the splash screen, which means users cannot go back to the Splash screen
 
       Navigator.of(
         context,
