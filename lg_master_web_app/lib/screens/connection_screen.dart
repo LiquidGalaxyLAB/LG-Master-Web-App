@@ -256,10 +256,10 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                     // Uses a ternary operator to decide what widget to display as the child of the ElevatedButton
                     // A ternary operator works with the following structure:
                     // condition ? valueIfTrue : valueIfFalse
-                    // This means that, in this case, if _isLoading == true, it means it is trying to stalish a connection with the Liquid Galaxy
+                    // This means that, in this case, if _isLoading == true, it means it is trying to establish a connection with the Liquid Galaxy
                     // It shows a loading spinner (CircularProgressIndicator), this spinner is set to be white but you can adjust it to your liking
                     // If _isLoading == false, it is not in the process of connecting, so it shows the text 'Connect'
-                    // This indicates the user they can tap on the button to try to stablish a connection
+                    // This indicates the user they can tap on the button to try to establish a connection
                   ),
                 ]),
           ),
