@@ -1,3 +1,5 @@
+// Dedicated to the connection using SSH
+// Will be updated, as of now I'm working with the dummy one (lg_service.dart)
 import 'package:ssh2/ssh2.dart'; // Imports the ssh2 package
                                  // This allows the connection to remote servers via SSH and safely transfer files
 import 'lg_config.dart';    // Imports the file lg_config.dart
