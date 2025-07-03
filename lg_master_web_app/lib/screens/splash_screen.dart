@@ -10,8 +10,8 @@ import 'package:flutter/material.dart'; // Imports the library material.dart (wh
 import 'main_screen.dart'; // Imports the main screen file so we can navigate to it after the logos disappear
 
 // ---------------------- Splash screen widget ----------------------
-// SplashScreen class is the root widget of the app's tree, and all other widgets are built from there
-// This means that all the other parts of the app (buttons, text, etc) will be built from this starting point
+// SplashScreen class is the root widget of the screen, and all other widgets are built from there
+// This means that all the other parts of the screen (buttons, text, etc) will be built from this starting point
 // It extends StatefulWidget because its state changes after a few seconds
 // If it did NOT change, we would use StatelessWidget
 class SplashScreen extends StatefulWidget {
@@ -60,6 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
       Navigator.of(
         context,
+        // 'context' represents the location of the current widget in the widget tree
+        // Flutter uses it to know where to place the new screen in the navigation hierarchy
       ).pushReplacement(MaterialPageRoute(
           // MaterialPageRoute is like a page transition in a Material Design style
           // It is used to build the main screen widget
@@ -68,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  // ---------------------- BuildContext widget ----------------------
+  // ---------------------- Build the screen interface ----------------------
   // This function defines what the screen looks like, it is basically method used to build the UI of this widget
   // The parameter context gives access to theme, size, etc
   @override
@@ -88,8 +90,9 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           // Stacks widgets vertically
 
-          mainAxisAlignment:
-              MainAxisAlignment.center, // Puts them in the center vertically
+          mainAxisAlignment: MainAxisAlignment.center,
+          // Puts them in the center vertically
+
           children: [
             Hero(
               // The Hero widget creates a shared element transition
