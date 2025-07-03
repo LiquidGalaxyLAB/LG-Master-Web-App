@@ -4,7 +4,7 @@
 
 // ---------------------- Import packages ----------------------
 import 'package:flutter/material.dart'; // Imports the library material.dart (which contains common widgets like buttons, text, etc.) from Flutter's SDK (Software Development Kit)
-import 'connection_screen.dart'; // Imports the screen related to the connection of the Liquid Galaxy
+import 'connection/connection_screen.dart'; // Imports the screen related to the connection of the Liquid Galaxy
 import 'help_screen.dart'; // Imports the screen related to help, info, or instructions about the app
 import 'settings_screen.dart'; // Imports the screen related to the settings of the app
 import 'optional_screen.dart'; // Imports the screen related to optional screens (Google Earth, Nodejs, AI)
@@ -26,7 +26,7 @@ class MainScreen extends StatelessWidget {
   // @override is not mandatory but it is really useful, as it helps catch mistakes
   // Dart will show an error if you try to override something that does not exist
 
-  // ---------------------- BuildContext widget ----------------------
+  // ---------------------- Build the screen interface ----------------------
   // This function defines what the screen looks like, it is basically method used to build the UI of this widget
   // The parameter context gives access to theme, size, etc
   Widget build(BuildContext context) {
@@ -36,8 +36,9 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         // Top bar of the app, often used for navigation or titles
 
-        title:
-            const Text('LG Master Web App'), // Title displayed in the app bar
+        title: const Text('LG Master Web App'),
+        // Title displayed in the app bar
+
         backgroundColor: Theme.of(context)
             .colorScheme
             .primary, // The app bar color is derived from the current app theme
@@ -112,8 +113,7 @@ class MainScreen extends StatelessWidget {
               const SizedBox(height: 30),
               // Adds vertical space between the icon and the text
               // This is just an example value of 30 px, you can use any value you want
-              // This is just an aesthetic choice, since it separates the logo of the projects from the other logos
-              // You can add the logos the way you prefer as long as all of them are visible and easy to recognize
+              // This is just an aesthetic choice
 
               // ------------- Main screen text -------------
               const Text(
@@ -146,8 +146,7 @@ class MainScreen extends StatelessWidget {
               const SizedBox(height: 40),
               // Adds vertical space between the icon and the text
               // This is just an example value of 40 px, you can use any value you want
-              // This is just an aesthetic choice, since it separates the logo of the projects from the other logos
-              // You can add the logos the way you prefer as long as all of them are visible and easy to recognize
+              // This is just an aesthetic choice
 
               // ------------- Navigation buttons -------------
               // Each button is a custom widget (_HomeButton)
@@ -176,6 +175,9 @@ class MainScreen extends StatelessWidget {
                     // Navigator.push adds a new screen (it transitions to a new page)
 
                     context,
+                    // 'context' represents the location of the current widget in the widget tree
+                    // Flutter uses it to know where to place the new screen in the navigation hierarchy
+
                     MaterialPageRoute(builder: (_) => const ConnectionScreen()),
                     // MaterialPageRoute is used to create a page transition animation
                     // ConnectionScreen is the class associated to the connection screen
@@ -207,6 +209,9 @@ class MainScreen extends StatelessWidget {
                     // Navigator.push adds a new screen (it transitions to a new page)
 
                     context,
+                    // 'context' represents the location of the current widget in the widget tree
+                    // Flutter uses it to know where to place the new screen in the navigation hierarchy
+
                     MaterialPageRoute(builder: (_) => const HelpScreen()),
                     // MaterialPageRoute is used to create a page transition animation
                     // HelpScreen is the class associated to the help screen
@@ -238,6 +243,9 @@ class MainScreen extends StatelessWidget {
                     // Navigator.push adds a new screen (it transitions to a new page)
 
                     context,
+                    // 'context' represents the location of the current widget in the widget tree
+                    // Flutter uses it to know where to place the new screen in the navigation hierarchy
+
                     MaterialPageRoute(builder: (_) => const SettingsScreen()),
                     // MaterialPageRoute is used to create a page transition animation
                     // SettingsScreen is the class associated to the settings screen
@@ -269,6 +277,9 @@ class MainScreen extends StatelessWidget {
                     // Navigator.push adds a new screen (it transitions to a new page)
 
                     context,
+                    // 'context' represents the location of the current widget in the widget tree
+                    // Flutter uses it to know where to place the new screen in the navigation hierarchy
+
                     MaterialPageRoute(builder: (_) => const OptionalScreen()),
                     // MaterialPageRoute is used to create a page transition animation
                     // OptionalScreen is the class associated to the screen related to optional features (Google Earth, AI and Nodejs)
@@ -329,7 +340,7 @@ class _HomeButton extends StatelessWidget {
       // In this case, it adds 8 px of vertical space (top and bottom) around the bottom
       // As always, you can customize these values to your liking
       // If you wanted to add padding on top, bottom, left and right you would use EdgeInsets.all(8.0);
-      // If you wanted to add padding on left and right you would use EdgeInsetssymmetric(horizontal: 8.0);
+      // If you wanted to add padding on left and right you would use EdgeInsets.symmetric(horizontal: 8.0);
       // You can also combine both, for example EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
       // You can add padding on individual sides, for example:
       // EdgeInsets.only(left: 8.0, bottom: 5.0, top: 10.0, right: 20.0)
