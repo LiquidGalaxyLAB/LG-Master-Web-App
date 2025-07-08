@@ -65,17 +65,20 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     // This line disables the 'Connect' button and shows a loading spinner
 
     final ip = _ipController.text;
-    // Reads the text typed in the IP field and stores it in a variable called 'ip'
-
     final port = int.tryParse(_portController.text) ?? 0;
-    // Reads the text typed in the port field and stores it in a variable called 'port'
-    // int.tryParse() converts it to an int value
-    // If this fails (for example, the user has typed in letters instead of numbers) it falls back to 0
 
-    final success = await LgService().connectToLG();
+    // Crear instancia de LgService
+    LgService lgService = LgService();
+    lgService.ip = ip;
+    lgService.port = port;
+
+    final success = await lgService.connectToLG();
     // Calls the connectToLG method from the lg_service.dart file
     // 'await' pauses execution until the connection attempt finishes
     // Stores the result in the 'success' variable
+    // The connectToLG method has two arguments, ip and port
+    // This line specifies that the value for the 'ip' parameter is the ip the user introduced
+    // and that the value for the 'port' parameter is the port the user introduced
 
     setState(() => _isLoading = false);
     // This line hides the loading spinner and re-enables the connection button
@@ -131,7 +134,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   }
 
   @override
-
   // ---------------------- Build the screen interface ----------------------
   // This function defines what the screen looks like, it is basically method used to build the UI of this widget
   // The parameter context gives access to theme, size, etc
