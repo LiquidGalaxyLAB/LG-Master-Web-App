@@ -1,4 +1,3 @@
-
 // -------------------------------------------- CONNECTION STATUS SCREEN --------------------------------------------
 // This screen is displayed after the user attempts a connection to Liquid Galaxy
 // It shows whether the connection was successful or not as well as the entered IP and port
