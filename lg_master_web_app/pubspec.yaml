@@ -1,3 +1,4 @@
+# -------------------------------------------- PUBSPEC --------------------------------------------
 # This file manages the project's name, version, metadata, dependencies (like for example Flutter), the SDK environment and other configurations
 # Indentation is VERY important in YAML, and you should use spaces, NOT tabs
 # TWO SPACES is the standard for a SINGLE INDENTATION
@@ -49,6 +50,19 @@ dependencies:
   cupertino_icons: ^1.0.8   # This line adds the Cupertino Icons font
                             # You can use it with the CupertinoIcons class for iOS style icons
 
+  dartssh2: ^2.5.1  # This line allows you to use ssh to connect to the Liquid Galaxy
+
+  google_maps_flutter: ^2.2.2  # Enables embedding and interacting with Google Maps
+
+  xml: ^6.1.0  # Para parsear KML (es XML)
+
+  http: ^0.13.5  # Adds the HTTP client library, used to make HTTP requests to web servers
+
+  url_launcher: ^6.2.5  # This line allows you to open URLs in browser or apps
+
+  flutter_dotenv: ^5.1.0  # Adds support for environment variables
+                          # Useful for loading configuration or secret keys from .env files
+
 # dev_dependencies are packages needed ONLY during development and testing, for example testing, code formatting or generating files
 # These packages are NOT needed when the app runs for users and are NOT included in the final app that users download
 dev_dependencies:
@@ -86,6 +100,7 @@ flutter:
     - assets/images/LiquidGalaxyLogo.png     # Line needed to use the LG logo on the splash screen
     - assets/images/ParcAgroLleidaLogo.jpg   # Line needed to use the Lleida Agroparc logo on the splash screen
     - assets/images/ParcLleidaLogo.jpg       # Line needed to use the Lleida Parc cientific logo on the splash screen
+    - assets/kml/LG_Master_Web_App_KML_Map.kml # Line needed to use the KML file in Google Maps
     
     # INFO ON HOW TO ADD DIFFERENT ASSETS:
     # - assets/images/logo.png    # Adds a single image file, in this case called 'logo.png' from the 'images' folder
