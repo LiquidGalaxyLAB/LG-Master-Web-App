@@ -39,9 +39,8 @@ class MainScreen extends StatelessWidget {
         title: const Text('LG Master Web App'),
         // Title displayed in the app bar
 
-        backgroundColor: Theme.of(context)
-            .colorScheme
-            .primary, // The app bar color is derived from the current app theme
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        // The app bar color is derived from the current app theme
       ),
       body: Container(
         // 'body' refers to the main content area of the screen
@@ -85,6 +84,8 @@ class MainScreen extends StatelessWidget {
             // Puts them in the center vertically
 
             children: [
+              // List of child widgets that will be stacked vertically
+
               // ------------- Logo -------------
               Hero(
                 // The Hero widget creates a shared element transition
@@ -258,7 +259,7 @@ class MainScreen extends StatelessWidget {
                 // _HomeButton is a custom widget we created at the end of this file
                 // It is reusable
 
-                label: 'Optional Screens',
+                label: 'Optional screens',
                 // 'label' is a parameter passed to _HomeButton which sets the text shown on the button
 
                 icon: Icons.explore,
@@ -294,7 +295,7 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-// ---------------------- Reusable Button Widget ----------------------
+// ---------------------- Reusable button widget ----------------------
 // _HomeButton is a custom stateless widget that defines the appearance and behavior of each button on the home screen
 // This is a reusable widget that we created to make the code more efficient
 
@@ -313,20 +314,21 @@ class _HomeButton extends StatelessWidget {
   final Color color;
   // Variable called 'color' used to define the background color of the botton
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   // Declares a VoidCallback (a function that returns nothing) to define what should happen when the button is tapped
   // We use a function that returns nothing because when we are just triggering an action (navigating to another screen, showing a dialog,
   // printing something to the console, etc) these actions DO NOT return any value and ONLY need to be executed when the button is tapped
+  // In this case is 'VoidCallback?' and not 'VoidCallback' because we want the onTap parameter to be optional
+  // This means that the widget can still work even if no tap handler is provided
+  // This is useful when creating reusable UI components that do not always need interaction
 
   const _HomeButton({
     // Constructor fo the widget, allows to pass values to the label, icon, color and onTap parameters
     // 'required' makes sure the values MUST be provided in order to use _HomeButton
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.onTap,
-    super.key,
-    // Passes an optional widget key to the superclass (SatatelessWidget), which Flutter uses for widget identification and efficient rebuilds
+    required this.label, // It is mandatory that the 'label' value is provided
+    required this.icon, // It is mandatory that the 'icon' value is provided
+    required this.color, // It is mandatory that the 'color value is provided
+    this.onTap, // Not mandatory, it means that if an onTap function is provided, it will be stored
   });
 
   @override
@@ -362,10 +364,12 @@ class _HomeButton extends StatelessWidget {
           // Button size, in this case it forces it to be at least 200 px wide and 48 px tall
 
           shape: RoundedRectangleBorder(
-            // Give the button rounder corners
+            // Gives the button rounder corners
+
             borderRadius: BorderRadius.circular(30),
             // In this case, it uses a radius of 30 px
           ),
+
           elevation: 5,
           // Adds a shadow to make the button look raised
           // It has to be a double
