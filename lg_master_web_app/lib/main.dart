@@ -10,10 +10,9 @@ import 'screens/splash_screen.dart'; // Splash screen with the logos
 
 // -----------------------------------MAIN FUNCTION-----------------------------------
 // The main function is the first thing that runs when the app starts
-void main() {
+Future<void> main() async {
   runApp(const MyApp());
 }
-
 // A shortcut for this could be void main () => runApp();
 // '=>' is Dart's arrow syntax for functions with a single expression
 
@@ -21,8 +20,7 @@ void main() {
 // MyApp class is the root widget of the app's tree, and all other widgets are built from there
 // This means that all the other parts of the app (buttons, text, etc) will be built from this starting point
 // It extends StatelessWidget, which is a type of widget that never changes once it appears on the screen
-// If we wanted the widget to react to the users actions or update automatically (for example, a counter),
-// we would use StatefulWidget
+// If we wanted the widget to react to the users actions or update automatically (for example, a counter), we would use StatefulWidget
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
