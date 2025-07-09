@@ -54,7 +54,7 @@ dependencies:
 
   google_maps_flutter: ^2.2.2  # Enables embedding and interacting with Google Maps
 
-  xml: ^6.1.0  # Para parsear KML (es XML)
+  xml: ^6.1.0  # To parse KML
 
   http: ^0.13.5  # Adds the HTTP client library, used to make HTTP requests to web servers
 
