@@ -36,7 +36,7 @@ import 'package:http/http.dart'
 // ---------------------- AI configuration parameters ----------------------
 // ---- API key (temporary solution) ----
 const String apiKey =
-    'AIzaSyC8lFeP50SvWPLQm1x6x4xFqHwbaKkM8tY'; // The API key is EXTREMELY sensitive information
+    ''; // The API key is EXTREMELY sensitive information
 // It should be in an .env file that should be specified to be ignored in .gitignore
 // I'm having problems with the project reading the .env file so as of now I'm using the key here
 
