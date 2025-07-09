@@ -94,6 +94,8 @@ class _SplashScreenState extends State<SplashScreen> {
           // Puts them in the center vertically
 
           children: [
+            // List of child widgets that will be stacked vertically
+
             Hero(
               // The Hero widget creates a shared element transition
               // This is a visual effect where a widget (in this case, a logo) seems to fly from one screen to the next
