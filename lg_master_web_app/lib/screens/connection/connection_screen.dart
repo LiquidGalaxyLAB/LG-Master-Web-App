@@ -69,7 +69,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
 
     // Crear instancia de LgService
     LgService lgService = LgService();
-    lgService.ip = ip;
+    lgService.mainNodeIP = ip;
     lgService.port = port;
 
     final success = await lgService.connectToLG();
