@@ -163,4 +163,3 @@ Android Studio (research here)
 | [Liquid Galaxy Controller Application](https://github.com/LiquidGalaxyLAB/lg_controller) | Sreyas Ravichandran | 2019 | Dart (98.5%), Other (1.5%) |
 
 ---
-
