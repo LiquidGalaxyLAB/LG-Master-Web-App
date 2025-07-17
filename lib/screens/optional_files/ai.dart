@@ -3,7 +3,7 @@
 // It sends a POST request to the Gemini API and displays the AI response on the screen
 
 // !!!!!!!!!!!!!!!
-// NOT OPERATIVE YET: some problems with detecting the .env file and with getting permissions for the Gemini model
+// NOT OPERATIVE YET: some problems with getting permissions for the Gemini model
 // !!!!!!!!!!!!!!!
 
 // ------------------------------------- HOW TO GET A GEMINI API KEY -------------------------------------
@@ -21,24 +21,21 @@ import 'dart:convert'; // For coding and decoding JSON
 import 'package:flutter/material.dart'; // Imports the library material.dart (which contains common widgets like buttons, text, etc.) from Flutter's SDK (Software Development Kit)
 import 'package:http/http.dart'
     as http; // HTTP client to send requests to the Gemini API
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Used to load and access environment variables from a .env file
 
 // !!!!!!
-// ---------------------- Not being used until the problem with detecting the .env is solved ----------------------
-//import 'package:flutter_dotenv/flutter_dotenv.dart'; // Used to load and access environment variables from a .env file
-
-//final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
-// Loads the Gemini API key from the .env file
-// dotenv.env['GEMINI_API_KEY'] returns the value of GEMINI_API_KEY from the file
-// If the key is not found, it returns an empty string
-
+// Not working properly because the model I could get for free does not work with a prompt-response structure (it is not conversational)
 // !!!!!!
 
 // ---------------------- AI configuration parameters ----------------------
-// ---- API key (temporary solution) ----
-const String apiKey =
-    'AIzaSyC8lFeP50SvWPLQm1x6x4xFqHwbaKkM8tY'; // The API key is EXTREMELY sensitive information
+// ---- API key ----
+final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+// The API key is EXTREMELY sensitive information
 // It should be in an .env file that should be specified to be ignored in .gitignore
-// I'm having problems with the project reading the .env file so as of now I'm using the key here
+// The .env file MUST be specified in the pubspec assets section!
+// The .env file MUST also be outside the "lib" folder, on the same level as pubspec.yaml
+// dotenv.env['GEMINI_API_KEY'] returns the value of GEMINI_API_KEY from the file
+// If the key is not found, it returns an empty string
 
 // ---- Gemini model to be used ----
 const String modelName = 'models/chat-bison-001';

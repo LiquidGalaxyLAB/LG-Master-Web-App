@@ -8,6 +8,7 @@ import 'optional_files/google_maps.dart'; // Imports the screen related to the G
 import 'optional_files/google_maps_kml.dart'; // Imports the screen related to the Google Maps internal browser explanation and example
 import 'optional_files/nodejs.dart'; // Imports the screen related to the Nodejs explanation and example
 import 'optional_files/ai.dart'; // Imports the screen related to the AI explanation and example
+import 'optional_files/qr.dart'; // Imports the screen related to the QR code scanning explanation and example
 
 // ---------------------- Optional screen widget ----------------------
 // OptionalScreen class is the root widget of the screen, and all other widgets are built from there
@@ -167,6 +168,32 @@ class OptionalScreen extends StatelessWidget {
                 // AIScreen is the class associated to the screen with info about AI
               ),
             ),
+
+            // ------- QR CODE -------
+            _FeatureCard(
+              // _FeatureCard is a custom widget we created at the end of this file
+              // It is reusable
+
+              title: 'Scanning a QR code',
+              // Title of the optional feature
+
+              description: 'Use your phone camera to scan a QR code',
+              // Description of the optional feature
+
+              onTap: () => Navigator.push(
+                // 'onTap' defines what happens when the user taps the option (the button)
+                // In this case, it navigates to the screen that lets the user scan a QR code
+                // Navigator.push adds a new screen (it transitions to a new page)
+
+                context,
+                // 'context' represents the location of the current widget in the widget tree
+                // Flutter uses it to know where to place the new screen in the navigation hierarchy
+
+                MaterialPageRoute(builder: (_) => const QRScreen()),
+                // MaterialPageRoute is used to create a page transition animation
+                // AIScreen is the class associated to the screen with info about the QR code
+              ),
+            ),
           ],
         ),
       ),
@@ -203,9 +230,14 @@ class _FeatureCard extends StatelessWidget {
     // Constructor fo the widget, allows to pass values to the label, icon, color and onTap parameters
     // 'required' makes sure the values MUST be provided in order to use _HomeButton
 
-    required this.title, // It is mandatory that the 'title' value is provided
-    required this.description, // It is mandatory that the 'description' value is provided
-    this.onTap, // Not mandatory, it means that if an onTap function is provided, it will be stored
+    required this.title,
+    // It is mandatory that the 'title' value is provided
+
+    required this.description,
+    // It is mandatory that the 'description' value is provided
+
+    this.onTap,
+    // Not mandatory, it means that if an onTap function is provided, it will be stored
   });
 
   @override

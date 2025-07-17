@@ -377,9 +377,9 @@ class HelpScreen extends StatelessWidget {
             // This is just an example value of 20 px, you can use any value you want
             // This is just an aesthetic choice
 
-            // ------- CONTACT INFO -------
+            // ------- PROJECT REPOSITORY INFO -------
             const Text(
-              'Contact and project repository',
+              'Project repository',
               style: TextStyle(
                   // Applies custom styling to the text (to the title in this case)
 
@@ -411,16 +411,6 @@ class HelpScreen extends StatelessWidget {
 
               children: [
                 // List of child widgets that will be stacked vertically
-
-                SocialIcon(
-                  // Reusable button widget that displays an icon image that can be clicked on
-
-                  assetPath: 'assets/icons/linkedin_logo.png',
-                  // LinkedIn logo
-
-                  url: '',
-                  // LinkedIn profile of the contributor
-                ),
 
                 SocialIcon(
                   // Reusable button widget that displays an icon image that can be clicked on

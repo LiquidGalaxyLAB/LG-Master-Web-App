@@ -16,10 +16,11 @@
    3.1. [Code structure](#id31)
    3.2. [How a Dart project works](#id32)
    3.3. [Phone and tablet emulator](#id33)
-4. [Automatically generated files](#id4)
+   3.4. [Using GitHub](#id34)
+5. [Automatically generated files](#id4)
    4.1. [.dart_tool](#id41)
    4.2. [.flutter-plugins-dependencies](#id42)
-5. [Your whole project step by step](#id5)  
+6. [Your whole project step by step](#id5)  
    5.1. [.idea](#id51)
    5.2. [android](#id52)
    5.3. [assets](#id53)
@@ -38,7 +39,7 @@
    5.16. [lg_master_web_app.iml](#id516)
    5.17. [pubspec.lock](#id517)
    5.18. [pubspec.yaml](#id518)
-6. [Projects used to create this project](#id5)  
+7. [Projects used to create this project](#id5)  
 
 ---
 
@@ -149,6 +150,28 @@ If you make changes to your app, if you want to run it and see those changes you
 
 <h3 id="id33"> 3.3. Phone and tablet emulator </h3>
 Android Studio (research here)
+
+<h3 id="id34"> 3.4. Using GitHub </h3>
+This may be the first time you have ever worked with GitHub, so everything can feel a little confusing at first. But don't worry! This guide is here to help. You have multiple options to upload your work to GitHub. You can do it using the GitHub web interface or upload it using git. To upload from your computer, you should do the following steps:
+
+- Open the cmd.
+- Go to the folder where you have your project. The command here is `cd your_project_route`.
+- Initialize an empty git repository. The command here is `git init`.
+- Add the origin route to your GitHub project repository. The command here is `git remote add origin https://github.com/your_github_repository_link.git`.
+
+Once you have done all of this, your computer is ready to upload the files from your computer to your GitHub repository. Everytime you want to update the files in your repository with the files you have in your computer, you have to do the following:
+
+- Open the cmd.
+- Go to the folder where you have your project. The command here is `cd your_project_route`.
+- Add the new content. The command here is `git add .`.
+- Add a comment about the update. The command here is `git commit -m "whatever you want to say"`. This is not mandatory, but adding comments explaining what you added in each update is INCREDIBLY useful and helps keep track of your work.
+- Make sure you are on the main branch of your project. The command here is `git branch`. In order to understand this part, let's assume your main branch is called "main" (this is the default name normally because it helps to understand the project easily, but you can also choose a different one). The output of this command will be a list that looks like this:
+   - *main
+   - other_branch1
+   - other_branch2
+   
+  "*" indicates the branch you are in right now. In case you were not in the main branch, you would need to use the command `git checkout main`.
+- Add the content and the comments to the main branch. The command here is `git push origin main`. Again, "main" is the default name for the name branch, but if you have a different name for this branch you can just use that name instead of name, like `git push origin your_main_branch_name`. 
 
 <h2 id="id4"> 4. Projects used to create this project </h2>
 

@@ -22,12 +22,15 @@ class GoogleMapsScreen extends StatelessWidget {
   // It basically passes an optional key to the parent widget for identification during widget rebuilds
 
   final String mapsUrl =
-      'https://www.google.com/maps/d/u/0/edit?mid=1_n73uHh2o_GhqjYBGkhaFzHW2zNJQ10&usp=sharing';
+      'https://www.google.com/maps/d/viewer?mid=1_n73uHh2o_GhqjYBGkhaFzHW2zNJQ10&usp';
   // This is the public URL to your public Google Maps
   // In this case I created a sample map with the 7 wonders of the modern world
   // Then I clicked share and got the public link to share the map
   // You have to replace this with your actual publicly accessible URL
   // IMPORTANT!!!! This URL must be public to work
+  // IMPORTANT!! It will NOT work if it has the word 'edit'
+  // The structure of the URL should be this one:
+  // https://www.google.com/maps/d/viewer?mid=YOUR_MAP_ID
   // This also means you have to be careful so that this map does NOT contain any sensitive information (for example, your address)
 
   // ---------------------- Open Google Maps method ----------------------

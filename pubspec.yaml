@@ -47,6 +47,11 @@ dependencies:
     sdk: flutter # This is the most basic dependency, as this line means that the project depends on Flutter itself
                  # This line is mandatory for all Flutter apps, since it provides the core framework and widgets
 
+  shared_preferences: ^2.2.0  # This line allows to store simple key-value data
+                              # It is usually used to save user settings locally
+
+  provider: ^6.1.0  # This line is used to share and manage states (user data, theme settings, etc.) between widgets
+  
   cupertino_icons: ^1.0.8   # This line adds the Cupertino Icons font
                             # You can use it with the CupertinoIcons class for iOS style icons
 
@@ -54,11 +59,13 @@ dependencies:
 
   google_maps_flutter: ^2.2.2  # Enables embedding and interacting with Google Maps
 
-  xml: ^6.1.0  # Para parsear KML (es XML)
+  xml: ^6.1.0  # This line allows the parsing of KML files (since they are XML-formatted files)
 
-  http: ^0.13.5  # Adds the HTTP client library, used to make HTTP requests to web servers
+  http: ^0.13.5  # This line adds the HTTP client library, used to make HTTP requests to web servers
 
   url_launcher: ^6.2.5  # This line allows you to open URLs in browser or apps
+
+  mobile_scanner: ^3.3.0 # This line allows you to use your phone camera in order to scan something
 
   flutter_dotenv: ^5.1.0  # Adds support for environment variables
                           # Useful for loading configuration or secret keys from .env files
@@ -103,6 +110,7 @@ flutter:
     - assets/kml/LG_Master_Web_App_KML_Map.kml # Line needed to use the KML file in Google Maps
     - assets/icons/linkedin_logo.png    # Line needed to use the linkedin logo on the help screen
     - assets/icons/github_logo.png      # Line needed to use the github logo on the help screen
+    - .env # Line needed so that the project can read the .env file
     
     # INFO ON HOW TO ADD DIFFERENT ASSETS:
     # - assets/images/logo.png    # Adds a single image file, in this case called 'logo.png' from the 'images' folder
