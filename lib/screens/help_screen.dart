@@ -357,8 +357,12 @@ class HelpScreen extends StatelessWidget {
               // Organization admin
               // \n adds a new line for readability reasons
 
-              'Support by: Liquid Galaxy Lab - Lleida',
+              'Support by: Liquid Galaxy Lab - Lleida\n'
               // Information on the LG lab
+
+              'Thanks to my mentor and to the team of the Liquid Galaxy LAB Lleida for all their help.\n'
+              'Headquarters of the Liquid Galaxy project: Alba, Paula, Josep, Jordi, Oriol, Sharon, Alejandro, Marc, and admin Andreu, for their continuous support on my project.\n'
+              'More info in www.liquidgalaxy.eu',
 
               style: TextStyle(
                   // Applies custom styling to the text (to the title in this case)
