@@ -33,12 +33,11 @@
    7.3. [Weekly Vlogs](#id73) 
    7.4. [Open source](#id74)
 8. [Common mistakes and how to avoid them](#id8)
-9. [Start your project](#id9)  
-   9.1. [What is GitHub?](#id91)  
-   9.2. [Minimum app features / screens](#id92) 
-   9.3. [Code structure](#id93) 
-   9.4. [How a Dart project works](#id94)
-   9.5. [Phone and tablet emulator](#id95)
+9. [Start your project](#id9)   
+   9.1. [Minimum app features / screens](#id91) 
+   9.2. [Code structure](#id92) 
+   9.3. [How a Dart project works](#id93)
+   9.4. [Phone and tablet emulator](#id94)
 10. [Automatically generated files](#id10)
    10.1. [.dart_tool](#id101)
    10.2. [.flutter-plugins-dependencies](#id102)
@@ -74,31 +73,36 @@ You are encouraged to use this guide as both a walkthrough and a reference manua
 GSoC is a challenge and can feel like a lot sometimes, but it is also a great opportunity! It is important to remember that mistakes are a natural part of learning, so don’t hesitate to reach out to your mentor for guidance. Above all, keep in mind that every small step forward counts. Each line of code, every solved bug, every problem solved, and every new concept learnt brings you closer to successfully completing your project. This guide is here to make sure you have all the tools and knowledge necessary to make your GSoC experience as easy and rewarding as possible. Welcome once again, and happy coding! :) 
 
 
-<h2 id="id2"> 2. Basic concepts </h2>
+<h2 id="id2"> 2. Onboarding </h2>
 
-<h3 id="id21"> 2.1. What is Liquid Galaxy? </h3>
-The Liquid Galaxy is an open-source project founded by Google that enables users to navigate Google Earth, view videos and photos, create interactive tours, and visually display GIS (Geographic Information System) data. It is made up of a 7-screen display, connected together to provide users an immersive panoramic experience. Created in 2008 by Google employee Jason Holt, Liquid Galaxy started out as a panoramic, multiscreen viewer for Google Earth. Since then, it has become a tool used for more than just exploring the Earth, as it is now also used for data visualization, virtual tours, videos, photos, and more. Here's how it works:
+Working on your GSoC project is both an exciting and rewarding experience, but it can also feel overwhelming, especially if you don’t really know where or how to start. In order to make this process smoother, the Liquid Galaxy team offers a clear and structured onboarding process designed to help you integrate easily into both the development environment and the broader GSoC framework. This section outlines the most important steps to help you start strong and establish good habits that will support your progress throughout the entire program.
 
-- **Each screen is powered by its own computer.**  The Liquid Galaxy hardware consists of 3 or more computers driving multiple displays, with usually one computer for each display.
-- **The Liquid Galaxy applications are developed using master/slave architecture.** The master screen controls the view, and the other screens (the "slaves") are set up to follow it. When the user moves around on the master screen, the other screens adjust their views to stay in sync, creating a smooth, panoramic effect. This coordination is handled through messages sent over a network using UDP.
+<h3 id="id21"> 2.1. Getting started and bonding period </h3>
 
-Even though Liquid Galaxy often uses Google Earth, it is a separate open-source project. This means developers can create open-source applications to display many types of content in an immersive panoramic environment. As a fun fact, Google Earth itself is not open-source software, although it is free to use.
-Companies, nonprofits, and universities often use Liquid Galaxy to present information in a more engaging and interactive way. Google also regularly uses Liquid Galaxy to show and promote its own geospatial technologies at trade shows and exhibits.
+The bonding period is a crucial phase for laying the foundation of your project and building a strong working relationship with your mentor (or mentors). This period takes place before the official coding phase begins (for exact dates, please refer to the [Liquid Galaxy website](https://www.liquidgalaxy.eu/)) and serves as an opportunity to clarify expectations, ask questions, and plan your project in detail. Its main purpose is to get to know your mentor, clear up any uncertainties, and overall make sure everyone is aligned before development begins.
+Once GSoC officially starts, you will receive an email to schedule your first project meeting, which will involve your main mentor, listening mentors and potentially other team members. It is mandatory to attend this meeting LIVE, as it is essential for setting clear goals and making sure your project starts on the right track. While other collaborators (such as listening mentors) may attend to observe and/or take notes, only assigned mentors and contributors are expected to actively speak and participate.
+During this initial meeting, you will present and refine your initial project proposal, define specific objectives and deliverables and confirm the technologies and tools you will be using. For this, you will also break down the project into clear milestones and assign realistic deadlines. This meeting sets the groundwork for your GSoC experience, and listening mentors will often take notes to document all key decisions and discussions for future reference. It is also essential to establish a regular meeting schedule with your main mentor (ideally meeting at least once a week) and, when doing so, make sure to use a clear and consistent naming convention, like for example GSoC_contributor_mainMentor_projectName. This helps avoid confusion in the shared team’s calendar and makes sure meetings are easy to identify, as mentors may be in charge of more than one contributor.
+Remember, mentors are there to guide you and support you, not to write your code. Respect their time and take meetings seriously by being punctual, prepared, and proactive. Be ready to share the progress you have made since the last meeting, as well as any issues or questions you may have. Goals should be set collaboratively, and it is your responsibility to meet the deadlines you agree upon, as establishing a consistent workflow and transparent communication from the very beginning will set the tone for a successful and productive GSoC experience.
 
-<h3 id="id22"> 2.2. What is Flutter? </h3>
+<h3 id="id22"> 2.2. Prepare your environment setup </h3>
 
-Flutter is a cross-platform UI toolkit designed to allow developers to reuse code across different operating systems, such as iOS, Android, web, and desktop, while also allowing apps to interact directly with the features of each platform. The goal is to help developers create high-performance apps for many platforms using mostly the same code, instead of writing separate code for each system. Flutter is open source, meaning anyone can use and contribute to it.
-Flutter is known for its fast development. During development, Flutter apps run in a Virtual Machine (VM) that offers a feature called Hot Reload, which allows developers to instantly see the changes made in the app without the need for a full recompile. When the app is ready to be released, Flutter apps are compiled directly to machine code or to JavaScript (if targeting the web), so they run efficiently. Flutter is also known for its flexible UI and its native performance, as Flutter runs smoothly on both iOS and Android. This is because Flutter uses its own high-performance engine, and its widgets include built-in support for platform-specific behaviours like scrolling, navigation, fonts, and icons.
-Flutter apps are written in a programming language called Dart. When an app is built, Flutter turns the Dart code into machine code to make sure it runs efficiently. Flutter is built using different layers, each one with its own role. Working from the bottom to the top, we have:
+Before you can begin coding, you will need to set up your development environment. This setup is critical not only for testing your code locally, but also to make sure that your application is fully compatible with the official Liquid Galaxy infrastructure used at the Liquid Galaxy headquarters in Lleida (Spain). All contributors are required to create and work with a personal Liquid Galaxy virtual rig, which simulates the behaviour of the real system and allows testing and validating your application in a local environment. Please note that, in order to successfully pass GSoC, the final version of your application must work on the real Liquid Galaxy rigs at Lleida. This is a non-negotiable requirement.
+For most contributors, the local development setup involves using VirtualBox to run a local instance of a Liquid Galaxy rig. This virtual rig provides a safe and controlled environment for building, testing, and debugging your application without depending on remote systems. In order to avoid compatibility issues and ensure your virtual rig works the same as the real ones at the headquarters, you should carefully follow these guidelines for the VirtualBox installation:
+- **Use a vanilla LG configuration.** This means installing Ubuntu 16.04 with no system updates and no additional software beyond what is strictly required.
+- **Do not request additional tools or packages** to be installed on the Liquid Galaxy rigs at the headquarters, as this may cause compatibility issues or even break existing systems.
+- Make sure your app runs smoothly on both virtual and real rigs **without manual intervention or additional setup**.
+Taking the time to set up your environment correctly will save you countless hours of trouble later, so be patient and take the time to do it right. If you need help during this setup process, you can follow [this tutorial](https://youtu.be/wzv-CiN6VeA?si=lzARoxDQWIY81poc) that walks you through the entire installation and configuration. Once your virtual Liquid Galaxy rig is ready, you can set up your application development environment and workspace. Here’s a quick checklist of everything you need to do:
+- **Install Flutter.** Flutter is the main framework used in most Liquid Galaxy GSoC projects, as it allows building cross-platform apps efficiently, and it integrates well with both Android devices and the Liquid Galaxy system. You can download and install Flutter from the official website, following [this link](https://docs.flutter.dev/get-started/install).
+- **Choose your IDE.** You will need an Integrated Development Environment (IDE) in order to build your app efficiently, like for example Android Studio or VSCode. Make sure you have Dart and Flutter plugins on the IDE you choose (Dart is the programming language used to develop Flutter apps).
+- **Set up an Android Emulator (or use a physical device).** Although your project must be compatible with Liquid Galaxy, it also needs to work properly on Android devices. For this, you have two options:
+   - ***Use a physical Android phone.*** You can either connect it to your development environment via USB or build an APK and install it manually.
+   - ***Set up an emulator using Android Studio.*** For this, you will need to install the Android Emulator component on Android Studio and create a virtual device. In the GSoC context, it should be an Android phone. You can follow this [tutorial](https://youtu.be/GhuiNcOEv1A?si=Bt0Rr6vETa27Iszw) in order to create the virtual device.
+- **Create a first version of your project.** You can either do it from scratch or clone the code repository (lg_master_web_app) that goes along with this documentation, which provides a basic and functional Flutter app that connects to Liquid Galaxy.
+- **Use GitHub from day one.** All Liquid Galaxy GSoC projects are tracked via GitHub, so make sure you commit your progress regularly and from the start! If you have never used GitHub, don’t worry, that’s what the next section is about. 
 
-#### Key Features:
+<h3 id="id23"> 2.3. GitHub methodology </h3>
 
-- **Basic foundational classes and services.** They provide reusable building blocks for the rest of the system. These include features like animation or painting.
-- **Rendering layer.** Controls layout and display. It allows building a tree of visual objects that can be manipulated dynamically and that automatically updates as the app changes.
-- **Widgets layer.** It lets developers create the user interface using small building blocks called widgets. Each object from the rendering layer has a corresponding class in this layer. Widgets can be combined and reused. This is also the layer where the reactive programming model is introduced.
-- **Material and Cupertino libraries.** These provide a comprehensive sets of controls that, using the widget layer, implement Google's Material or Apple's iOS design languages.
-Flutter uses a reactive programming style, which means that, instead of constantly updating the screen manually every time something changes, it is the framework that updates the interface at runtime when the application state changes. The developer describes how the UI should look based on the current app state, and Flutter takes care of updating the screen automatically when things change, similar to a smart assistant keeping the app in sync.
-In contrast, most traditional UI frameworks describe the user interface once and then developers must manually update it later when things change. As apps get more complex, this can become hard to manage because changes in one part of the app can affect many others. Flutter also has a huge collection of plugins and packages that add extra functionality, such as camera access, webviews, payments, and more.
+<h3 id="id24"> 2.4. Deliverables and documentation </h3>
 
 
 <h2 id="id3"> 3. Start your project </h2>

@@ -37,6 +37,7 @@ class SplashScreen extends StatefulWidget {
 // In Flutter a State class is where the data that can be changed while the app is running is stored and managed
 // When the state changes, the widget rebuilds itself to show the new data
 class _SplashScreenState extends State<SplashScreen> {
+  Timer? _timer;
   @override
   void initState() {
     // initState() is a method that runs once when the screen first loads or the widget is first created
@@ -58,6 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
       // If you want a delay like, for example, 2.5 seconds, you can convert it to milliseconds the following way:
       // Timer(const Duration(milliseconds: 2500), () {});
 
+      if (!mounted) return;
+
       Navigator.of(
         context,
         // 'context' represents the location of the current widget in the widget tree
@@ -68,6 +71,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
           builder: (_) => const MainScreen()));
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer to prevent callback after dispose
+    super.dispose();
   }
 
   // ---------------------- Build the screen interface ----------------------
