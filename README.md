@@ -111,8 +111,9 @@ There are multiple ways to upload your code to GitHub. You can **use the GitHub 
 - **Navigate to the repository folder using cd on the cmd again.**
 - **Initialize an empty git repository.** The command here is `git init`.
 - **Add the origin route to your GitHub project repository.** The command here is `git remote add origin https://github.com/your_github_repository_link.git`.
+
 Once this setup is complete, you are ready to start working and uploading your progress to GitHub using Git. Each week, you are required to raise a Pull Request (PR) to show your progress, which will be merged at the end of the week. A Pull Request is a GitHub feature that allows you to propose changes from one branch (usually a feature branch, which is a branch different to the main one) into another (typically the `main` branch). This process allows mentors to review your code before it is merged into the main codebase. 
-**The link to this PR must be added to your worklog** (more on that in the next section). Your weekly PRs serve multiple purposes, as they act as a historical record of your work, they allow mentors to review progress, and they form the basis of your GSoC evaluations. It is really **IMPORTANT** to remember that you are expected to **raise and merge your own PRs** each week (unless a different process is discussed and approved with your mentor). Also, it is better to **avoid pushing code directly to the `main` branch**. Instead, create feature branches for different parts of your project (for example, main-screen-features, connection-features, etc.) and merge them into main via PRs to keep your project history clean and organized. If you want to **create a new branch**, the command here (make sure you are inside your repository folder) would be `git checkout -b feature-name`, with “feature-name” being the name you want to give your branch.
+Your weekly PRs serve multiple purposes, as they act as a historical record of your work, they allow mentors to review progress, and they form the basis of your GSoC evaluations. It is really **IMPORTANT** to remember that you are expected to **raise and merge your own PRs** each week (unless a different process is discussed and approved with your mentor). Also, it is better to **avoid pushing code directly to the `main` branch**. Instead, create feature branches for different parts of your project (for example, main-screen-features, connection-features, etc.) and merge them into main via PRs to keep your project history clean and organized. If you want to **create a new branch**, the command here (make sure you are inside your repository folder) would be `git checkout -b feature-name`, with “feature-name” being the name you want to give your branch.
 Every time you want to make changes locally and want to upload them to GitHub, you have to follow this process:
 - **Open the cmd.**
 - **Navigate to your folder project.** The command here is `cd your_project_path`.
@@ -125,21 +126,69 @@ Every time you want to make changes locally and want to upload them to GitHub, y
 - **Add the new or modified files.** The command here is `git add .`.
 - **Add a comment about the update.** The command here is `git commit -m "whatever you want to say"`. This is not mandatory, but adding comments explaining what you added in each update is INCREDIBLY useful and helps keep track of your work.
 - **Add the content and the comments to your branch (push your changes into your branch).** The command here is `git push origin your-branch-name`. For example, let’s say you are on the branch called “other-branch-1”. The command here would be `git push origin other-branch-1`. 
+
 It is better to update changes into separate feature branches rather than directly in the main branch. This is because branches act as safe, isolated workspaces where you can experiment, organize your work, and ensure quality before integrating changes into your main project. This approach also prevents accidental disruptions to the main codebase. To open and merge a Pull Request, you will have to go to the GitHub web interface and do the following:
 - If you have recently pushed a new branch, GitHub will usually suggest opening a PR automatically. You should click on **“Compare and pull request”**.
 - Alternatively, you can go to the **“Pull requests”** tab and click **“New pull request”**. 
 - In the PR form, you will have to select the **source branch** (your feature branch) and the **target branch** (usually `main`). 
 - **You can also write a brief title and description summarizing your changes.** As with the work updates, this is optional, but very useful to keep track of what you have done. 
 - Finally, click **“Create pull request”**. 
+
 Once your Pull Request is open, any additional commits pushed to the same feature branch will automatically be included in the Pull Request. At the end of the week (unless told otherwise), you are expected to merge the PR yourself by opening the PR on GitHub, scrolling down, clicking **“Merge pull request”** and then confirm by clicking **“Confirm merge”**.
 
 
 <h3 id="id24"> 2.4. Deliverables and documentation </h3>
 
+In addition to writing code, you are also expected to maintain **clear, detailed and well-organized documentation** throughout the entire duration of your GSoC project. Documentation is just as important as the code itself, as it makes sure that others (including mentors, users of your application, or even your future self) can understand, use, and build upon your work. Good documentation significantly improves the long-term value and usability of your contribution.
+To help you manage and store all deliverables, you will receive a **shared Google Drive folder** dedicated specifically to your GSoC project. This folder should be updated regularly and kept properly organized, as it will serve as the central location for all final project materials. It will be reviewed during evaluations and may also be shared with future contributors, so take it as seriously as writing code. Your shared folder should include the following components:
+- **APK builds.** Create a subfolder for each APK version you generate during the project. These subfolders should be clearly named using version numbers and their corresponding build dates (for example, v1.0_2025_07_16, v2.1_2025_08_02, etc.). **Never delete or overwrite older versions**, as keeping a full history of APK versions allows mentors to track your progress over time and provides the option to roll back if needed. A rollback refers to the ability to revert your application back to an earlier version in case the new one introduces bugs, performance issues, or other problems.
+- **Project documentation.** This is one of the most important components of your final submission. You must maintain a document that includes setup instructions for running your application (both on Liquid Galaxy and on Android), code explanations, a usage guide (explaining how users would interact with the application), and architecture decisions (why you built things the way you did). It is also important to paste relevant code snippets into the document and explain their purpose and behaviour, and diagrams and screenshots can also be helpful to visually support your explanation. This document should be started at the beginning of your project and updated continuously as your code evolves, since waiting until the last minute will make it much harder to recall decisions or provide accurate context. This project documentation should be a **README.md** that will be included in the GitHub repository.
+- **Worklog.** You will be required to log your weekly progress in an Excel file. To begin, you will copy a pre-made template and rename the file with the following format: `Surname_Name_GSOCyear_Worklog`. In this document, you will have to record the daily and weekly work you have completed, any blockers or bugs with their possible solution, and your planned work for the upcoming week. This worklog will be extremely useful during your evaluations, as it provides a clear and consistent record of your progress, learning, and problem-solving approach.
+- **Other assets.** Basically any additional files that are part of your project or relevant for your final submission. These might include logos, media files, etc.
 
-<h2 id="id3"> 3. Start your project </h2>
+<h2 id="id3"> 3. Project types and technologies </h2>
 
-<h3 id="id31"> 3.1. Code structure </h3>
+<h2 id="id4"> 4. Liquid Galaxy </h2>
+
+<h3 id="id41"> 4.1. What is Liquid Galaxy? </h3>
+
+<h3 id="id42"> 4.2. Essential LG functions </h3>
+
+<h3 id="id43"> 4.3. Data transmission to the Liquid Galaxy and KML management </h3>
+
+<h2 id="id5"> 5. Flutter </h2>
+
+<h3 id="id51"> 5.1. What is Flutter? </h3>
+
+<h3 id="id52"> 5.2. How does Flutter work? </h3>
+
+<h2 id="id6"> 6. Technical requirements and best practices </h2>
+
+<h3 id="id61"> 6.1. Rig testing and compatibility </h3>
+
+<h3 id="id62"> 6.2. Code quality and AI usage policy </h3>
+
+<h3 id="id63"> 6.3. Accessibility features and user experience/interface (UX/UI) </h3>
+
+<h3 id="id64"> 6.4. API key policy and Google services </h3>
+
+<h2 id="id7"> 7. Responsibility and professionalism </h2>
+
+<h3 id="id71"> 7.1. Meeting schedule and attendance </h3>
+
+<h3 id="id72"> 7.2. Discord and email communication </h3>
+
+<h3 id="id73"> 7.3. Weekly Vlogs </h3>
+
+<h3 id="id74"> 7.4. Open source </h3>
+
+<h2 id="id8"> 8. Common mistakes and how to avoid them </h2>
+
+<h2 id="id9"> 9. Start your project </h2>
+
+<h3 id="id91"> 9.1. Minimum app features / screens </h3>
+
+<h3 id="id92"> 9.2. Code structure </h3>
 
 Ensure you install the **Dart extension**.
 
@@ -202,39 +251,64 @@ your_Project/
 - `main.dart`. The 'main' archive serves to execute the app and show the main screen (HomeView). It is the entry point of the Flutter application.
 - `utils/`. Utility files. They can help to maintain consistency through the app and to make it easy to manage global settings and styles, for example.
 
-<h3 id="id32"> 3.2. How a Dart project works </h3>
+<h3 id="id93"> 9.3. How a Dart project works </h3>
 
 If you make changes to your app, if you want to run it and see those changes you have to rebuild the app.
 - flutter clean
 - flutter pub get
 - flutter run or run the emulation using Android Studio
 
-<h3 id="id33"> 3.3. Phone and tablet emulator </h3>
+<h3 id="id94"> 9.4. Phone and tablet emulator </h3>
 Android Studio (research here)
 
-<h3 id="id34"> 3.4. Using GitHub </h3>
-This may be the first time you have ever worked with GitHub, so everything can feel a little confusing at first. But don't worry! This guide is here to help. You have multiple options to upload your work to GitHub. You can do it using the GitHub web interface or upload it using git. To upload from your computer, you should do the following steps:
+<h2 id="id10"> 10. Automatically generated files </h2>
 
-- Open the cmd.
-- Go to the folder where you have your project. The command here is `cd your_project_route`.
-- Initialize an empty git repository. The command here is `git init`.
-- Add the origin route to your GitHub project repository. The command here is `git remote add origin https://github.com/your_github_repository_link.git`.
+<h3 id="id101"> 10.1. .dart_tool </h3>
 
-Once you have done all of this, your computer is ready to upload the files from your computer to your GitHub repository. Everytime you want to update the files in your repository with the files you have in your computer, you have to do the following:
+<h3 id="id102"> 10.2. .flutter-plugins-dependencies </h3>
 
-- Open the cmd.
-- Go to the folder where you have your project. The command here is `cd your_project_route`.
-- Add the new content. The command here is `git add .`.
-- Add a comment about the update. The command here is `git commit -m "whatever you want to say"`. This is not mandatory, but adding comments explaining what you added in each update is INCREDIBLY useful and helps keep track of your work.
-- Make sure you are on the main branch of your project. The command here is `git branch`. In order to understand this part, let's assume your main branch is called "main" (this is the default name normally because it helps to understand the project easily, but you can also choose a different one). The output of this command will be a list that looks like this:
-   - *main
-   - other_branch1
-   - other_branch2
-   
-  "*" indicates the branch you are in right now. In case you were not in the main branch, you would need to use the command `git checkout main`.
-- Add the content and the comments to the main branch. The command here is `git push origin main`. Again, "main" is the default name for the name branch, but if you have a different name for this branch you can just use that name instead of name, like `git push origin your_main_branch_name`. 
+<h2 id="id11"> 11. Your whole project step by step </h2>
 
-<h2 id="id4"> 4. Projects used to create this project </h2>
+<h3 id="id111"> 11.1. .idea </h3>
+
+<h3 id="id112"> 11.2. android </h3>
+
+<h3 id="id113"> 11.3. assets </h3>
+
+<h3 id="id114"> 11.4. ios </h3>
+
+<h3 id="id115"> 11.5. lib </h3>
+
+<h3 id="id116"> 11.6. linux </h3>
+
+<h3 id="id117"> 11.7. macos </h3>
+
+<h3 id="id118"> 11.8. node_server </h3>
+
+<h3 id="id119"> 11.9. test </h3>
+
+<h3 id="id1110"> 11.10. web </h3>
+<h3 id="id1111"> 11.11. windows </h3>
+
+<h3 id="id1112"> 11.12. .env </h3>
+
+<h3 id="id1113"> 11.13. .gitignore </h3>
+
+<h3 id="id1114"> 11.14. .metadata </h3>
+
+<h3 id="id1115"> 11.15. analysis_options.yaml </h3>
+
+<h3 id="id1116"> 11.16. lg_master_web_app.iml </h3>
+
+<h3 id="id1117"> 11.17. pubspec.lock </h3>
+
+<h3 id="id1118"> 11.18. pubspec.yaml </h3>
+
+<h3 id="id1119"> 11.19. README.md </h3>
+
+<h2 id="id12"> 12. Further resources and documentation </h2>
+
+<h2 id="id13"> 13. Projects used to create this project </h2>
 
 | Project Title | Contributor | Year | Technologies / Languages |
 |---------------|-------------|------|---------------------------|
