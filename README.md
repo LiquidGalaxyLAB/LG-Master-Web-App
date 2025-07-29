@@ -102,6 +102,38 @@ Taking the time to set up your environment correctly will save you countless hou
 
 <h3 id="id23"> 2.3. GitHub methodology </h3>
 
+All contributors will work within the official Liquid Galaxy GitHub, where your project’s repository will be hosted. This centralized approach ensures consistency across all projects, facilitates collaboration and allows mentors to track your progress. Once your personal repository is created, you will be granted access, and from there your day-to-day workflow will begin. Keep in mind that **all project repositories are private until the end of GSoC**. They will only be made public at the end of the program, once the final version of your application is ready and approved.
+There are multiple ways to upload your code to GitHub. You can **use the GitHub web interface** (which is useful for simpler updates, like small edits or uploading files manually) or **use Git from your cmd** (which is the recommended option for regular development work, as it gives you full control over versioning, branches, and collaboration). To start working with Git and make sure you are able to upload your changes correctly, you must follow these steps:
+- **Open your cmd.**
+- **Navigate to the directory where you want to store your project locally.** If you have never done this, the command here is `cd your_project_path`. This directory is where your GitHub repository will be cloned, and you can choose any location (your Desktop, a specific folder, etc.). As an example, I created a folder called “FlutterProjects”, navigated into it, and cloned my repository there. As a result, a new folder called “LG-Master-Web-App” (the name of my GitHub repository) was created inside the “FlutterProjects” folder.
+- **Clone your GitHub repository into this place.** The command here is `git clone your_github_repository_url`. To easily copy this URL (which should have the structure https://github.com/your_github_repository_link.git), you can find it clicking on the green “Code” button on the web interface and copying the link under “HTTPS”.
+- **A new folder with the repository’s name will be created automatically.** This is the folder where you must work from now on.
+- **Navigate to the repository folder using cd on the cmd again.**
+- **Initialize an empty git repository.** The command here is `git init`.
+- **Add the origin route to your GitHub project repository.** The command here is `git remote add origin https://github.com/your_github_repository_link.git`.
+Once this setup is complete, you are ready to start working and uploading your progress to GitHub using Git. Each week, you are required to raise a Pull Request (PR) to show your progress, which will be merged at the end of the week. A Pull Request is a GitHub feature that allows you to propose changes from one branch (usually a feature branch, which is a branch different to the main one) into another (typically the `main` branch). This process allows mentors to review your code before it is merged into the main codebase. 
+**The link to this PR must be added to your worklog** (more on that in the next section). Your weekly PRs serve multiple purposes, as they act as a historical record of your work, they allow mentors to review progress, and they form the basis of your GSoC evaluations. It is really **IMPORTANT** to remember that you are expected to **raise and merge your own PRs** each week (unless a different process is discussed and approved with your mentor). Also, it is better to **avoid pushing code directly to the `main` branch**. Instead, create feature branches for different parts of your project (for example, main-screen-features, connection-features, etc.) and merge them into main via PRs to keep your project history clean and organized. If you want to **create a new branch**, the command here (make sure you are inside your repository folder) would be `git checkout -b feature-name`, with “feature-name” being the name you want to give your branch.
+Every time you want to make changes locally and want to upload them to GitHub, you have to follow this process:
+- **Open the cmd.**
+- **Navigate to your folder project.** The command here is `cd your_project_path`.
+- **Make sure you are on the correct branch of your project.** The command to get a list with all the branches is `git branch`. In order to understand this part, let's assume your main branch is called `main` (this is the default name, normally because it helps to understand the project easily, but you can also choose a different one) and that you have two feature branches called “other-branch1” and “other-branch2”. The output of this command will be a list that looks like this:
+   - *main
+   - other_branch1
+   - other_branch2
+   
+  "*" indicates the branch you are in right now. In case you were not in the main branch, you would need to use the command `git checkout main`.
+- **Add the new or modified files.** The command here is `git add .`.
+- **Add a comment about the update.** The command here is `git commit -m "whatever you want to say"`. This is not mandatory, but adding comments explaining what you added in each update is INCREDIBLY useful and helps keep track of your work.
+- **Add the content and the comments to your branch (push your changes into your branch).** The command here is `git push origin your-branch-name`. For example, let’s say you are on the branch called “other-branch-1”. The command here would be `git push origin other-branch-1`. 
+It is better to update changes into separate feature branches rather than directly in the main branch. This is because branches act as safe, isolated workspaces where you can experiment, organize your work, and ensure quality before integrating changes into your main project. This approach also prevents accidental disruptions to the main codebase. To open and merge a Pull Request, you will have to go to the GitHub web interface and do the following:
+- If you have recently pushed a new branch, GitHub will usually suggest opening a PR automatically. You should click on **“Compare and pull request”**.
+- Alternatively, you can go to the **“Pull requests”** tab and click **“New pull request”**. 
+- In the PR form, you will have to select the **source branch** (your feature branch) and the **target branch** (usually `main`). 
+- **You can also write a brief title and description summarizing your changes.** As with the work updates, this is optional, but very useful to keep track of what you have done. 
+- Finally, click **“Create pull request”**. 
+Once your Pull Request is open, any additional commits pushed to the same feature branch will automatically be included in the Pull Request. At the end of the week (unless told otherwise), you are expected to merge the PR yourself by opening the PR on GitHub, scrolling down, clicking **“Merge pull request”** and then confirm by clicking **“Confirm merge”**.
+
+
 <h3 id="id24"> 2.4. Deliverables and documentation </h3>
 
 
