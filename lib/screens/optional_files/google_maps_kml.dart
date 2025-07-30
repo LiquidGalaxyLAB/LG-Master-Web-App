@@ -9,7 +9,7 @@
 // !!!!!!!!!!!!!!!
 
 // ---------------------- HOW TO GET A KML FILE ----------------------
-// A KML file is a XML-formatted file used to display geographic data in mapping applications
+// A KML file is an XML-formatted file used to display geographic data in mapping applications
 // To get a KML file, you have to first create a map in Google Maps
 // After that, you can export it as a KML file by clicking the three dots menu and selecting “Export to KML/KMZ”
 // Make sure you click on "Export as KML". If not, it will export as KMZ and this file is designed to work with KML

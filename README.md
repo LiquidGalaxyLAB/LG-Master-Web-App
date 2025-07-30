@@ -36,7 +36,6 @@
 9. [Start your project](#id9)   
    9.1. [Minimum app features / screens](#id91) 
    9.2. [Code structure](#id92) 
-   9.3. [Phone and tablet emulator](#id93) 
 10. [Automatically generated files](#id10)
    10.1. [.dart_tool](#id101)
    10.2. [.flutter-plugins-dependencies](#id102)
@@ -221,6 +220,14 @@ Finally, to make sure your application feels complete and user-friendly, **make 
 
 <h3 id="id43"> 4.3. Data transmission to the Liquid Galaxy and KML management </h3>
 
+When developing applications for the Liquid Galaxy platform, one of the essential components for visualizing data is the use of **KML (Keyhole Markup Language) files**, which is an XML-formatted file used to display geographic data in mapping applications. This format is strongly emphasized as the standard format for displaying geographic content such as Points Of Interest (POIs), tours, overlays, and interactive elements.
+
+A key requirement (as it was mentioned in the previous section) is to **delete any previously loaded KML files each time the application is launched**. This practice ensures that the system starts with a clean visual slate, avoiding cluttered or outdated visualizations and preventing conflicts by overlapping data from past sessions. From a technical perspective, this involves sending a **command to the master node** of the Liquid Galaxy rig instructing it to remove all active KML layers. Once the reset is complete, the system is ready to receive and display new and updated KML content. To manage KMLs effectively, your application must be capable of generating clean, valid, and well-structured KML code, which includes properly formatted tags, maintaining consistent coordinate structures and implementing elements such as `<Placemarks>`, `<LookAt>`, `<Polygon>`, `<Style>` and `<ScreenOverlay>`. It is important to **validate all of your KML files**, as malformed or incomplete code can lead to rendering errors, missing data, or even system instability on older versions of Google Earth, which are commonly used on Liquid Galaxy rigs.
+
+Another common challenge developers face is the use of **KML balloons**, which are the small information windows that appear when a user clicks on a placemark. These balloons can display a combination of text, HTML, images, or links, but **their behaviour on Liquid Galaxy systems is often inconsistent** due to the **limited rendering capabilities of legacy browser engines** within older Google Earth versions. Common issues include broken formatting, unsupported HTML/CSS styles, or misaligned content. Additionally, **KML balloons are not always ideal for non-interactive or large-format installations** (such as public exhibits or demo rigs) where user input is minimal or restricted. Due to these limitations, it is often recommended to either minimize reliance on KML balloons or keep their content simple, concise, and compatible with older rendering engines. Alternatively, some developers choose to build custom overlays or floating panels within the Liquid Galaxy environment to show additional information.
+
+Finally, if your application involves **retrieving data from a custom database** (such as a local backend or cloud-based service), you will typically need to query and **process the data on the server or client side**, as well as convert the results into dynamically generated KML files. You will also need to transmit these resulting KMLs to the Liquid Galaxy master node using a reliable communication protocol, often via SSH, UDP commands, or tools like `lg-layers` or `lg-control` scripts. All of this process includes, of course, monitoring the system to confirm that files have been properly received and displayed.
+
 <h2 id="id5"> 5. Flutter </h2>
 
 <h3 id="id51"> 5.1. What is Flutter? </h3>
@@ -320,10 +327,6 @@ your_Project/
 - `lib/`.
 - `main.dart`. The 'main' archive serves to execute the app and show the main screen (HomeView). It is the entry point of the Flutter application.
 - `utils/`. Utility files. They can help to maintain consistency through the app and to make it easy to manage global settings and styles, for example.
-
-
-<h3 id="id93"> 9.3. Phone and tablet emulator </h3>
-Android Studio (research here)
 
 <h2 id="id10"> 10. Automatically generated files </h2>
 
