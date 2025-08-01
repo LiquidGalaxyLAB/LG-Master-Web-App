@@ -249,10 +249,30 @@ This approach reduces complexity, improves maintainability, and avoids many of t
 
 <h3 id="id52"> 5.2. How does Flutter work? </h3>
 
-If you make changes to your app, if you want to run it and see those changes you have to rebuild the app.
-- flutter clean
-- flutter pub get
-- flutter run or run the emulation using Android Studio
+At the heart of Flutter development are several core concepts, these being **widgets**, **state** and **classes**. Widgets are the basic building blocks of any Flutter user interface, which means that, in Flutter, **everything you see on the screen** (texts, images, buttons, containers, layouts, rows, columns, etc.) **is a widget**, even the entire application screen! Flutter follows a **composition-based architecture**, which means that widgets can be composed or combined within one another to create more complex user interfaces. This approach promotes code reuse, clarity and scalability, as it becomes easier to build large applications from small and reusable pieces. There are two main types of widgets, `StatelessWidget` (which are immutable and represent parts of the UI that never change once built, like for example a static title or a logo) and `StatefulWidget` (which are mutable and can change dynamically based on user interaction or data updates, like for example a counter that updates every time a button is pressed). Stateful widgets maintain a state object that stores values over time and triggers UI updates when changes take place.
+
+**State** refers to the current configuration or data of a widget at any given moment. In stateful widgets, the state is stored in a separate class that can be updated using the `setState()` method. When the state is updated, Flutter automatically triggers a **rebuild** of the widget tree, ensuring that the UI always reflects the current state of the application. This **reactive update mechanism** makes sure the user interface stays in sync with the application’s logic.
+
+In Dart, everything is organized into **classes**, including widgets, and a class defines the structure and behaviour of a component. When you create a custom widget in Flutter, you define it as a class that extends either `StatelessWidget` or `StatefulWidget` and you override specific methods like `build()`, which is the function that tells Flutter what the UI should look like for that particular widget. To `override` a method in Dart means to **provide a new implementation of a method that was originally defined in a parent class**. In this example, overriding the `build()` method would allow you to define the widget’s layout and design. The base class (like for example `StatelessWidget`) provides a default implementation of `build()`, but by overriding it in your custom class you provide a custom UI definition that fits your specific component. Understanding how to define and use classes is fundamental in Flutter, as they define the app’s structure and logic.
+
+During development, it’s important to be able to see the results of your code changes quickly. Flutter supports **Hot Reload**, which (as mentioned in the previous section) allows near-instant updates to the app’s UI as soon as you save your changes, all without requiring a full app restart. This significantly improves developer productivity and shortens the feedback loop during UI design and debugging. However, **for some changes** (especially those involving **dependencies**, **project setup** or **state initialization**) you may need to **fully rebuild the app**. This can be done using the following commands:
+- `flutter clean`. Clears the build cache and removes previously compiled files. This is done to avoid build issues or to ensure a fresh compilation.
+- `flutter pub get`. Installs and fetches all project dependencies listed in the pubspec.yaml file. This is required after adding, removing or updating packages.
+- `flutter run`. Compiles and launches the app on a connected device or emulator. You can also use Android Studio’s built-in emulator to run your app interactively.
+
+These commands ensure that your app is properly built and that any changes you make are reflected either in real time or through a full recompilation. Once development is complete and your app is ready for distribution, you can create an installable APK suitable for release using the following command: 
+
+`flutter build apk --release`
+
+This command compiles the Dart code into optimized **native machine code** and packages it into an `.apk` file that can be installed on Android devices. After running this command, you will find the generated APK in the following directory:
+
+**build → app → outputs → apk → release**
+
+Inside this folder you will find a **subfolder** named **baselineProfiles**, a **JSON file** named `output-metadata.json` and the `app-release.apk` file, which is your **installable APK**. You can also find the APK in:
+
+**build → app → outputs → flutter-apk**
+
+The difference between these two locations is that the first one **(apk/release)** contains the official release output and metadata required by the Google Play Store, while the second one **(flutter-apk)** is typically where Flutter stores fast builds or platform-specific APK outputs that may vary depending on the build configuration. Once you have an `.apk` file, you can install it manually on your device, distribute it, or upload it to the Google Play Store following Android’s publishing guidelines. In the context of GSoC, you can find all project APKs in the [**GO webstore**](https://www.liquidgalaxy.eu/2018/12/go-web-store.html#lg-web).
 
 <h2 id="id6"> 6. Technical requirements and best practices </h2>
 
