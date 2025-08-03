@@ -314,13 +314,35 @@ Moreover, whenever technically possible, you are **expected to use Google servic
 
 <h2 id="id7"> 7. Responsibility and professionalism </h2>
 
+Effective communication and professional conduct are just as important as technical skills, not only within the context of GSoC and the Liquid Galaxy but also throughout your professional career. Demonstrate professionalism by staying consistently aware of and responsive to communications across all official channels. Ultimately, your professionalism will be reflected not only in the quality of your deliverables but also in how you work with others, which includes respecting their time and effort.
+
 <h3 id="id71"> 7.1. Meeting schedule and attendance </h3>
+
+**Attendance at all LIVE internal GSoC 2025 is MANDATORY.** Although these meetings are recorded and the recordings can be shared with contributors who are unable to attend live upon request, **active participation in real-time is required and expected**. Being present during live sessions ensures immediate communication, facilitates real-time problem-solving and fosters a stronger sense of community and collaboration among contributors, mentors, and the broader Liquid Galaxy team. In addition to internal GSoC meetings, **you must also hold regular meetings with your assigned mentors**. These meetings must strictly follow the agreed-upon schedule (as was mentioned in a previous section). Maintaining a regular, reliable presence in these meetings demonstrates professionalism, as it keeps your mentors informed of your progress and also ensures your project stays on track. **Punctuality, consistency, and preparation** when attending these meetings are clear indicators of your professionalism and commitment to the program. 
+
+To help you organize your schedule effectively, **you will be provided with a Google Calendar that includes all internal meeting dates**. This allows you to plan well in advance, avoid conflicts, and ensure you are always aware of upcoming meetings with enough time to prepare. **Checking this calendar regularly is your responsibility**, and showing up (prepared and on time) is a requirement and a reflection of your dedication to the project.
 
 <h3 id="id72"> 7.2. Discord and email communication </h3>
 
+Maintaining clear, consistent, and professional communication is an essential responsibility for all GSoC contributors. You are expected to stay attentive and responsive on the **private Discord channel** specifically designated for contributors, which functions as a critical hub for ongoing discussions, real-time collaboration, announcements, and quick clarifications. You are also required to regularly read and stay updated on messages and notifications in the general Discord channel, as important announcements and cross-project communications are frequently posted there. Whether it’s sharing progress updates, asking technical questions, or coordinating tasks, **timely and active participation in Discord conversations is essential**, as replying shows that you are engaged with the project and reflects your reliability and respect for the time and efforts of your mentors and fellow contributors.
+
+In addition to Discord, **email communication must be handled with diligence and professionalism**. All official project-related emails must be clearly written, concise, and properly addressed, and you are required to **CC the following people on all project-related emails**:
+- Your **main mentor**.
+- The **Liquid Galaxy administrator** ([andreuibanez@gmail.com](mailto:andreuibanez@gmail.com)).
+- Any other **relevant or listening mentors** involved in the project.
+- The **general Liquid Galaxy email address** ([liquidgalaxylab@gmail.com](mailto:liquidgalaxylab@gmail.com)).
+
+For **emails specifically related to testing**, make sure to also **include the contributors working at the Liquid Galaxy headquarters in Lleida**, as this helps keeping everyone involved in testing or deployment aligned and able to respond or assist without unnecessary delays. Maintaining organized, transparent, and professional communication through these channels is a key component of effective project management and a reflection of your overall professionalism as a GSoC contributor.
+
 <h3 id="id73"> 7.3. Weekly Vlogs </h3>
 
+In accordance with Google’s official requirements for the GSoC program, each contributor is expected to record and submit a short and concise video log (vlog) of approximately three minutes every Friday, **without exception**. These weekly vlogs serve as a personal and project-based progress report, and each video should summarize the work accomplished during the week, highlight any challenges or issues encountered, and present any questions or feedback you wish to share with mentors and the community. These vlogs serve as a valuable form of asynchronous communication that complements meetings and written updates. Please **note that failure to submit these weekly vlogs in a consistent and timely manner may seriously impact your evaluation** and, in some cases, could even result in a failing evaluation for your GSoC participation. 
+
 <h3 id="id74"> 7.4. Open source </h3>
+
+Although GSoC provides financial support in the form of stipends, it is important to remember that open source work is fundamentally voluntary and driven by passion and community spirit. While the stipend acknowledges your time and effort, **you should engage in projects because you believe in their mission and value their impact, not merely for monetary reasons!!**	In the open source ecosystem, professionalism and respectful behaviour are absolutely essential. This means that abusive, entitled, or disruptive conduct (whether towards mentors, peers, or the broader community) has no place and can result in immediate bans or removal from a project or even from the GSoC program entirely. Remember: **how you interact with others is just as important as the code you write**. 
+
+The Liquid Galaxy project values contributors who are committed to growing with the community over the long term, rather than those seeking only short-term gains. Your attitude and professionalism throughout the program will significantly influence not only your success in GSoC, but also your future as an open source contributor. Contributors who see themselves as part of the project’s growth (even beyond the GSoC timeline), who take initiative, and who collaborate constructively even after the program ends.
 
 <h2 id="id8"> 8. Common mistakes and how to avoid them </h2>
 
