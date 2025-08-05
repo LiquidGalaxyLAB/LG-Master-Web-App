@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart'; // Used to load and access 
 import 'providers/theme_provider.dart'; // Imports the file related to managing the light mode and the dark mode of the app
 import 'providers/settings_provider.dart'; // Imports the file related to managing the text sizes
 import 'screens/splash_screen.dart'; // Imports the first screen that loads when initializing the app, the splash screen in this case
+import 'services/lg_service.dart';
 
 // ---------------------- Main function ----------------------
 // The entry point of the app
@@ -50,6 +51,8 @@ Future<void> main() async {
         // In this project, settings_provider.dart is the file in charge of managing the font sizes
         // This means that, whenever a widget wants to access theme settings/state, it can listen to this provider
         // create: (_) => ThemeProvider() means ThemeProvider is created (instantiated) the FIRST time it is needed
+
+        ChangeNotifierProvider(create: (_) => LgService()),
       ],
       child: const MyApp(),
       // MyApp is the root widget of the application
