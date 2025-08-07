@@ -405,10 +405,10 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               // A ternary operator works with the following structure:
               // condition ? valueIfTrue : valueIfFalse
 
-              ? '✅ Successfully connected to the Liquid Galaxy!'
+              ? 'Successfully connected to the Liquid Galaxy!'
               // If the connection was successful (connected = true), it shows a message telling this to the user
 
-              : '❌ Failed to connect to the Liquid Galaxy after $retries retries',
+              : 'Failed to connect to the Liquid Galaxy after $retries retries',
           // If the connection was NOT successful (connected = false), it shows a message telling this to the user
           // It also shows after how many attempts ($retries) the connection was NOT successful
         ),
@@ -416,7 +416,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     );
   }
 
-  // ------------ disconnect ------------
+  // ------------ disconnect() method ------------
   // Used to manage the disconnection from the Liquid Galaxy
 
   void _disconnect() {
@@ -444,7 +444,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     );
   }
 
-  // ------------ clearKML ------------
+  // ------------ clearKML() method ------------
   // Used to clean KML files from a CONNECTED Liquid Galaxy system
   // KMLs are used to display geographic data
   // When you load a new KML, old visual elements may remain unless they are cleared
@@ -500,7 +500,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     );
   }
 
-  // ------------ rebootLG ------------
+  // ------------ rebootLG() method ------------
   // Used to reboot the connection to LG
   // To reboot is basically to restart
   // In the LG context, it basically means to restart the master node and/or slave nodes of the LG rig

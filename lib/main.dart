@@ -50,9 +50,14 @@ Future<void> main() async {
         // ChangeNotifierProvider allows widgets to listen for changes
         // In this project, settings_provider.dart is the file in charge of managing the font sizes
         // This means that, whenever a widget wants to access theme settings/state, it can listen to this provider
-        // create: (_) => ThemeProvider() means ThemeProvider is created (instantiated) the FIRST time it is needed
+        // create: (_) => SettingsProvider() means SettingsProvider is created (instantiated) the FIRST time it is needed
 
         ChangeNotifierProvider(create: (_) => LgService()),
+        // Registers a ChangeNotifierProvider for the LgService class
+        // ChangeNotifierProvider allows widgets to listen for changes
+        // In this project, lg_service.dart is the file in charge of managing the font sizes
+        // This means that, whenever a widget wants to access lg_service state (related to connection), it can listen to this provider
+        // create: (_) => LgService() means LgService is created (instantiated) the FIRST time it is needed
       ],
       child: const MyApp(),
       // MyApp is the root widget of the application
