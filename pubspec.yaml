@@ -65,7 +65,7 @@ dependencies:
 
   url_launcher: ^6.2.5  # This line allows you to open URLs in browser or apps
 
-  mobile_scanner: ^3.3.0 # This line allows you to use your phone camera in order to scan something
+  mobile_scanner: ^3.5.7 # This line allows you to use your phone camera in order to scan something
 
   flutter_dotenv: ^5.1.0  # Adds support for environment variables
                           # Useful for loading configuration or secret keys from .env files

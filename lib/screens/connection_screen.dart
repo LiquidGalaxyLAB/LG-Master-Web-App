@@ -7,6 +7,9 @@ import 'package:flutter/material.dart'; // Imports the library material.dart (wh
 import 'package:provider/provider.dart'; // Imports the library provider.dart (which contains tools to manage the app state)
 import '../../services/lg_service.dart'; // Imports the service screen, which handles the logic to connect to the Liquid Galaxy screen
 import '../../providers/settings_provider.dart'; // Imports the file we created to manage font sizes
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'dart:convert';
+import 'optional_files/qr.dart';
 
 // ---------------------- Connection screen widget ----------------------
 // ConnectionScreen class is the root widget of the screen, and all other widgets are built from there
@@ -414,6 +417,21 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
         ),
       ),
     );
+
+    if (connected) {
+      await lgService.flyTo(
+          '<LookAt><longitude>-3.7492199</longitude><latitude>40.4636688</latitude><altitude>0</altitude><heading>0</heading><tilt>60</tilt><range>2000</range><altitudeMode>relativeToGround</altitudeMode></LookAt>');
+      // flyTo() is a method we defined earlier that moves the Liquid Galaxy view
+      // Everything is inside <LookAt>...</LookAt>, a tag that describes exactly where and how to position the virtual camera
+      // <longitude>-3.7492199</longitude> is the longitude coordinate (you can choose any longitude you want, in this case is near Madrid, Spain)
+      // <latitude>40.4636688</latitude> is the latitude (you can choose any latitude you want)
+      // <altitude>0</altitude> is the altitude of the target point, NOT the altitude of the camera (0 means at ground level)
+      // <heading>0</heading> is the direction the camera is facing (0 is north, 90 is east, 180 is south 270 is west, a value like 45 would be northeast)
+      // <tilt>60</tilt> is the camera tilt angle from vertical (in this case is 60 degrees, but you can choose any value equal or superior to 45 degrees)
+      // <range>2000</range> is the distance from the target point (the altitude of the camera)
+      // In my case I chose 2000 meters, which is 2 km (you can choose any value you want, but it should be around 2 km)
+      // <altitudeMode>relativeToGround</altitudeMode> means the altitude is measured relative to ground level
+    }
   }
 
   // ------------ disconnect() method ------------
@@ -480,8 +498,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       // If there is NO connection already established (_isConnected = false), the function immediately exits (return)
     }
 
-    bool success = await lgService.cleanKML();
-    // lgService.cleanKML() calls the cleanKML() method from lg_service.dart to proceed with clearing the KMLs
+    bool success = await lgService.cleanAll();
+    // lgService.cleanAll() calls the cleanAll() method from lg_service.dart to proceed with clearing the KMLs, balloons, and logos
     // Stores the result of this call in the "success" variable
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -959,6 +977,25 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
 
                 label: const Text('Disconnect from the Liquid Galaxy'),
                 // Text shown on the button
+              ),
+
+              // ---- Scan QR code ----
+              ElevatedButton.icon(
+                icon: Icon(Icons.qr_code_scanner),
+                label: Text("Scan QR to connect"),
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const QRScreen()),
+                  );
+
+                  if (result != null && result is LgConnectionModel) {
+                    setState(() {
+                      _ipController.text = result.ip;
+                      _portController.text = result.port.toString();
+                    });
+                  }
+                },
               ),
             ],
           ),

@@ -1068,7 +1068,7 @@ class LgService extends ChangeNotifier {
 
   // -------- cleanAll() method --------
   // Used to clear all active content and animations from the Liquid Galaxy rig
-  Future<void> cleanAll() async {
+  Future<bool> cleanAll() async {
     // Defines an asynchronous method that does not return any value (void)
     // 'async' allows to use 'await' inside the function
     // It does not return any value because its function is to trigger a side-effect, not to return data
@@ -1131,6 +1131,8 @@ class LgService extends ChangeNotifier {
       // Notifies any widgets or services listening to this class that a change took place
       // Specifically, that the connection status changed
       // It does it through ChangeNotifier
+
+      return true;
     } catch (e) {
       // Catches any errors thrown during the try block
 
@@ -1148,6 +1150,8 @@ class LgService extends ChangeNotifier {
       // Notifies any widgets or services listening to this class that a change took place
       // Specifically, that the connection status changed
       // It does it through ChangeNotifier
+
+      return false;
     }
   }
 
@@ -1311,7 +1315,7 @@ class LgService extends ChangeNotifier {
             // NOT VISIBLE TO USERS, only to developers in the debug console
 
             await flyTo(
-                '<LookAt><longitude>-3.7492199</longitude><latitude>40.4636688</latitude><altitude>0</altitude><heading>0</heading><tilt>60</tilt><range>1500000</range><altitudeMode>relativeToGround</altitudeMode></LookAt>');
+                '<LookAt><longitude>-3.7492199</longitude><latitude>40.4636688</latitude><altitude>0</altitude><heading>0</heading><tilt>60</tilt><range>2000</range><altitudeMode>relativeToGround</altitudeMode></LookAt>');
             // flyTo() is a method we defined earlier that moves the Liquid Galaxy view
             // Everything is inside <LookAt>...</LookAt>, a tag that describes exactly where and how to position the virtual camera
             // <longitude>-3.7492199</longitude> is the longitude coordinate (you can choose any longitude you want, in this case is near Madrid, Spain)
