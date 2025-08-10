@@ -5,7 +5,7 @@
 // ---------------------- Import packages ----------------------
 import 'package:flutter/material.dart'; // Imports the library material.dart (which contains common widgets like buttons, text, etc.) from Flutter's SDK (Software Development Kit)
 import 'optional_files/google_maps.dart'; // Imports the screen related to the Google Maps external browser explanation and example
-import 'optional_files/google_maps_kml.dart'; // Imports the screen related to the Google Maps internal browser explanation and example
+import 'optional_files/kml.dart'; // Imports the screen related to the Google Maps internal browser explanation and example
 import 'optional_files/nodejs.dart'; // Imports the screen related to the Nodejs explanation and example
 import 'optional_files/ai.dart'; // Imports the screen related to the AI explanation and example
 import 'optional_files/qr.dart'; // Imports the screen related to the QR code scanning explanation and example
@@ -66,11 +66,11 @@ class OptionalScreen extends StatelessWidget {
               // _FeatureCard is a custom widget we created at the end of this file
               // It is reusable
 
-              title: 'Open Google Maps with an external browser',
+              title: 'Open a link with an external browser',
               // Title of the optional feature
 
               description:
-                  'Learn how to integrate Google Maps on your project using a public URL',
+                  'Learn how to integrate an external link (in this case a Google Maps map) on your project using a public URL',
               // Description of the optional feature
 
               onTap: () => Navigator.push(
@@ -88,16 +88,16 @@ class OptionalScreen extends StatelessWidget {
               ),
             ),
 
-            // ------- GOOGLE MAPS INTERNAL BROWSER -------
+            // ------- KML example -------
             _FeatureCard(
               // _FeatureCard is a custom widget we created at the end of this file
               // It is reusable
 
-              title: 'Open Google Maps in your own application',
+              title: 'Example of how to send a KML',
               // Title of the optional feature
 
               description:
-                  'Learn how to integrate Google Maps on your project using a public KML file',
+                  'Learn how to send a KML file and how it looks on the Liquid Galaxy',
               // Description of the optional feature
 
               onTap: () => Navigator.push(
@@ -109,7 +109,7 @@ class OptionalScreen extends StatelessWidget {
                 // 'context' represents the location of the current widget in the widget tree
                 // Flutter uses it to know where to place the new screen in the navigation hierarchy
 
-                MaterialPageRoute(builder: (_) => const GoogleMapsKMLScreen()),
+                MaterialPageRoute(builder: (_) => const KMLScreen()),
                 // MaterialPageRoute is used to create a page transition animation
                 // GoogleMapsScreen is the class associated to the screen with info about Google Maps
               ),
@@ -166,32 +166,6 @@ class OptionalScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const AIScreen()),
                 // MaterialPageRoute is used to create a page transition animation
                 // AIScreen is the class associated to the screen with info about AI
-              ),
-            ),
-
-            // ------- QR CODE -------
-            _FeatureCard(
-              // _FeatureCard is a custom widget we created at the end of this file
-              // It is reusable
-
-              title: 'Scanning a QR code',
-              // Title of the optional feature
-
-              description: 'Use your phone camera to scan a QR code',
-              // Description of the optional feature
-
-              onTap: () => Navigator.push(
-                // 'onTap' defines what happens when the user taps the option (the button)
-                // In this case, it navigates to the screen that lets the user scan a QR code
-                // Navigator.push adds a new screen (it transitions to a new page)
-
-                context,
-                // 'context' represents the location of the current widget in the widget tree
-                // Flutter uses it to know where to place the new screen in the navigation hierarchy
-
-                MaterialPageRoute(builder: (_) => const QRScreen()),
-                // MaterialPageRoute is used to create a page transition animation
-                // AIScreen is the class associated to the screen with info about the QR code
               ),
             ),
           ],

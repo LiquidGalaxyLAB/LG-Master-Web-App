@@ -61,7 +61,7 @@ dependencies:
 
   xml: ^6.1.0  # This line allows the parsing of KML files (since they are XML-formatted files)
 
-  http: ^0.13.5  # This line adds the HTTP client library, used to make HTTP requests to web servers
+  http: ^1.1.0  # This line adds the HTTP client library, used to make HTTP requests to web servers
 
   url_launcher: ^6.2.5  # This line allows you to open URLs in browser or apps
 
@@ -107,7 +107,7 @@ flutter:
     - assets/images/LiquidGalaxyLogo.png     # Line needed to use the LG logo on the splash screen
     - assets/images/ParcAgroLleidaLogo.jpg   # Line needed to use the Lleida Agroparc logo on the splash screen
     - assets/images/ParcLleidaLogo.jpg       # Line needed to use the Lleida Parc cientific logo on the splash screen
-    - assets/kml/LG_Master_Web_App_KML_Map.kml # Line needed to use the KML file in Google Maps
+    - assets/kml/sendKmlExample.kml # Line needed to use the KML file in Google Maps
     - assets/icons/linkedin_logo.png    # Line needed to use the linkedin logo on the help screen
     - assets/icons/github_logo.png      # Line needed to use the github logo on the help screen
     - .env # Line needed so that the project can read the .env file

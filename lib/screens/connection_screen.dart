@@ -7,7 +7,6 @@ import 'package:flutter/material.dart'; // Imports the library material.dart (wh
 import 'package:provider/provider.dart'; // Imports the library provider.dart (which contains tools to manage the app state)
 import '../../services/lg_service.dart'; // Imports the service screen, which handles the logic to connect to the Liquid Galaxy screen
 import '../../providers/settings_provider.dart'; // Imports the file we created to manage font sizes
-import 'package:mobile_scanner/mobile_scanner.dart';
 import 'dart:convert';
 import 'optional_files/qr.dart';
 
@@ -979,6 +978,11 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                 // Text shown on the button
               ),
 
+              const SizedBox(height: 12),
+              // Adds vertical space between the title and the explanation
+              // This is just an example value of 12 px, you can use any value you want
+              // This is just an aesthetic choice
+
               // ---- Scan QR code ----
               ElevatedButton.icon(
                 icon: Icon(Icons.qr_code_scanner),
@@ -987,6 +991,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                   final result = await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const QRScreen()),
+                    // Goes to the file that has the QR scanner
                   );
 
                   if (result != null && result is LgConnectionModel) {
@@ -994,6 +999,26 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                       _ipController.text = result.ip;
                       _portController.text = result.port.toString();
                     });
+
+                    final lgService =
+                        Provider.of<LgService>(context, listen: false);
+
+                    bool? success = await lgService.connectToLG();
+
+                    if (success == null) {
+                      return;
+                    }
+                    if (success) {
+                      if (mounted) {
+                        Navigator.pop(context);
+                        // Closes the scanning screen and goes back to the connection screen
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Failed to connect via QR")),
+                      );
+                    }
                   }
                 },
               ),

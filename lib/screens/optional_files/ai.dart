@@ -2,10 +2,6 @@
 // This screen gives information about how to integrate AI on your project to generate responses based on prompts
 // It sends a POST request to the Gemini API and displays the AI response on the screen
 
-// !!!!!!!!!!!!!!!
-// NOT OPERATIVE YET: some problems with getting permissions for the Gemini model
-// !!!!!!!!!!!!!!!
-
 // ------------------------------------- HOW TO GET A GEMINI API KEY -------------------------------------
 // FOR GEMINI:
 // Sign in to your Google account
@@ -23,32 +19,22 @@ import 'package:http/http.dart'
     as http; // HTTP client to send requests to the Gemini API
 import 'package:flutter_dotenv/flutter_dotenv.dart'; // Used to load and access environment variables from a .env file
 
-// !!!!!!
-// Not working properly because the model I could get for free does not work with a prompt-response structure (it is not conversational)
-// !!!!!!
+// ---------------------- API configuration parameters ----------------------
+// ---- Gemini endpoint with given model and API key ----
+final String geminiApiUrl =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${dotenv.env['GEMINI_API_KEY']}';
 
-// ---------------------- AI configuration parameters ----------------------
-// ---- API key ----
-final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+// This is the Gemini endpoint
+// An endpoint is a way to a specific resource or function on a server
+// https://generativelanguage.googleapis.com/ is the base URL
+// v1beta/models/gemini-2.0-flash:generateContent specifies the gemini model (gemini-2.0-flash in this case) and calls its generateContent method
+// This model works for my API key, but always check which models work for YOUR API key
+// ?key=${dotenv.env['GEMINI_API_KEY']} appends the API key as a query parameter for authentication and authorization
+// dotenv.env['GEMINI_API_KEY'] returns the value of GEMINI_API_KEY from the file
 // The API key is EXTREMELY sensitive information
 // It should be in an .env file that should be specified to be ignored in .gitignore
 // The .env file MUST be specified in the pubspec assets section!
 // The .env file MUST also be outside the "lib" folder, on the same level as pubspec.yaml
-// dotenv.env['GEMINI_API_KEY'] returns the value of GEMINI_API_KEY from the file
-// If the key is not found, it returns an empty string
-
-// ---- Gemini model to be used ----
-const String modelName = 'models/chat-bison-001';
-// I am supposed to have permission for this model but it does not generate text inputs
-
-// ---- Gemini endpoint with given model and API key ----
-final String geminiApiUrl =
-    'https://generativelanguage.googleapis.com/v1beta/models/$modelName:generateContent?key=$apiKey';
-// This is the Gemini endpoint
-// An endpoint is a way to a specific resource or function on a server
-// https://generativelanguage.googleapis.com/ is the base URL
-// v1beta/models/$modelName:generateContent specifies the gemini model and calls its generateContent method
-// ?key=$apiKey appends the API key as a query parameter for authentication and authorization
 
 // ---------------------- AI Screen widget ----------------------
 // AIScreen class is the root widget of the screen, and all other widgets are built from there
@@ -130,35 +116,35 @@ class _AIScreenState extends State<AIScreen> {
         // Declares a variable named 'body'
         // This variable will hold the final JSON string that will be sent in the POST request to the Gemini API
         // jsonEncode converts into a JSON string, which is the format required when sending data to APIs
-        // EXAMPLE:
-        // { "prompt": { "text": "Hello" } }
-        // becomes
-        // '{"prompt":{"text":"Hello"}}'
+        // The following structure corresponds to the JSON structure of the Gemini model I am using
+        // But be careful!!! Different models may have different structures
 
-        "prompt": {
-          // "prompt" is the top-level field that the Gemini AI expects
-          // In a JSON object a top-level field is a key that exists at the outermost layer of the structure
-          // For example, in this case "prompt" and "temperature" are top-level fields
-          // "text" is inside "prompt", so it is not a top-level field
+        "contents": [
+          // Starts a key named "contents" whose value is an array in JSON (a list)
+          // Structure expected for the gemini-2.0-flash model to specify contents
 
-          "text": prompt,
-          // First key-value pair in the request
-          // It means that the prompt from the user (a string) is being sent as the text inside the prompt
+          {
+            "parts": [
+              // Object inside the "contents" array
+              // The "parts" key maps to another array
+              // In this case, it is used to indicate different parts or segments of the content being sent
 
-          // EXAMPLE:
-          // prompt = "Hello world!"
-          // becomes
-          // "prompt": { "text": "Hello world!" }
-        },
+              {"text": prompt}
+              // Object inside the "parts" array with a key called "text"
+              // The value of this key-value pair is "prompt", which holds the user input
+              // It means that the prompt from the user (a string) is being sent as the text inside the prompt
+            ]
+          }
+        ],
+        // Careful with parameters like "temperature" and "maxOutputTokens"!!!!
+        // Depending on the model, they might not be allowed and your code will not work if you use them
+        // Anyway, just so you have some info:
 
-        "temperature": 0.7,
-        // Controls how random the AI answers are
+        // "temperature" controls how random the AI answers are
         // 0.0 means predictable and safe
         // 1.0 means creative and random
-        // 0.7 is just an example value, you can choose whatever value you want
 
-        "maxOutputTokens": 256,
-        // Max number of tokens (words or parts of words) the response can contain
+        // "maxOutputTokens" is the maximum number of tokens (words or parts of words) the response can contain
         // This helps control the length of the answer
       });
 
@@ -194,26 +180,29 @@ class _AIScreenState extends State<AIScreen> {
         setState(() {
           // setState() is used to rebuild the UI when the state changes
 
-          _response = jsonResponse['candidates'] != null &&
-                  jsonResponse['candidates'].isNotEmpty
-              ? jsonResponse['candidates'][0]['content'] ?? 'Empty response'
-              : 'The model did not receive a response';
-          // The API returns a JSON object with a candidates array
-          // We have to check if the response contains a candidates field AND that it is not empty
-          // Each candidate is a possible generated response
-          // Each candidate contains a content object, which itself contains a parts array
-          // Each part represents a segment of the response
-          // _response will hold the result of all of this, which is the text that will be displayed on the screen
+          if (jsonResponse['candidates'] != null &&
+              jsonResponse['candidates'].isNotEmpty) {
+            // The API response returns a JSON object with a "candidates" field
+            // This field is expected to be a list of possible generated responses
+            // We have to check if the response contains a candidates field that is not null (jsonResponse['candidates'] != null)
+            // AND (&&) that it is not empty (jsonResponse['candidates'].isNotEmpty)
+            // If both conditions are true, it means there is at least one candidate response available
 
-          // jsonResponse['candidates'] != null makes sure the candidates key exists and that it is NOT null
-          // jsonResponse['candidates'].isNotEmpty makes sure the candidates list has at least one item (is not empty)
+            final parts = jsonResponse['candidates'][0]['content']['parts']
+                as List<dynamic>;
+            // What we do is take the first candidate (jsonResponse['candidates'][0]) and access its "content" property
+            // Inside "content" there is a "parts" array that holds segments of the response
+            // We cast "parts" as a List<dynamic> and store the result in the "parts" variable
+            // A List<dynamic> is a list that can hold any type of objects
 
-          // If both of these conditions are true, it means we have a list of candidates
-          // Now we take the first item in the candidates list (jsonResponse['candidates'][0])
-          // And will access its 'content' property (['content'])
-          // If content is null or missing, we will use the string 'Empty response' instead
-
-          // If the condition is false (no candidates were found), _response will store the string 'The model did not receive a response'
+            _response = parts.map((p) => p['text']).join('\n');
+            // We then extract the text from each part by mapping over parts and getting the "text" field from each element
+            // These text segments are joined together (.join()) with newline characters (\n) to form a single string
+            // This single string is stored in the "_response" variable, which is the text that will be displayed on the screen
+          } else {
+            // If candidates is null or empty, it means the API did not return any responses
+            _response = 'The model did not receive an answer';
+          }
         });
       } else {
         // If the response was NOT successful

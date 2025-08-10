@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart'; // Used to open URLs in browser
 
 import '../../providers/theme_provider.dart'; // Imports the file related to managing the light mode and the dark mode of the app
 import '../../providers/settings_provider.dart'; // Imports the file related to managing the text sizes
+import '../../services/lg_service.dart';
 
 // ---------------------- QR screen widget ----------------------
 // QRScreen class is the root widget of the screen, and all other widgets are built from there
@@ -46,10 +47,7 @@ class _QRScreenState extends State<QRScreen>
   final MobileScannerController controller = MobileScannerController();
   late AnimationController _animationController;
   late Animation<double> _animation;
-
-  String? _scannedData;
   bool _hasError = false;
-  bool _hasScanned = false;
 
   @override
   void initState() {
@@ -82,48 +80,15 @@ class _QRScreenState extends State<QRScreen>
           content: Text(message, style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.black87,
           duration: const Duration(seconds: 3),
+          onVisible: () {
+            Future.delayed(const Duration(seconds: 2), () {
+              if (mounted) {
+                setState(() => _hasError = false);
+              }
+            });
+          },
         ),
       );
-
-      Future.delayed(const Duration(seconds: 3), () {
-        if (mounted) {
-          setState(() => _hasError = false);
-        }
-      });
-    }
-  }
-
-  // -------- onQRCodeDetected --------
-  // Used to
-  void _onQRCodeDetected(String value) async {
-    if (_hasScanned) return;
-
-    setState(() {
-      _scannedData = value;
-      _hasScanned = true;
-    });
-
-    await controller.stop();
-  }
-
-  // -------- resetScanner --------
-  // Used to
-  void _resetScanner() {
-    controller.start();
-    setState(() {
-      _hasScanned = false;
-      _scannedData = null;
-    });
-  }
-
-  // -------- openInBrowser --------
-  // Used to
-  void _openInBrowser(String url) async {
-    final uri = Uri.tryParse(url);
-    if (uri != null && await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      _showError('❌ The link could not be opened');
     }
   }
 
@@ -147,97 +112,72 @@ class _QRScreenState extends State<QRScreen>
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: _hasScanned ? _buildResultView() : _buildScannerView(isDark),
-    );
-  }
+      body: Stack(
+        children: [
+          MobileScanner(
+            controller: controller,
+            onDetect: (capture) async {
+              if (_hasError) return;
 
-  // -------- Scanner camera with animated line --------
-  Widget _buildScannerView(bool isDark) {
-    return Stack(
-      children: [
-        MobileScanner(
-          controller: controller,
-          onDetect: (capture) {
-            final barcode = capture.barcodes.first;
-            final String? value = barcode.rawValue;
+              final barcodes = capture.barcodes;
+              if (barcodes.isEmpty) return;
 
-            if (value != null && !_hasError) {
-              _onQRCodeDetected(value);
-            }
-          },
-        ),
-        Center(
-          child: Container(
-            width: 280,
-            height: 280,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: isDark ? Colors.white : Colors.teal,
-                width: 4,
-              ),
-            ),
-            child: AnimatedBuilder(
-              animation: _animation,
-              builder: (_, __) {
-                return Align(
-                  alignment: Alignment(0, _animation.value * 2 - 1),
-                  child: Container(
-                    height: 4,
-                    width: 260,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.greenAccent.withAlpha(0),
-                          Colors.greenAccent.withAlpha(140),
-                          Colors.greenAccent,
-                          Colors.greenAccent.withAlpha(140),
-                          Colors.greenAccent.withAlpha(0),
-                        ],
+              final barcode = barcodes.first;
+              if (barcode.rawValue == null) return;
+
+              try {
+                final Map<String, dynamic> data = jsonDecode(barcode.rawValue!);
+                final connectionModel = LgConnectionModel(
+                  username: data['username'] ?? '',
+                  ip: data['ip'] ?? '',
+                  port: int.tryParse(data['port'].toString()) ?? 22,
+                  password: data['password'] ?? '',
+                  screens: int.tryParse(data['screens'].toString()) ?? 3,
+                );
+
+                if (connectionModel.username.isNotEmpty &&
+                    connectionModel.ip.isNotEmpty &&
+                    connectionModel.password.isNotEmpty) {
+                  await controller.stop();
+                  if (mounted) {
+                    Navigator.pop(context, connectionModel);
+                  }
+                } else {
+                  _showError('Invalid QR: Fields cannot be empty');
+                }
+              } catch (e) {
+                _showError('Invalid QR: Incorrect format');
+              }
+            },
+          ),
+          Center(
+            child: Container(
+              width: 280,
+              height: 280,
+              child: AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) {
+                  return Align(
+                    alignment: Alignment(0, _animation.value * 2 - 1),
+                    child: Container(
+                      height: 5,
+                      width: 260,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.blue.withAlpha(0),
+                            Colors.blue.withAlpha(179),
+                            Colors.blue,
+                            Colors.blue.withAlpha(179),
+                            Colors.blue.withAlpha(0),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // -------- Displayed after successful scan --------
-  Widget _buildResultView() {
-    final isLink = _scannedData != null &&
-        (_scannedData!.startsWith('http://') ||
-            _scannedData!.startsWith('https://'));
-
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            '✅ QR code scanned successfully!',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 20),
-          SelectableText(
-            _scannedData ?? 'No data.',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 24),
-          if (isLink)
-            ElevatedButton.icon(
-              onPressed: () => _openInBrowser(_scannedData!),
-              icon: const Icon(Icons.open_in_browser),
-              label: const Text('Open in browser'),
-            ),
-          const SizedBox(height: 16),
-          ElevatedButton.icon(
-            onPressed: _resetScanner,
-            icon: const Icon(Icons.qr_code_scanner),
-            label: const Text('Scan again'),
           ),
         ],
       ),
