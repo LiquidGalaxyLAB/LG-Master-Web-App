@@ -1662,7 +1662,7 @@ class LgService extends ChangeNotifier {
       // This is the 'successMessage' parameter from the execute() method
       // In this case, it informs that the logo was successfully sent to the Liquid Galaxy
     );
-
+    await forceRefresh(leftMostScreen);
     return result != null;
     // Returns true if the execute() method returned a non-null result (for example, the command was successful)
     // Returns false otherwise
