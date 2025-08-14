@@ -5,10 +5,10 @@
 // ---------------------- Import packages ----------------------
 import 'package:flutter/material.dart'; // Imports the library material.dart (which contains common widgets like buttons, text, etc.) from Flutter's SDK (Software Development Kit)
 import 'package:provider/provider.dart'; // Imports the library provider.dart (which contains tools to manage the app state)
-import '../../services/lg_service.dart'; // Imports the service screen, which handles the logic to connect to the Liquid Galaxy screen
+import '../../services/lg_service.dart'; // Imports the LG service screen, which handles the logic to connect to the Liquid Galaxy screen
 import '../../providers/settings_provider.dart'; // Imports the file we created to manage font sizes
-import 'dart:convert';
-import 'optional_files/qr.dart';
+import 'dart:convert'; // For coding and decoding JSON
+import 'optional_files/qr.dart'; // Imports the file we created to manage the scanning of a QR code
 
 // ---------------------- Connection screen widget ----------------------
 // ConnectionScreen class is the root widget of the screen, and all other widgets are built from there
@@ -431,6 +431,10 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       // In my case I chose 2000 meters, which is 2 km (you can choose any value you want, but it should be around 2 km)
       // <altitudeMode>relativeToGround</altitudeMode> means the altitude is measured relative to ground level
     }
+
+    await lgService.sendLogo();
+    // Calls the sendLogo() method from the lg_service.dart file
+    // await pauses execution until the logo is sent
   }
 
   // ------------ disconnect() method ------------
@@ -458,6 +462,60 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       const SnackBar(
           content: Text('Successfully disconnected from the Liquid Galaxy')),
       // In this case, it is a message to inform the user that they were disconnected from the Liquid Galaxy
+    );
+  }
+
+  // ------------ relaunchLG() method ------------
+  // Used to relaunch the connection to the Liquid Galaxy
+
+  void _relaunchLG() {
+    // It does not return anything (void)
+
+    final lgService = context.read<LgService>();
+    // Access the current instance of LgService, which handles the LG connection logic
+    // Stores this instance in a variable called "lgService"
+    // final means this variable can only be assigned ONCE and will not change
+
+    lgService.relaunchLG();
+    // Uses the relaunchLG() method to update the connection state
+
+    setState(() => _isConnected = true);
+    // setState() updates the widget state
+    // In this case, it updates it to show that a connection has been relaunched (_isConnected = true)
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      // Scaffold is a basic page layout that creates an structure for the screen
+      // Shows a temporary message (a SnackBar) at the bottom of the screen
+
+      const SnackBar(content: Text('Relaunch successful')),
+      // In this case, it is a message to inform the user that the relaunch was successful
+    );
+  }
+
+  // ------------ shutdown() method ------------
+  // Used to shutdown the Liquid Galaxy
+
+  void _shutdown() {
+    // It does not return anything (void)
+
+    final lgService = context.read<LgService>();
+    // Access the current instance of LgService, which handles the LG connection logic
+    // Stores this instance in a variable called "lgService"
+    // final means this variable can only be assigned ONCE and will not change
+
+    lgService.shutdown();
+    // Uses the shutdown() method
+
+    setState(() => _isConnected = false);
+    // setState() updates the widget state
+    // In this case, it updates it to show that the Liquid Galaxy was shut down (_isConnected = false)
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      // Scaffold is a basic page layout that creates an structure for the screen
+      // Shows a temporary message (a SnackBar) at the bottom of the screen
+
+      const SnackBar(content: Text('The shut down was successful')),
+      // In this case, it is a message to inform the user that the shut down was successful
     );
   }
 
@@ -983,40 +1041,155 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               // This is just an example value of 12 px, you can use any value you want
               // This is just an aesthetic choice
 
+              // ---- Relaunch the LG ----
+              ElevatedButton.icon(
+                // Creates a button with an icon
+
+                onPressed: _isConnected ? _relaunchLG : null,
+                // This line defines what happens when the user presses the button
+                // _isConnected is the variable we created to track if a connection HAS been made
+                // ? _relaunchLG: null is the ternary operator, which chooses between two options depending on _isConnected
+                // These two options are '_relaunchLG' (a method we defined earlier) or 'null'
+                // A ternary operator works with the following structure:
+                // condition ? valueIfTrue : valueIfFalse
+                // This means that, in this case, if _isConnected == true, onPressed = _relaunchLG
+                // (if _isConnected is true, a connection has been established, so we can try to relaunch)
+                // And if _isConnected == false, onPressed = null
+                // (if _isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
+
+                icon: const Icon(Icons.rocket_launch),
+                // Icons.rocket_launch is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a rocket launching
+                // You can choose other icons
+
+                label: const Text('Relaunch the connection'),
+                // Text shown on the button
+              ),
+
+              const SizedBox(height: 12),
+              // Adds vertical space between the title and the explanation
+              // This is just an example value of 12 px, you can use any value you want
+              // This is just an aesthetic choice
+
+              // ---- Shutdown ----
+              ElevatedButton.icon(
+                // Creates a button with an icon
+
+                onPressed: _isConnected ? _shutdown : null,
+                // This line defines what happens when the user presses the button
+                // _isConnected is the variable we created to track if a connection HAS been made
+                // ? _shutdown: null is the ternary operator, which chooses between two options depending on _isConnected
+                // These two options are '_shutdown' (a method we defined earlier) or 'null'
+                // A ternary operator works with the following structure:
+                // condition ? valueIfTrue : valueIfFalse
+                // This means that, in this case, if _isConnected == true, onPressed = _shutdown
+                // (if _isConnected is true, a connection has been established, so we can try to relaunch)
+                // And if _isConnected == false, onPressed = null
+                // (if _isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
+
+                icon: const Icon(Icons.link_off),
+                // Icons.link_off is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a broken chain
+                // You can choose other icons
+
+                label: const Text('Shut down the connection'),
+                // Text shown on the button
+              ),
+
+              const SizedBox(height: 12),
+              // Adds vertical space between the title and the explanation
+              // This is just an example value of 12 px, you can use any value you want
+              // This is just an aesthetic choice
+
               // ---- Scan QR code ----
               ElevatedButton.icon(
+                // Creates a button with an icon
+
                 icon: Icon(Icons.qr_code_scanner),
+                // Icons.qr_code_scanner is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a QR code being scanned
+                // You can choose other icons
+
                 label: Text("Scan QR to connect"),
+                // Text shown on the button
+
                 onPressed: () async {
+                  // This line defines what happens when the user presses the button
+                  // 'async' allows to use 'await' inside the function
+
                   final result = await Navigator.push(
+                    // In this case, it navigates to the screen that has the QR scanner
+                    // Navigator.push adds a new screen (it transitions to a new page)
+                    // await pauses execution until this transition to the new page is done
+
                     context,
+                    // 'context' represents the location of the current widget in the widget tree
+                    // Flutter uses it to know where to place the new screen in the navigation hierarchy
+
                     MaterialPageRoute(builder: (_) => const QRScreen()),
-                    // Goes to the file that has the QR scanner
+                    // MaterialPageRoute is used to create a page transition animation
+                    // QRScreen is the class associated to the screen related to the QR code scanning
                   );
 
                   if (result != null && result is LgConnectionModel) {
+                    // If the result that was obtained from QRScreen is not null (something was returned) AND is of the type LgConnectionModel:
+
                     setState(() {
+                      // setState() updates the widget state
+
+                      _usernameController.text = result.username;
+                      // Gives to the username textfield the username value that was in the QR code
+
                       _ipController.text = result.ip;
+                      // Gives to the ip textfield the ip value that was in the QR code
+
                       _portController.text = result.port.toString();
+                      // Gives to the port textfield the port number (converted to String) that was in the QR code
+
+                      _passwordController.text = result.password;
+                      // Gives to the password textfield the password value that was in the QR code
+
+                      _screensController.text = result.screens.toString();
+                      // Gives to the screens textfield the number of screens (converted to String) that was in the QR code
                     });
 
                     final lgService =
                         Provider.of<LgService>(context, listen: false);
+                    // Provider.of<LgService> searches for an instance of LgService
+                    // "context" is used to know where to look for this instance
+                    // listen: false indicates that this service object is just needed right now, so there's no need to listen for rebuilds
+                    // The result of this operation is stored in the "lgService" variable
 
                     bool? success = await lgService.connectToLG();
+                    // Calls the method connectToLG() from the lg_service.dart file using the credentials extracted from the QR
+                    // Stores it in a variable called "success"
+                    // The type of this variable is bool?, which means it can be true or false (bool) or null (?)
+                    // await pauses the execution of the code until connectToLG() is completed
+                    // If success = true, the connection has been successful
+                    // If success = false, the connection has not been successful
 
                     if (success == null) {
+                      // If the connection attempt did not give a result (maybe there was an error):
+
                       return;
+                      // We exit the function early
                     }
                     if (success) {
+                      // If the connection attempt was successful (success = true):
+
                       if (mounted) {
+                        // Checks if mounted = true to avoid any errors in case the widget is gone
+
                         Navigator.pop(context);
                         // Closes the scanning screen and goes back to the connection screen
                       }
                     } else {
+                      // If the connection attempt was not successful (success = false):
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Failed to connect via QR")),
+                        // Scaffold is a basic page layout that creates an structure for the screen
+                        // Shows a temporary message (a SnackBar) at the bottom of the screen
+
+                        const SnackBar(content: Text("Failed to connect via QR")
+                            // In this case, it is a message to inform the user that the connection via QR was not successful
+                            ),
                       );
                     }
                   }

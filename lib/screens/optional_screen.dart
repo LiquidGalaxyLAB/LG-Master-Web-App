@@ -8,7 +8,6 @@ import 'optional_files/google_maps.dart'; // Imports the screen related to the G
 import 'optional_files/kml.dart'; // Imports the screen related to the Google Maps internal browser explanation and example
 import 'optional_files/nodejs.dart'; // Imports the screen related to the Nodejs explanation and example
 import 'optional_files/ai.dart'; // Imports the screen related to the AI explanation and example
-import 'optional_files/qr.dart'; // Imports the screen related to the QR code scanning explanation and example
 
 // ---------------------- Optional screen widget ----------------------
 // OptionalScreen class is the root widget of the screen, and all other widgets are built from there

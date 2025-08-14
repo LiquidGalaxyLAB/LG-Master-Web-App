@@ -9,7 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart'; // Used to load and access 
 import 'providers/theme_provider.dart'; // Imports the file related to managing the light mode and the dark mode of the app
 import 'providers/settings_provider.dart'; // Imports the file related to managing the text sizes
 import 'screens/splash_screen.dart'; // Imports the first screen that loads when initializing the app, the splash screen in this case
-import 'services/lg_service.dart';
+import 'services/lg_service.dart'; // Imports the LG service screen, which handles the logic to connect to the Liquid Galaxy screen
 
 // ---------------------- Main function ----------------------
 // The entry point of the app

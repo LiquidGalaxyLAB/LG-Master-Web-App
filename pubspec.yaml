@@ -69,6 +69,8 @@ dependencies:
 
   flutter_dotenv: ^5.1.0  # Adds support for environment variables
                           # Useful for loading configuration or secret keys from .env files
+  
+  path_provider: ^2.1.5  # Used to find locations on the app filesystem
 
 # dev_dependencies are packages needed ONLY during development and testing, for example testing, code formatting or generating files
 # These packages are NOT needed when the app runs for users and are NOT included in the final app that users download

@@ -153,7 +153,7 @@ class GoogleMapsScreen extends StatelessWidget {
             // This is just an example value of 10 px, you can use any value you want
             // This is just an aesthetic choice
 
-            // ---- KML ----
+            // ---- MAPS URL ----
             Text(
               'Public map URL:\n$mapsUrl',
               // Text displayed on the screen
@@ -174,9 +174,9 @@ class GoogleMapsScreen extends StatelessWidget {
             // This is just an example value of 20 px, you can use any value you want
             // This is just an aesthetic choice
 
-            // ---- KML CLARIFICATION ----
+            // ---- URL CLARIFICATION ----
             Text(
-              '(It is NOT mandatory that you display the URL. In this case is just so you can see it easily without entering the file)',
+              '(It is NOT mandatory that you display the URL. In this case is just so you can see it easily without entering the file)\n It is really IMPORTANT that this URL is public to work and that it does NOT have the word "edit"\n The structure of the URL should be this one:\n https://www.google.com/maps/d/viewer?mid=YOUR_MAP_ID\n This also means you have to be careful so that this map does NOT contain any sensitive information (for example, your address)\n',
               // Text displayed on the screen
 
               style: const TextStyle(

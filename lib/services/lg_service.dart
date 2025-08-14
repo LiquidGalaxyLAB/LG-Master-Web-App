@@ -11,6 +11,8 @@ import 'package:dartssh2/dartssh2.dart'; // SSH package used to connect to and s
 import 'package:shared_preferences/shared_preferences.dart'; // Imports shared_preferences to storing small amounts of persistent data
 // For example, app settings
 
+import 'package:path_provider/path_provider.dart';
+
 // ---------------------- LG model ----------------------
 // Model used for storing Liquid Galaxy connection parameters
 class LgConnectionModel {
@@ -521,7 +523,7 @@ class LgService extends ChangeNotifier {
   // Used to send a text-based query to the Liquid Galaxy by writing it into a temporary file on the remote system
   // A query is basically a text string
   Future<bool> query(String content) async {
-    // Defines an asynchronous method that returns a boolean
+    // Defines an asynchronous method that returns a boolean value
     // 'async' allows to use 'await' inside the function
     // It also takes a parameter called 'content'
     // This parameter is the text we want to send as a query
@@ -576,7 +578,7 @@ class LgService extends ChangeNotifier {
   // In order to do so, it adds a refresh interval to its KML configuration file
   // After a short delay it removes this interval, returning to the original state
 
-  Future<void> _forceRefresh(int screenNumber) async {
+  Future<void> forceRefresh(int screenNumber) async {
     // Defines an asynchronous method that does not return any value (void)
     // 'async' allows to use 'await' inside the function
     // It does not return any value because its function is to trigger a side-effect, not to return data
@@ -970,7 +972,7 @@ class LgService extends ChangeNotifier {
     // The value of this command (true or false) is updated in the 'allSuccessful' variable
     // If allSuccessful is still true, everything is going okay until now
 
-    await _forceRefresh(rightMost);
+    await forceRefresh(rightMost);
     // Forces a refresh on the screen furthest to the right using the forceRefresh() method we defined earlier
     // await makes sure the forceRefresh() method finishes executing before moving to the next line
 
@@ -1017,7 +1019,7 @@ class LgService extends ChangeNotifier {
       // This is the 'successMessage' parameter from the execute() method
       // In this case, it confirms that the KML logo (image or graphic) was successfully cleared
     );
-    await _forceRefresh(leftMost);
+    await forceRefresh(leftMost);
     // Forces a refresh on the screen furthest to the left using the forceRefresh() method we defined earlier
     // await makes sure the forceRefresh() method finishes executing before moving to the next line
   }
@@ -1061,7 +1063,7 @@ class LgService extends ChangeNotifier {
       // This is the 'successMessage' parameter from the execute() method
       // In this case, it informs that the balloons were successfully cleared from the screen
     );
-    await _forceRefresh(rightMost);
+    await forceRefresh(rightMost);
     // Forces a refresh on the screen furthest to the right using the forceRefresh() method we defined earlier
     // await makes sure the forceRefresh() method finishes executing before moving to the next line
   }
@@ -1069,9 +1071,8 @@ class LgService extends ChangeNotifier {
   // -------- cleanAll() method --------
   // Used to clear all active content and animations from the Liquid Galaxy rig
   Future<bool> cleanAll() async {
-    // Defines an asynchronous method that does not return any value (void)
+    // Defines an asynchronous method that returns a boolean value
     // 'async' allows to use 'await' inside the function
-    // It does not return any value because its function is to trigger a side-effect, not to return data
 
     try {
       // try block used to catch any exceptions that may occur
@@ -1122,7 +1123,7 @@ class LgService extends ChangeNotifier {
       // If lgConnectionModel.screens = 5, final screens = List.generate(5, (i) => i + 1)
       // This results in screens = [1, 2, 3, 4, 5]
 
-      await Future.wait(screens.map(_forceRefresh));
+      await Future.wait(screens.map(forceRefresh));
       // Calls the forceRefresh() method for each screen to refresh them and waits for them to finish before continuing
       // screens.map(_forceRefresh) applies the method to each screen
       // Future.wait runs all the executions in parallel
@@ -1174,7 +1175,7 @@ class LgService extends ChangeNotifier {
     // Specifically, that the connection status changed
     // It does it through ChangeNotifier
 
-    await _forceRefresh(1);
+    await forceRefresh(1);
     // Forces refresh on screen number 1 (usually the master one) to reflect the trail animation has stopped
     // Since this is usually the master one, other screens will sync with it
     // 'await' pauses execution until the execute() method is successfully executed
@@ -1208,9 +1209,8 @@ class LgService extends ChangeNotifier {
   // -------- reboot() method --------
   // Used to reboot all the screens in a Liquid Galaxy setup
   Future<bool> reboot() async {
-    // Defines an asynchronous method that does not return any value (void)
+    // Defines an asynchronous method that returns a boolean value
     // 'async' allows to use 'await' inside the function
-    // It does not return any value because its function is to trigger a side-effect, not to return data
 
     try {
       // try block used to catch any exceptions that may occur
@@ -1236,7 +1236,7 @@ class LgService extends ChangeNotifier {
 
       for (int i = _lgConnectionModel.screens; i >= 1; i--) {
         // Loop that goes screen by screen (i) from the highest screen number (lgConnectionModel.screens) down to 1 (>= 1), decreasing one by one (i--)
-        //For each screen:
+        // For each screen:
 
         final rebootCommand =
             'sshpass -p ${_lgConnectionModel.password} ssh -t lg$i '
@@ -1266,11 +1266,41 @@ class LgService extends ChangeNotifier {
           // In this case, it informs that a screen ('i' will be substituted with the current screen number on the loop) was successfully rebooted
         );
 
-        allSuccessful = allSuccessful && (result != null);
+        // ------------ Make sure the main node reboots ------------
+        final rebootCommandLg1 =
+            'sshpass -p ${_lgConnectionModel.password} ssh -t lg1 "echo ${_lgConnectionModel.password} | sudo -S reboot"';
+        // Creates a command that will be used to make sure the main node rebooted and that is stored in the 'rebootCommand' variable
+        // sshpass -p ${_lgConnectionModel.password} provides the password automatically (without user input)
+        // ssh -t lg1 runs SSH to connect to the host named lg1 (with 1 being the screen number, screen 1 = main screen)
+        // - t forces a pseudo-terminal (a virtual terminal window) allocation, making the remote server think we are typing from a real terminal
+        // This makes sure that commands that depend on environment can still run
+        // "echo ${_lgConnectionModel.password} | sudo -S reboot" is the remote command executed on the screen after connecting
+        // echo ${_lgConnectionModel.password} outputs the password again
+        // The pipe symbol (|) sends that password as an input to the next command (sudo)
+        // sudo -S runs the following command with root (superuser) privileges, reading the password from standard input (-S)
+        // sudo -S reboot runs the reboot command using the password
+
+        final lg1RebootResult = await execute(
+          // Executes the execute() method remotely on the main screen
+          // 'await' pauses execution until the execute() method is successfully executed
+          // The result is stored in the 'lg1RebootResult' variable
+
+          rebootCommandLg1,
+          // This is the value of the 'rebootCommand' parameter
+          // In this case is the line used to reboot the main screen using admin privileges and without manual input of the password
+
+          'The main screen was suceesfully rebooted',
+          // This is the 'successMessage' parameter from the execute() method
+          // In this case, it informs that the main screen was successfully rebooted
+        );
+
+        allSuccessful =
+            allSuccessful && (result != null) && (lg1RebootResult != null);
         // Used to track if all operations have bee successful so far
         // If allSuccessful is still true, the command continues
         // && is the AND operator (the second command only runs if the first one succeeds)
         // result != null checks if the 'result' variable (which stores the result of the execute() method) is null or not
+        // lg1RebootResult != null checks if the 'lg1RebootResult' variable (which stores the result main screen reboot) is null or not
         // If it is null, the command failed or did not return a value
         // It it is true, the command was successful
         // The value of this command (true or false) is updated in the 'allSuccessful' variable
@@ -1346,6 +1376,421 @@ class LgService extends ChangeNotifier {
       // Catches any errors thrown during the try block
 
       debugPrint('There was an error during reboot: $e');
+      // Prints the specific error on the debug console
+      // NOT VISIBLE TO USERS, only to developers in the debug console
+
+      _handleDisconnection();
+      // If an error was caught it means the connection was lost, so we call the handleDisconnection() method to handle the situation
+
+      return false;
+      // Since the reboot was not successful, the value returned is false
+    }
+  }
+
+  // -------- relaunchLG() method --------
+  // Used to relaunch the connection to the Liquid Galaxy
+  Future<bool> relaunchLG() async {
+    // Defines an asynchronous method that returns a boolean value
+    // 'async' allows to use 'await' inside the function
+
+    final relaunchCmd = '''
+        RELAUNCH_CMD="\\ 
+        if [ -f /etc/init/lxdm.conf ]; 
+          then
+            export SERVICE=lxdm
+        elif [ -f /etc/init/lightdm.conf ]; 
+          then
+            export SERVICE=lightdm
+          else
+            exit 1 
+          fi
+        if [[ \\\$(service \\\$SERVICE status) =~ 'stop' ]]; 
+          then
+            echo ${_lgConnectionModel.password} | sudo -S service \\\${SERVICE} start
+          else
+            echo ${_lgConnectionModel.password} | sudo -S service \\\${SERVICE} restart
+          fi
+        " && sshpass -p ${_lgConnectionModel.password} ssh -x -t lg@lg1 "\$RELAUNCH_CMD\"''';
+    // relaunchCmd is a variable that stores the command used to relaunch
+    // '''...''' is a Dart syntax that allows to divide this line into multiple ones to view it better (it is not part of the command per se)
+    // RELAUNCH_CMD="\\..." defines a Bash variable called "RELAUNCH_CMD"
+    // \\ escapes the new line so Bash treats the script inside as one long logical command
+    // ------------------------ Detect which display manager is running ------------------------
+    // If [ -f /etc/init/lxdm.conf ]; detects if /etc/init/lxdm.conf exists
+    // If it does, sets SERVICE=lxdm
+    // If [ -f /etc/init/lightdm.conf ]; detects if /etc/init/lightdm.conf exists
+    // If it does, sets SERVICE=lightdm
+    // This is because Liquid Galaxy uses a Linux desktop manager to run its display windows and we need to know which one to restart
+    // If none of these cases are true, exits with error (exit 1)
+    // ------------------------ Start or restart the service ------------------------
+    // $(service \\\$SERVICE status) =~ 'stop' checks if the service has currently stopped
+    // If it has stopped, starts it or restarts it
+    // echo ${_lgConnectionModel.password} | sudo -S service sends the password with admin privileges without asking the user for input
+    // ------------------------ Run the command remotely ------------------------
+    // " closes the "RELAUNCH_CMD" definition
+    // && only runs the next part if RELAUNCH_CMD was successful
+    // sshpass -p ${_lgConnectionModel.password} provides the SSH password
+    // ssh -x -t lg@lg1 "$RELAUNCH_CMD" connects to lg@lg1 (the main node of the Liquid Galaxy rig) and executes the relaunch command stored in RELAUNCH_CMD
+
+    final result = await execute(
+      // Executes the execute() method remotely on the main screen
+      // 'await' pauses execution until the execute() method is successfully executed
+      // The result is stored in the 'result' variable
+
+      relaunchCmd,
+      // This is the value of the 'rebootCommand' parameter
+      // In this case is the line used to relaunch the Liquid Galaxy
+
+      'The Liquid Galaxy was relaunched successfully',
+      // This is the 'successMessage' parameter from the execute() method
+      // In this case, it informs that the relaunch was successful
+    );
+
+    return result != null;
+    // Returns true if the execute() method returned a non-null result (for example, the command was successful)
+    // Returns false otherwise
+  }
+
+  // -------- createFile() method --------
+  // Used to create a file using a text string as the content
+  Future<File> _createFile(String fileName, String content) async {
+    // Defines an asynchronous method that returns a file object
+    // 'async' allows to use 'await' inside the function
+    // It also takes two parameters
+    // 'fileName' is the name of the file we want to create
+    // 'content' is the text content that will be written inside the file
+
+    final directory = await getTemporaryDirectory();
+    // getTemporaryDirectory() is a method from the path_provider package that gets the system's temporary folder for the app
+    // await pauses execution until this method call is complete
+    // The result is stored in a variable called "directory"
+
+    final file = File('${directory.path}/$fileName');
+    // Uses the File class from the dart:io package to create a file object
+    // ${directory.path} inserts the full path to the temporary folder
+    // $fileName appends the file name to create a full path
+    // The result is stored in a variable called "file"
+    // At this point THE FILE DOES NOT EXIST YET!!
+    // This just creates the reference to where it will be saved
+
+    return await file.writeAsString(content);
+    // file.writeAsString(content) writes the given content into the file as plain text
+    // If the file does not exist yet, it will be created
+    // Returns the File object after the writing is complete
+    // await pauses execution until this method call is complete
+  }
+
+  // -------- uploadKml() method --------
+  // Used to upload a KML to the Liquid Galaxy
+  Future<void> uploadKml(String content, String fileName) async {
+    // Defines an asynchronous method that does not return any value (void)
+    // 'async' allows to use 'await' inside the function
+    // It does not return any value because its function is to trigger a side-effect, not to return data
+    // It also takes two parameters
+    // 'content' is the text content that will be written inside the file
+    // 'fileName' is the name of the file we want to create
+
+    if (_client == null) {
+      // If _client = null, this means there is no active connection, so we cannot send any KMLs
+
+      debugPrint('The SSH client is not connected');
+      // Prints the specific problem on the debug console
+      // NOT VISIBLE TO USERS, only to developers in the debug console
+
+      return;
+      // Exits the function early
+    }
+
+    try {
+      // try block used to catch any exceptions that may occur
+
+      debugPrint('Uploading KML...');
+      // Informs about the state of the upload on the debug console
+      // NOT VISIBLE TO USERS, only to developers in the debug console
+
+      final randomNumber = DateTime.now().millisecondsSinceEpoch % 1000;
+      // This line generates a small random number based on the current time (DateTime.now()) in milliseconds (.millisecondsSinceEpoch)
+      // %1000 takes only the last theree digits to not make the number too long
+      // The result is stored in a variable called "randomNumber"
+      // This is used to create unique file names when uploading a KML and avoid overwriting previous KMLs
+
+      final fileNameWithRandom = fileName.replaceAll(
+        // Takes the file provided as the value of "fileName"
+
+        '.kml',
+        // Replaces this string
+
+        '_$randomNumber.kml',
+        // With this string
+        // And stores the result in a variable called "fileNameWithRandom"
+      );
+
+      final sftp = await _client?.sftp();
+      // _client?.sftp() gets an SFTP session from the SSH client
+      // Stores the result in a variable called "sftp"
+      // await waits pauses execution until the call to this method is complete
+
+      if (sftp == null) {
+        // If th SFTP session fails (sftp == null):
+
+        throw Exception('Failed to initialize SFTP client');
+        // The code throws an exception because uploading a KML is impossible without SFTP
+      }
+
+      final file = await sftp.open(
+        // sftp.open() opens (or creates) the file on the remote Liquid Galaxy machine using the open() method of the sftp client
+        // Stores the result in a variable called "file"
+        // await pauses execution until the call of this method is complete
+
+        '/var/www/html/$fileNameWithRandom',
+        // Opens (or creates) the file inside the directory /var/www/html/
+
+        mode: SftpFileOpenMode.truncate |
+            SftpFileOpenMode.create |
+            SftpFileOpenMode.write,
+        // SftpFileOpenMode indicates the sftp file is in "open" mode
+        // .truncate clears existing content if the file exists
+        // .create creates a new file if it does not exist
+        // .write allows writing to the file
+      );
+
+      final currentFile = await _createFile(fileNameWithRandom, content);
+      // Calls the craetFile() method we define earlier to create a file
+      // This file will be named as the value of "fileNameWithRandom" and its content will be the value of "content"
+      // This file will be stored in the "currentFile" variable
+      // await pauses execution until the call of this method is complete
+
+      final fileStream = currentFile.openRead();
+      // currentFile.openRead() opens the file we just created as a stream of bytes
+      // This makes it possible for it to be uploaded in chunks
+      // This is stored in a variable called "fileStream"
+
+      int offset = 0;
+      // The variable called "offset" is used to track how far into the file we have written on the remote side
+      // We initialize it to 0 because, when we start, we have not written on the remote side yet
+
+      await for (final chunk in fileStream) {
+        // This line creates a loop that goes through each chunk of the file's bytes
+
+        final typedChunk = Uint8List.fromList(chunk);
+        // Converts every chunk to Uint8List so SFTP can handle it properly
+        // Stores this converted chunk in the variable "typedChunk"
+
+        await file.write(Stream.fromIterable([typedChunk]), offset: offset);
+        // Writes every converted chunk on the remote file at the correct offset (which avoids overwrites)
+
+        offset += typedChunk.length;
+        // Increases the offset after each chunk with the lenght of said chunk so the next one is appended
+      }
+      await execute(
+        // Executes the execute() method remotely on the main screen
+        // 'await' pauses execution until the execute() method is successfully executed
+
+        'echo "http://lg1:81/$fileNameWithRandom" > /var/www/html/kmls.txt',
+        // This is the value of the 'rebootCommand' parameter
+        // In this case it is a remote SSH command that runs after the upload finishes
+        // This writes the file's public URL (Liquid Galaxy web server path) into /var/www/html/kmls.txt
+        // This tells Liquid Galaxy which KML file to display
+
+        'KML file written successfully',
+        // This is the 'successMessage' parameter from the execute() method
+        // In this case, it informs that the KML was successfully written
+      );
+    } catch (e) {
+      debugPrint('Error during KML upload: $e');
+      // Prints the specific error on the debug console
+      // NOT VISIBLE TO USERS, only to developers in the debug console
+    }
+  }
+
+  // -------- sendLogo() method --------
+  // Used to send logos to the furthest left screen
+  Future<bool> sendLogo() async {
+    // Defines an asynchronous method that returns a boolean value
+    // 'async' allows to use 'await' inside the function
+
+    String kmlContent = '''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+    <Document>
+        <name>Logo</name>
+        <ScreenOverlay>
+            <name>Logo</name>
+            <Icon>
+              <href>https://raw.githubusercontent.com/lucisays/imagen/refs/heads/main/LGMasterWebAppLogo.png</href>
+            </Icon>
+            <overlayXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+            <screenXY x="0.02" y="0.725" xunits="fraction" yunits="fraction"/>
+            <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+            <size x="554" y="500" xunits="pixels" yunits="pixels"/>
+        </ScreenOverlay>
+    </Document>
+    </kml>''';
+    // kmlContent is a variable that holds the KML string used to send logos to the remote server
+    // '''...''' is a Dart syntax that allows to divide this line into multiple ones to view it better (it is not part of the command per se)
+    // <?xml version="1.0" encoding="UTF-8"?> tells the parser that this is an XML file encoded using UTF-8
+    // <kml></kml> is the root tag for a KML file
+    // xmlns="http://www.opengis.net/kml/2.2"> is the default namespace for standard KML elements
+    // xmlns:gx="http://www.google.com/kml/ext/2.2" is the Google Earth Extensions namespace
+    // xmlns:kml="http://www.opengis.net/kml/2.2" is a namespace alias for standard KML elements (same as the default one, but explicitly prefixed)
+    // xmlns:atom="http://www.w3.org/2005/Atom" is the Atom Syndication namespace, often used for metadata like links
+    // <Document></Document> is a container for all elements in this KML file
+    // <name>Logo</name> is the title or label for this document/overlay
+    // It may appear in the Google Earth Layers list
+    // <ScreenOverlay></ScreenOverlay> means it will draw an image on the screen NOT tied to map coordinates
+    // <Icon><href>...</href></Icon> specifies the image URL (the logo)
+    // overlayXY and screenXY define positioning
+    // rotationXY defines rotation
+    // size defines the width and height of the logo in pixels
+
+    int leftMostScreen = calculateLeftMostScreen(_lgConnectionModel.screens);
+    // Calculates which screen is the furthest to the left and stores it in the 'leftMostScreen' variable
+
+    final result = await execute(
+      // Executes the execute() method remotely on the main screen
+      // 'await' pauses execution until the execute() method is successfully executed
+      // The result is stored in the 'result' variable
+
+      "echo '$kmlContent' > /var/www/html/kml/slave_$leftMostScreen.kml",
+      // This is the value of the 'rebootCommand' parameter
+      // In this case it is a remote SSH command that runs after the furthest left screen is calculated
+      // echo '$kmlContent' outputs the KML content as text
+      // > redirects that output into a file
+      // /var/www/html/kml/slave_$leftMostScreen.kml saves it in the KML directory for the specific screen (the furthest one to the left)
+
+      'Logo successfully sent to the Liquid Galaxy',
+      // This is the 'successMessage' parameter from the execute() method
+      // In this case, it informs that the logo was successfully sent to the Liquid Galaxy
+    );
+
+    return result != null;
+    // Returns true if the execute() method returned a non-null result (for example, the command was successful)
+    // Returns false otherwise
+  }
+
+  // -------- shutdown() method --------
+  // Used to shut down the Liquid Galaxy system
+  Future<bool> shutdown() async {
+    // Defines an asynchronous method that returns a boolean value
+    // 'async' allows to use 'await' inside the function
+
+    try {
+      // try block used to catch any exceptions that may occur
+
+      await connectToLG();
+      // First of all, connects to the Liquid Galaxy system
+      // This is important to make sure all commands can be sent to all screens
+      // 'await' pauses execution until the connectToLG() method is successfully executed
+
+      bool allSuccessful = true;
+      // The 'allSuccessful' variable is used to track if all the commands succeeded
+      // It is initialized to true because we assumme everything will succeed
+      // After every command, we check if the value is still true
+
+      for (int i = _lgConnectionModel.screens; i >= 1; i--) {
+        // Loop that goes screen by screen (i) from the highest screen number (lgConnectionModel.screens) down to 1 (>= 1), decreasing one by one (i--)
+        // For each screen:
+
+        final shutdownCommand =
+            'sshpass -p ${_lgConnectionModel.password} ssh -t lg$i "echo ${_lgConnectionModel.password} | sudo -S shutdown now"';
+        // Creates a command that will be used to shut down the system and that is stored in the 'shutdownCommand' variable
+        // sshpass -p ${_lgConnectionModel.password} provides the password automatically (without user input)
+        // ssh -t lg$i runs SSH to connect to the host named lg$i (with i being the current screen number in the loop)
+        // - t forces a pseudo-terminal (a virtual terminal window) allocation, making the remote server think we are typing from a real terminal
+        // This makes sure that commands that depend on environment can still run
+        // "echo ${_lgConnectionModel.password} | sudo -S shutdown now" is the remote command executed on the screen after connecting
+        // echo ${_lgConnectionModel.password} outputs the password again
+        // The pipe symbol (|) sends that password as an input to the next command (sudo)
+        // sudo -S runs the following command with root (superuser) privileges, reading the password from standard input (-S)
+        // sudo -S shutdown now runs the shut down command using the password
+
+        final result = await execute(
+          // Executes the execute() method remotely on the main screen
+          // 'await' pauses execution until the execute() method is successfully executed
+          // The result is stored in the 'result' variable
+
+          shutdownCommand,
+          // This is the value of the 'rebootCommand' parameter
+          // In this case is the line used to shut down using admin privileges and without manual input of the password
+
+          'Liquid Galaxy screen $i was shut down successfully',
+          // This is the 'successMessage' parameter from the execute() method
+          // In this case, it informs that a certain screen was shut down
+        );
+
+        allSuccessful = allSuccessful && (result != null);
+        // Used to track if all operations have bee successful so far
+        // If allSuccessful is still true, the command continues
+        // && is the AND operator (the second command only runs if the first one succeeds)
+        // result != null checks if the 'result' variable (which stores the result of the execute() method) is null or not
+        // If it is null, the command failed or did not return a value
+        // It it is true, the command was successful
+        // The value of this command (true or false) is updated in the 'allSuccessful' variable
+        // If allSuccessful is still true, everything is going okay until now
+
+        if (i > 1) {
+          // While the screen number (i) is not 1 (the main node):
+
+          await Future.delayed(const Duration(milliseconds: 200));
+          // Future.delayed creates a Future (a value that will be available at some point in the future) that completes after a specified delay
+          // const Duration(milliseconds: 200) specifies the length of that delay
+          // In this case, this delay is used between shutting down each screen to prevent command overlap or network overload
+        }
+      }
+
+      // ------------ Make sure the main node shuts down ------------
+      final shutdownCommandLg1 =
+          'sshpass -p ${_lgConnectionModel.password} ssh -t lg1 "echo ${_lgConnectionModel.password} | sudo -S shutdown now"';
+      // Creates a command that will be used to make sure the main screen shuts down and that is stored in the 'shutdownCommandLg1' variable
+      // sshpass -p ${_lgConnectionModel.password} provides the password automatically (without user input)
+      // ssh -t lg1 runs SSH to connect to the host named lg1 (with is the main node/screen)
+      // - t forces a pseudo-terminal (a virtual terminal window) allocation, making the remote server think we are typing from a real terminal
+      // This makes sure that commands that depend on environment can still run
+      // "echo ${_lgConnectionModel.password} | sudo -S shutdown now" is the remote command executed on the screen after connecting
+      // echo ${_lgConnectionModel.password} outputs the password again
+      // The pipe symbol (|) sends that password as an input to the next command (sudo)
+      // sudo -S runs the following command with root (superuser) privileges, reading the password from standard input (-S)
+      // sudo -S shutdown now runs the shut down command using the password
+
+      final lg1Result = await execute(
+        // Executes the execute() method remotely on the main screen
+        // 'await' pauses execution until the execute() method is successfully executed
+        // The result is stored in the 'lg1Result' variable
+
+        shutdownCommandLg1,
+        // This is the value of the 'rebootCommand' parameter
+        // In this case is the line used to shut down the main screen using admin privileges and without manual input of the password
+
+        'Liquid Galaxy 1 (main node) was shut down successfully',
+        // This is the 'successMessage' parameter from the execute() method
+        // In this case, it informs that the main screen was shut down
+      );
+      allSuccessful = allSuccessful && (lg1Result != null);
+      // Used to track if all operations have bee successful so far
+      // If allSuccessful is still true, the command continues
+      // && is the AND operator (the second command only runs if the first one succeeds)
+      // lg1Result != null checks if the 'lg1Result' variable (which stores the result of the execute() method) is null or not
+      // If it is null, the command failed or did not return a value
+      // It it is true, the command was successful
+      // The value of this command (true or false) is updated in the 'allSuccessful' variable
+      // If allSuccessful is still true, everything is going okay until now
+
+      await Future.delayed(const Duration(milliseconds: 100));
+      // Future.delayed creates a Future (a value that will be available at some point in the future) that completes after a specified delay
+      // const Duration(milliseconds: 100) specifies the length of that delay
+      // In this case, this delay is used to create a short pause before completely disconnecting from the Liquid Galaxy
+
+      _handleDisconnection();
+      // If the shut down was successful, we call the handleDisconnection() method to handle all the disconnection logic
+
+      return allSuccessful;
+      // Returns the final result of the shutdown() method
+      // If allSuccessful = true, all operations were successful
+      // If allSuccessful = false, something failed at some point
+    } catch (e) {
+      // Catches any errors thrown during the try block
+
+      debugPrint('Error during shutdown: $e');
       // Prints the specific error on the debug console
       // NOT VISIBLE TO USERS, only to developers in the debug console
 

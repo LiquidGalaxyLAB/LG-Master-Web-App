@@ -38,7 +38,14 @@ class SplashScreen extends StatefulWidget {
 // When the state changes, the widget rebuilds itself to show the new data
 class _SplashScreenState extends State<SplashScreen> {
   Timer? _timer;
+  // Declares a private variable named "_timer" that can store a Timer object
+
   @override
+  // @override is a line that indicates a method from the parent class is going to be replaced
+  // In this case, we are replacing the initState() method that comes from Flutter's State class
+  // @override is not mandatory but it is really useful, as it helps catch mistakes
+  // Dart will show an error if you try to override something that does not exist
+
   void initState() {
     // initState() is a method that runs once when the screen first loads or the widget is first created
     // It acts as a setup function, and that is why is only run once
@@ -48,9 +55,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // super.initState() calls the default setup behavior from the parent class (in this case, the State class from Flutter)
     // It basically indicates Flutter to set up its own things first, and then we'll add our own things later
 
-    Timer(const Duration(seconds: 4), () {
-      // Navigate to MainScreen after 4 seconds
-      // After 4 seconds, it navigates to the main screen and replaces the splash screen, which means users cannot go back to the Splash screen
+    Timer(const Duration(seconds: 3), () {
+      // Navigate to MainScreen after 3 seconds
+      // After 3 seconds, it navigates to the main screen and replaces the splash screen, which means users cannot go back to the Splash screen
 
       // This is just an example value, you can put the time you want
       // However, keep in mind that this is a splash screen, so do not put a value that is too high
@@ -60,6 +67,8 @@ class _SplashScreenState extends State<SplashScreen> {
       // Timer(const Duration(milliseconds: 2500), () {});
 
       if (!mounted) return;
+      // "mounted" is a property of the State class that is "true" if the widget is currently displayed on the screen
+      // This line means that, if the widget has been removed from the screen, the function should exit early (return)
 
       Navigator.of(
         context,
@@ -74,9 +83,23 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  // @override is a line that indicates a method from the parent class is going to be replaced
+  // In this case, we are replacing the dispose() method that comes from Flutter's State class
+  // @override is not mandatory but it is really useful, as it helps catch mistakes
+  // Dart will show an error if you try to override something that does not exist
+
   void dispose() {
-    _timer?.cancel(); // Cancel the timer to prevent callback after dispose
+    // It does not return anything (void)
+    // This method is called only once when the widget is permanently removed from the widget tree
+    // Used to clean up resources
+
+    _timer?.cancel();
+    // Cancels the timer if it is not null
+    // This makes sure the timer stops after the widget is gone
+
     super.dispose();
+    // super.dispose() calls the parent class dispose() method
+    // It basically indicates Flutter to set up its own things first, and then we'll add our own things later
   }
 
   // ---------------------- Build the screen interface ----------------------
