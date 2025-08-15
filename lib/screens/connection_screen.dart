@@ -79,10 +79,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   // _isConnecting is a variable used to track if the app is in PROCESS of connecting to the LG
   // It is initialized the false because, when the app first starts, it is not in the process of connecting
 
-  bool _isConnected = false;
-  // _isConnected is a variable used to track if the app has CONNECTED to the LG
-  // It is initialized the false because, when the app first starts, it is not connected
-
   // ------------ Initialize ------------
   @override
   // @override is a line that indicates a method from the parent class is going to be replaced
@@ -380,9 +376,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       _isConnecting = false;
       // In this case, it updates it to show that a connection attempt is NOT in the process of happening (_isConnecting = false)
       // This is because, if the conditions above were met, a connection HAS been established
-
-      _isConnected = connected;
-      // In this case, it updates it to show that a connection HAS been established (_isConnected = true)
     });
 
     if (!mounted) return;
@@ -417,6 +410,25 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       ),
     );
 
+    await lgService.sendLogo();
+    // Calls the sendLogo() method from the lg_service.dart file
+    // await pauses execution until the logo is sent
+
+    await Future.delayed(const Duration(milliseconds: 50));
+    // Future.delayed creates a Future (a value that will be available at some point in the future) that completes after a specified delay
+    // const Duration(milliseconds: 50) specifies the length of that delay
+    // In this case, this delay is used to create a short pause between sending the logos and flying to a location
+
+    int leftMostScreen =
+        lgService.calculateLeftMostScreen(lgService.getScreenNumber());
+
+    // Calculates which screen is the furthest to the left and stores it in the 'leftMostScreen' variable
+    // To do so, it uses the getScreenNumber() method to know how many screens we have in the Liquid Galaxy rig
+
+    await lgService.forceRefresh(leftMostScreen);
+    // Calls forceReresh() method to update the changes immediately
+    // await makes sure the execution pauses until this method is complete
+
     if (connected) {
       await lgService.flyTo(
           '<LookAt><longitude>-3.7492199</longitude><latitude>40.4636688</latitude><altitude>0</altitude><heading>0</heading><tilt>60</tilt><range>2000</range><altitudeMode>relativeToGround</altitudeMode></LookAt>');
@@ -431,10 +443,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       // In my case I chose 2000 meters, which is 2 km (you can choose any value you want, but it should be around 2 km)
       // <altitudeMode>relativeToGround</altitudeMode> means the altitude is measured relative to ground level
     }
-
-    await lgService.sendLogo();
-    // Calls the sendLogo() method from the lg_service.dart file
-    // await pauses execution until the logo is sent
   }
 
   // ------------ disconnect() method ------------
@@ -451,10 +459,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     lgService.disconnect();
     // Uses the disconnect() method to update the connection state that was just saved
 
-    setState(() => _isConnected = false);
-    // setState() updates the widget state
-    // In this case, it updates it to show that a connection has NOT been established (_isConnected = false)
-
     ScaffoldMessenger.of(context).showSnackBar(
       // Scaffold is a basic page layout that creates an structure for the screen
       // Shows a temporary message (a SnackBar) at the bottom of the screen
@@ -468,7 +472,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   // ------------ relaunchLG() method ------------
   // Used to relaunch the connection to the Liquid Galaxy
 
-  void _relaunchLG() {
+  void _relaunchLG() async {
     // It does not return anything (void)
 
     final lgService = context.read<LgService>();
@@ -476,12 +480,9 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     // Stores this instance in a variable called "lgService"
     // final means this variable can only be assigned ONCE and will not change
 
-    lgService.relaunchLG();
+    await lgService.relaunchLG();
     // Uses the relaunchLG() method to update the connection state
-
-    setState(() => _isConnected = true);
-    // setState() updates the widget state
-    // In this case, it updates it to show that a connection has been relaunched (_isConnected = true)
+    // await makes sure execution is paused until the relaunch method is done
 
     ScaffoldMessenger.of(context).showSnackBar(
       // Scaffold is a basic page layout that creates an structure for the screen
@@ -505,10 +506,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
 
     lgService.shutdown();
     // Uses the shutdown() method
-
-    setState(() => _isConnected = false);
-    // setState() updates the widget state
-    // In this case, it updates it to show that the Liquid Galaxy was shut down (_isConnected = false)
 
     ScaffoldMessenger.of(context).showSnackBar(
       // Scaffold is a basic page layout that creates an structure for the screen
@@ -537,8 +534,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     // Stores this instance in a variable called "lgService"
     // final means this variable can only be assigned ONCE and will not change
 
-    if (!_isConnected) {
-      // If there is NO connection already established (_isConnected = false)
+    if (!lgService.isConnected) {
+      // If there is NO connection already established (lgService.isConnected = false)
       // Then this means that no KMLs are being displayed
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -552,7 +549,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
         // And that they need to first be connected in order to clear KMLs
       );
       return;
-      // If there is NO connection already established (_isConnected = false), the function immediately exits (return)
+      // If there is NO connection already established (lgService.isConnected = false), the function immediately exits (return)
     }
 
     bool success = await lgService.cleanAll();
@@ -591,8 +588,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     // Stores this instance in a variable called "lgService"
     // final means this variable can only be assigned ONCE and will not change
 
-    if (!_isConnected) {
-      // If there is NO connection already established (_isConnected = false)
+    if (!lgService.isConnected) {
+      // If there is NO connection already established (lgService.isConnected = false)
       // Then this means that no KMLs are being displayed
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -751,6 +748,10 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     // This class has information on the different font sizes for the text
     // Stores this instance in a variable called "settings"
     // final means this variable can only be assigned ONCE and will not change
+
+    final lgService = Provider.of<LgService>(context);
+    // Provider.of<LgService>(context) accesses the LgService instance in order to listen to changes and rebuild if necessary
+    // The result is stored in the 'lgService' variable
 
     return Scaffold(
       // Scaffold is a basic page layout that creates an structure for the screen
@@ -938,16 +939,16 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                         // If _isConnecting = true, the text shown is "Connecting..."
                         // This makes sense because _isConnecting = true means a connection attempt is going on
 
-                        : _isConnected
-                            // If _isConnecting = true, the text shown depends on the "_isConnected" value
+                        : (lgService.isConnected
+                            // If _isConnecting = true, the text shown depends on the "lgService.isConnected" value
 
                             ? 'Reconnect'
-                            // If _isConnected = true, the text shown is "Reconnect"
-                            // This makes sense because _isConnected = true means a connection has been established, so we can try to reconnect
+                            // If lgService.isConnected = true, the text shown is "Reconnect"
+                            // This makes sense because lgService.isConnected = true means a connection has been established, so we can try to reconnect
 
-                            : 'Connect to the Liquid Galaxy'
-                    // If _isConnected = false, the text shown is "Connect to the Liquid Galaxy"
-                    // This makes sense because _isConnected = false means a connection has NOT been established
+                            : 'Connect to the Liquid Galaxy')
+                    // If lgService.isConnected = false, the text shown is "Connect to the Liquid Galaxy"
+                    // This makes sense because lgService.isConnected = false means a connection has NOT been established
                     // So the onñy thing we can do is try and establish one
                     ),
               ),
@@ -960,17 +961,17 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ElevatedButton.icon(
                 // Creates a button with an icon
 
-                onPressed: _isConnected ? _clearKML : null,
+                onPressed: lgService.isConnected ? _clearKML : null,
                 // This line defines what happens when the user presses the button
-                // _isConnected is the variable we created to track if a connection HAS been made
+                // lgService.isConnected is used to track if a connection HAS been made
                 // ? _clearKML : null is the ternary operator, which chooses between two options depending on _isConnected
                 // These two options are '_clearKML' (a method we defined earlier) or 'null'
                 // A ternary operator works with the following structure:
                 // condition ? valueIfTrue : valueIfFalse
-                // This means that, in this case, if _isConnected == true, onPressed = _clearKML
-                // (if _isConnected is true, a connection has been established, so there are KMLs that we can clean)
-                // And if _isConnected == false, onPressed = null
-                // (if _isConnected is false, a connection has NOT been established, so there are NO KMLs that we can clean)
+                // This means that, in this case, if lgService.isConnected == true, onPressed = _clearKML
+                // (if lgService.isConnected is true, a connection has been established, so there are KMLs that we can clean)
+                // And if lgService.isConnected == false, onPressed = null
+                // (if lgService.isConnected is false, a connection has NOT been established, so there are NO KMLs that we can clean)
 
                 icon: const Icon(Icons.cleaning_services),
                 // Icons.cleaning_services is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a broom
@@ -988,17 +989,17 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ElevatedButton.icon(
                 // Creates a button with an icon
 
-                onPressed: _isConnected ? _rebootLG : null,
+                onPressed: lgService.isConnected ? _rebootLG : null,
                 // This line defines what happens when the user presses the button
-                // _isConnected is the variable we created to track if a connection HAS been made
+                // lgService.isConnected is used to track if a connection HAS been made
                 // ? _rebootLG: null is the ternary operator, which chooses between two options depending on _isConnected
                 // These two options are '_rebootLG' (a method we defined earlier) or 'null'
                 // A ternary operator works with the following structure:
                 // condition ? valueIfTrue : valueIfFalse
-                // This means that, in this case, if _isConnected == true, onPressed = _rebootLG
-                // (if _isConnected is true, a connection has been established, so we can try to reboot)
-                // And if _isConnected == false, onPressed = null
-                // (if _isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to reboot)
+                // This means that, in this case, if lgService.isConnected == true, onPressed = _rebootLG
+                // (if lgService.isConnected is true, a connection has been established, so we can try to reboot)
+                // And if lgService.isConnected == false, onPressed = null
+                // (if lgService.isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to reboot)
 
                 icon: const Icon(Icons.restart_alt),
                 // Icons.restart_alt is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a restart circle
@@ -1016,17 +1017,17 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ElevatedButton.icon(
                 // Creates a button with an icon
 
-                onPressed: _isConnected ? _disconnect : null,
+                onPressed: lgService.isConnected ? _disconnect : null,
                 // This line defines what happens when the user presses the button
-                // _isConnected is the variable we created to track if a connection HAS been made
+                // lgService.isConnected is used to track if a connection HAS been made
                 // ? _disconnect: null is the ternary operator, which chooses between two options depending on _isConnected
                 // These two options are '_disconnect' (a method we defined earlier) or 'null'
                 // A ternary operator works with the following structure:
                 // condition ? valueIfTrue : valueIfFalse
-                // This means that, in this case, if _isConnected == true, onPressed = _disconnect
-                // (if _isConnected is true, a connection has been established, so we can try to disconnect)
-                // And if _isConnected == false, onPressed = null
-                // (if _isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
+                // This means that, in this case, if lgService.isConnected == true, onPressed = _disconnect
+                // (if lgService.isConnected is true, a connection has been established, so we can try to disconnect)
+                // And if lgService.isConnected == false, onPressed = null
+                // (if lgService.isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
 
                 icon: const Icon(Icons.link_off),
                 // Icons.link_off is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a broken chain
@@ -1045,17 +1046,17 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ElevatedButton.icon(
                 // Creates a button with an icon
 
-                onPressed: _isConnected ? _relaunchLG : null,
+                onPressed: lgService.isConnected ? _relaunchLG : null,
                 // This line defines what happens when the user presses the button
-                // _isConnected is the variable we created to track if a connection HAS been made
+                // lgService.isConnected is used to track if a connection HAS been made
                 // ? _relaunchLG: null is the ternary operator, which chooses between two options depending on _isConnected
                 // These two options are '_relaunchLG' (a method we defined earlier) or 'null'
                 // A ternary operator works with the following structure:
                 // condition ? valueIfTrue : valueIfFalse
-                // This means that, in this case, if _isConnected == true, onPressed = _relaunchLG
-                // (if _isConnected is true, a connection has been established, so we can try to relaunch)
-                // And if _isConnected == false, onPressed = null
-                // (if _isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
+                // This means that, in this case, if lgService.isConnected == true, onPressed = _relaunchLG
+                // (if lgService.isConnected is true, a connection has been established, so we can try to relaunch)
+                // And if lgService.isConnected == false, onPressed = null
+                // (if lgService.isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
 
                 icon: const Icon(Icons.rocket_launch),
                 // Icons.rocket_launch is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a rocket launching
@@ -1074,17 +1075,17 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ElevatedButton.icon(
                 // Creates a button with an icon
 
-                onPressed: _isConnected ? _shutdown : null,
+                onPressed: lgService.isConnected ? _shutdown : null,
                 // This line defines what happens when the user presses the button
-                // _isConnected is the variable we created to track if a connection HAS been made
+                // lgService.isConnected is used to track if a connection HAS been made
                 // ? _shutdown: null is the ternary operator, which chooses between two options depending on _isConnected
                 // These two options are '_shutdown' (a method we defined earlier) or 'null'
                 // A ternary operator works with the following structure:
                 // condition ? valueIfTrue : valueIfFalse
-                // This means that, in this case, if _isConnected == true, onPressed = _shutdown
-                // (if _isConnected is true, a connection has been established, so we can try to relaunch)
-                // And if _isConnected == false, onPressed = null
-                // (if _isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
+                // This means that, in this case, if lgService.isConnected == true, onPressed = _shutdown
+                // (if lgService.isConnected is true, a connection has been established, so we can try to relaunch)
+                // And if lgService.isConnected == false, onPressed = null
+                // (if lgService.isConnected is false, a connection has NOT been established, so there is no connection going on that we can try to disconnect from)
 
                 icon: const Icon(Icons.link_off),
                 // Icons.link_off is a built-in Flutter icon (an icon that already exists in Flutter) that looks like a broken chain

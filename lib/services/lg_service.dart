@@ -11,7 +11,7 @@ import 'package:dartssh2/dartssh2.dart'; // SSH package used to connect to and s
 import 'package:shared_preferences/shared_preferences.dart'; // Imports shared_preferences to storing small amounts of persistent data
 // For example, app settings
 
-import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart'; // Imports path_provider to find locations on the app filesystem
 
 // ---------------------- LG model ----------------------
 // Model used for storing Liquid Galaxy connection parameters
@@ -147,7 +147,7 @@ class LgConnectionModel {
     // Saves the "screens" value in local storage under the "_keyScreens" key
   }
 
-  // -------- loadFromPreferences --------
+  // -------- loadFromPreferences() --------
   // Loads connection values from shared preferences and returns a new model instance
   static Future<LgConnectionModel> loadFromPreferences() async {
     // Defines an asynchronous method that does not return any value (void)
@@ -275,6 +275,12 @@ class LgService extends ChangeNotifier {
   // Getters allow controlled access to private variables to be able to read them
   // '=> _lgConnectionModel' returns the value of the private variable '_lgConnectionModel'
 
+  bool get isConnected => _isConnected;
+  // This line returns an object of type bool (true or false)
+  // 'get isConnected' defines a public getter named 'isConnected'
+  // Getters allow controlled access to private variables to be able to read them
+  // '=> _isConnected' returns the value of the private variable '_isConnected'
+
   // -------- updateConnectionSettings() method --------
   // Used to update the internal Liquid Galaxy connection model with new parameters
   void updateConnectionSettings({
@@ -380,6 +386,11 @@ class LgService extends ChangeNotifier {
       // This is beacuse, in this cycle, the maximum number of attempts has been reached
       // So no further attempts will be made in this cycle
 
+      notifyListeners();
+      // Notifies any widgets or services listening to this class that a change took place
+      // Specifically, that the connection status changed
+      // It does it through ChangeNotifier
+
       return false;
       // Stops the execution and returns false
       // This means that the connection attempt was not made because the maximum number of attempts was reached
@@ -450,6 +461,11 @@ class LgService extends ChangeNotifier {
       // The current number of connection attempts increases by 1
     }
 
+    notifyListeners();
+    // Notifies any widgets or services listening to this class that a change took place
+    // Specifically, that the connection status changed
+    // It does it through ChangeNotifier
+
     return false;
     // If the try block fails and the connection is not established, the method returns false
     // false = connection was not established
@@ -468,6 +484,11 @@ class LgService extends ChangeNotifier {
 
     _isConnected = false;
     // _isConnected = false tells the rest of the application that there is no current connection to the Liquid Galaxy anymore
+
+    notifyListeners();
+    // Notifies any widgets or services listening to this class that a change took place
+    // Specifically, that the connection status changed
+    // It does it through ChangeNotifier
   }
 
   // -------- execute() method --------
@@ -1134,6 +1155,7 @@ class LgService extends ChangeNotifier {
       // It does it through ChangeNotifier
 
       return true;
+      // If the execution was successful, returns true
     } catch (e) {
       // Catches any errors thrown during the try block
 
@@ -1153,6 +1175,7 @@ class LgService extends ChangeNotifier {
       // It does it through ChangeNotifier
 
       return false;
+      // Since the execution failed, it returns false
     }
   }
 
@@ -1265,6 +1288,16 @@ class LgService extends ChangeNotifier {
           // This is the 'successMessage' parameter from the execute() method
           // In this case, it informs that a screen ('i' will be substituted with the current screen number on the loop) was successfully rebooted
         );
+
+        allSuccessful = allSuccessful && (result != null);
+        // Used to track if all operations have bee successful so far
+        // If allSuccessful is still true, the command continues
+        // && is the AND operator (the second command only runs if the first one succeeds)
+        // result != null checks if the 'result' variable (which stores the result of the execute() method) is null or not
+        // If it is null, the command failed or did not return a value
+        // It it is true, the command was successful
+        // The value of this command (true or false) is updated in the 'allSuccessful' variable
+        // If allSuccessful is still true, everything is going okay until now
 
         // ------------ Make sure the main node reboots ------------
         final rebootCommandLg1 =
@@ -1800,5 +1833,12 @@ class LgService extends ChangeNotifier {
       return false;
       // Since the reboot was not successful, the value returned is false
     }
+  }
+
+  // -------- getScreenNumber() method --------
+// Used to get the number of screens in the Liquid Galaxy system
+// The one used in GSoC is 5 screens but just in case
+  int getScreenNumber() {
+    return _lgConnectionModel.screens;
   }
 }
