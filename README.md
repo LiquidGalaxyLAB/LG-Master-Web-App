@@ -36,30 +36,26 @@
 9. [Start your project](#id9)   
    9.1. [Minimum app features / screens](#id91) 
    9.2. [Code structure](#id92) 
-10. [Automatically generated files](#id10)
+10. [Your whole project step by step](#id10)
    10.1. [.dart_tool](#id101)
    10.2. [.flutter-plugins-dependencies](#id102)
-11. [Your whole project step by step](#id11)  
-   11.1. [.idea](#id111)
-   11.2. [android](#id112)
-   11.3. [assets](#id113)
-   11.4. [ios](#id114)
-   11.5. [lib](#id115)
-   11.6. [linux](#id116)
-   11.7. [macos](#id117)
-   11.8. [node_server](#id118)
-   11.9. [test](#id119)
-   11.10. [web](#id1110)
-   11.11. [windows](#id1111)
-   11.12. [.env](#id1112)
-   11.13. [.gitignore](#id1113)
-   11.14. [.metadata](#id1114)
-   11.15. [analysis_options.yaml](#id1115)
-   11.16. [lg_master_web_app.iml](#id1116)
-   11.17. [pubspec.lock](#id1117)
-   11.18. [pubspec.yaml](#id1118)
-12. [Further resources and documentation](#id12)
-13. [Projects used to create this project](#id13)  
+   10.3. [.idea](#id103)
+   10.4. [android](#id104)
+   10.5. [assets](#id105)
+   10.6. [ios, linux, macos, web, windows](#id106)
+   10.7. [lib](#id107)
+   10.8. [node_server](#id108)
+   10.9. [test](#id109)
+   10.10. [.env](#id1010)
+   10.11. [.gitignore](#id1011)
+   10.12. [.metadata](#id1012)
+   10.13. [analysis_options.yaml](#id1013)
+   10.14. [lg_master_web_app.iml](#id1014)
+   10.15. [pubspec.lock](#id1015)
+   10.16. [pubspec.yaml](#id1016)
+   10.17. [README.md](#id1017)
+11. [Further resources and documentation](#id11)
+12. [Projects used to create this project](#id12)  
 
 ---
 
@@ -364,119 +360,163 @@ Being aware of frequent pitfalls is crucial, as many of these mistakes are preve
 
 <h2 id="id9"> 9. Start your project </h2>
 
+Okay, that was a lot of information! But now you are ready to begin the most exciting part, the coding! This is where all the preparation, planning, and learning you have done up to this point will finally pay off and transform into tangible results. Remember that this phase should be approached with the same professionalism and organization as everything else in the program until now. Keep your code well-structured, document your decisions in every commit, and test frequently to ensure functionality.
+
 <h3 id="id91"> 9.1. Minimum app features / screens </h3>
+
+Every GSoC application must include a minimum set of screens and functionalities to ensure proper integration with the Liquid Galaxy rig and to provide a smooth user experience. The following paragraphs will describe this set of screens, and while you are free to expand and innovate beyond them, they represent the minimum standard expected of every contributor.
+
+The **splash screen** serves as the introduction to your application, as it is the very first element that shows up. This screen should display the key logos associated with your project: your project’s logo (of course), the Liquid Galaxy logo, the Lleida Labs logo and the logos of all the technologies used in your project. It should remain visible for around 3 seconds before transitioning into the main interface.
+
+The **main screen** is the heart of the application and the first screen shown after the splash screen. This is where users will directly interact with the features and functionalities you have developed for your project, like for example AI chats, maps, 3D data visualizations, interactive controls, etc. (these will depend on your project’s objective of course). The design and layout of this screen will of course vary according to your project’s focus, but it must remain intuitive, visually clear, and easy to navigate. All central features should be accessible from this screen, offering a seamless and engaging experience.
+
+Your application should also have a screen dedicated to the **connection to the Liquid Galaxy rig**, which is fundamental for configuring and managing the link between your application and the Liquid Galaxy rig. This screen must provide input fields for IP, port, user authentication (username and password) and number of screens. Beyond those fields, it should provide a range of essential connection functions, with buttons dedicated to saving credentials, connecting and disconnecting from the rig, rebooting or relaunching the connection, shutting it down, clearing existing KMLs, and even connecting to the Liquid Galaxy via QR scanning. The application should also display the connection status to the Liquid Galaxy, for example by using a pop-up notification once a successful connection has been established.
+
+Another essential component is the **help and information screen**, which serves as a support resource for users. This screen should explain how the application works and provide practical resources such as FAQs and solutions for common problems like connection issues. Beyond technical guidance, it should also acknowledge the technologies and third-party libraries integrated into the project, provide contact information (for example, a GitHub repository link) and give proper credit to the mentors, contributors, and the Liquid Galaxy lab Lleida team involved in the development process of the project.
+
+Finally, a **settings screen** is also encouraged to be included. This screen should be dedicated to improve user adaptability and overall experience by allowing personalization options. For example, choosing between dark mode or light mode, adjust text size for better readability or configure other accessibility-related features.
+
+These represent the **minimum set of screens** that every GSoC project must implement. Once you have implemented them, **you are free (and expected) to add any additional screens and features necessary** to support the main objectives of your project.
 
 <h3 id="id92"> 9.2. Code structure </h3>
 
-Ensure you install the **Dart extension**.
-
-Project structure example:
+Make sure you have installed the **Dart extension** for your IDE before starting development!! This step is essential, as this extension provides the tools and support required to properly work with Flutter and, without it, many core features and integrations will not function at all. Once the extension is set up, the next step is to structure your project. Below is an example of how your project should be organized, which is based on the Flutter project (`lg_master_web_app`) provided alongside this documentation:
 
 ```plaintext
+
 your_Project/
 │
+├── .dart_tool/
+│       └──...
+│
+├── .git/
+│     └──...
+│
+├── .idea/
+│      └──...
+│
+├── android/
+│      └──...
+│
+├── assets/
+│      ├── icons/
+│      ├── images/
+│      └── kml/
+│         
+├── build/
+│     └──...
+│         
+├── images/
+│     └──...
+│         
+├── ios/
+│    └──...
+│              
 ├── lib/
-│   ├── main.dart
-│   ├── config/
-│   │   └── lg_config.dart
-│   │
-│   ├── services/
-│   │   └── lg_connection.dart
-│   │
-│   ├── optional_files/
-│   │   ├── lg_ai.dart
-│   │   ├── lg_google_earth.dart
-│   │   └── lg_nodejs.dart
-│   │
-│   ├── screens/
-│   │   ├── connection_screen.dart
-│   │   ├── main_screen.dart
-│   │   ├── help_screen.dart
-│   │   └── settings_screen.dart
-│   │
-│   ├── ai/
-│   │   └── api_config.dart
-│   │
-│   ├── nodejs/
-│   │   ├── server.js
-│   │   └── package.json
-│   │
-│   ├── kml/
-│   │   └── example.kml
-│   │
-│   ├── models/
-│   │
-│   ├── providers/ (optional?)
-│   ├── utils/ (optional?)
-│   │
-│   ├── linux/ (optional, depending on if you want your project to be visualized in this technology)
-│   │
-│   ├── macOS/ (optional, depending on if you want your project to be visualized in this technology)
-│   │
-│   ├── web/ (optional, depending on if you want your project to be visualized in this technology)
-│   │
-│   └── windows/ (optional, depending on if you want your project to be visualized in this technology)
+│    ├── providers/
+│    │      ├── settings_provider.dart
+│    │      └── theme_provider.dart
+│    │
+│    ├── screens/
+│    │           ├── optional_files/
+│    │           │           ├── ai.dart
+│    │           │           ├── google_maps.dart
+│    │           │           ├── kml.dart
+│    │           │           ├── nodejs.dart
+│    │           │           └── qr.dart
+│    │           ├── connection_screen.dart
+│    │           ├── help_screen.dart
+│    │           ├── main_screen.dart
+│    │           ├── optional_screen.dart
+│    │           ├── settings_screen.dart
+│    │           └── splash_screen.dart
+│    │
+│    ├── services/
+│    │       └── lg_service.dart
+│    │
+│    └── main.dart
+│   
+├── linux/
+│     └──...
+│
+├── macos/
+│     └──...
+│
+├── node_server/
+│     ├── server.js
+│     └── package.json
 │
 ├── test/
-│     └── lg_service_test.dart
+│     └──...
 │
+├── web/
+│    └──...
+│
+├── windows/
+│      └──...
+│
+├── .env
+├── .flutter-plugins-dependencies
+├── .gitignore
+├── .metadata
+├── analysis_options.yaml
+├── devtools_options.yaml
+├── your_project.iml
+├── pubspec.lock
 ├── pubspec.yaml
-├── README.md
-└── .gitignore
+└── README.md
+
 ```
 
-- `lib/`.
-- `main.dart`. The 'main' archive serves to execute the app and show the main screen (HomeView). It is the entry point of the Flutter application.
-- `utils/`. Utility files. They can help to maintain consistency through the app and to make it easy to manage global settings and styles, for example.
+Every Flutter project begins with `main.dart`, which serves as the entry point of your application. This is where your app’s execution starts, typically containing the `main()` function and the root `Widget` that initializes the application. From here, it is crucial to keep your code organized into logical folders, separating your screens, services, models and utilities into their own directories. You should also avoid the creation of large files, as it is better to split responsibilities into smaller parts that are easier to read, maintain, and manage.
 
-<h2 id="id10"> 10. Automatically generated files </h2>
+All of your custom code should be placed inside the `lib/` folder, while configuration files such as `.env`, `pubspec.yaml` or `analysis_options.yaml` must remain outside of it, at the root level of the project. Additionally, Flutter generates platform-specific folders like `linux/`, `macos/`, `windows/`, `ios/` and `android/`. These directories are only necessary if you plan to target those platforms so, even if they are automatically created, you don’t need to worry about them unless your project requires cross-platform support. **In the GSoC context, applications are intended to work on Android phones**, so you can safely focus exclusively on the `android/` folder and ignore the others.
+
+To ensure the stability and reliability of your application, you should make active use of the `test/` folder. Writing unit and integration tests helps catch issues early, encourages better code design, and makes your codebase easier to maintain as your project continues to develop and grow.
+
+Finally, documentation is also a critical component. A well-written `README.md` acts as the front page of your project, being one of the first things the users see in the GitHub repository. It should clearly explain the purpose of your app, how to set it up, and include solutions to common problems that might appear during, for example, installation. Think of it as the first impression for anyone who interacts with your project.
+
+But this is just a summary. In the next section, you will find a more detailed explanation of each folder and file that appear in the structure example provided above.
+
+<h2 id="id10"> 10. Your whole project step by step </h2>
 
 <h3 id="id101"> 10.1. .dart_tool </h3>
 
 <h3 id="id102"> 10.2. .flutter-plugins-dependencies </h3>
 
-<h2 id="id11"> 11. Your whole project step by step </h2>
+<h3 id="id103"> 10.3. .idea </h3>
 
-<h3 id="id111"> 11.1. .idea </h3>
+<h3 id="id104"> 10.4. android </h3>
 
-<h3 id="id112"> 11.2. android </h3>
+<h3 id="id105"> 10.5. assets </h3>
 
-<h3 id="id113"> 11.3. assets </h3>
+<h3 id="id106"> 10.6. ios, linux, macos, web, windows </h3>
 
-<h3 id="id114"> 11.4. ios </h3>
+<h3 id="id107"> 10.7. lib </h3>
 
-<h3 id="id115"> 11.5. lib </h3>
+<h3 id="id108"> 10.8. node_server </h3>
 
-<h3 id="id116"> 11.6. linux </h3>
+<h3 id="id109"> 10.9. test </h3>
 
-<h3 id="id117"> 11.7. macos </h3>
+<h3 id="id1010"> 10.10. .env </h3>
 
-<h3 id="id118"> 11.8. node_server </h3>
+<h3 id="id1011"> 10.11. .gitignore </h3>
 
-<h3 id="id119"> 11.9. test </h3>
+<h3 id="id1012"> 10.12. .metadata </h3>
 
-<h3 id="id1110"> 11.10. web </h3>
-<h3 id="id1111"> 11.11. windows </h3>
+<h3 id="id1013"> 10.13. analysis_options.yaml </h3>
 
-<h3 id="id1112"> 11.12. .env </h3>
+<h3 id="id1014"> 10.14. lg_master_web_app.iml </h3>
 
-<h3 id="id1113"> 11.13. .gitignore </h3>
+<h3 id="id1015"> 10.15. pubspec.lock </h3>
 
-<h3 id="id1114"> 11.14. .metadata </h3>
+<h3 id="id1016"> 10.16. pubspec.yaml </h3>
 
-<h3 id="id1115"> 11.15. analysis_options.yaml </h3>
+<h3 id="id1017"> 10.17. README.md </h3>
 
-<h3 id="id1116"> 11.16. lg_master_web_app.iml </h3>
+<h2 id="id11"> 11. Further resources and documentation </h2>
 
-<h3 id="id1117"> 11.17. pubspec.lock </h3>
-
-<h3 id="id1118"> 11.18. pubspec.yaml </h3>
-
-<h3 id="id1119"> 11.19. README.md </h3>
-
-<h2 id="id12"> 12. Further resources and documentation </h2>
-
-<h2 id="id13"> 13. Projects used to create this project </h2>
+<h2 id="id12"> 12. Projects used to create this project </h2>
 
 | Project Title | Contributor | Year | Technologies / Languages |
 |---------------|-------------|------|---------------------------|
