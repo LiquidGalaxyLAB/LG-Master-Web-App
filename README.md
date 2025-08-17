@@ -11,9 +11,10 @@
 1. [Introduction. What is this guide, and how does it work?](#id1)
 2. [Onboarding](#id2)  
    2.1. [Getting started and bonding period](#id21)  
-   2.2. [Prepare your environment setup](#id22) 
-   2.3. [GitHub methodology](#id23) 
-   2.4. [Deliverables and documentation](#id24) 
+   2.2. [Prepare your environment setup](#id22)
+   2.3. [Prepare your environment setup (macOS)](#id23)  
+   2.4. [GitHub methodology](#id24) 
+   2.5. [Deliverables and documentation](#id25) 
 3. [Project types and technologies](#id3) 
 4. [Liquid Galaxy](#id4)  
    4.1. [What is Liquid Galaxy?](#id41)  
@@ -75,7 +76,7 @@ GSoC is a challenge and can feel like a lot sometimes, but it is also a great op
 
 <h2 id="id2"> 2. Onboarding </h2>
 
-Working on your GSoC project is both an exciting and rewarding experience, but it can also feel overwhelming, especially if you don’t really know where or how to start. In order to make this process smoother, the Liquid Galaxy team offers a clear and structured onboarding process designed to help you integrate easily into both the development environment and the broader GSoC framework. This section outlines the most important steps to help you start strong and establish good habits that will support your progress throughout the entire program.
+Working on your GSoC project is both an exciting and rewarding experience, but it can also feel overwhelming, especially if you don’t really know where or how to start. In order to make this process smoother, the Liquid Galaxy team offers a clear and structured onboarding process designed to help you integrate easily into both the development environment and the broader GSoC framework. This section outlines the most important steps to help you start strong and establish good habits that will support your progress throughout the entire program. It also assumes that you have already been selected for GSoC and completed the prerequisite tasks. As you will see during the development of your project, these prerequisite tasks are really important and will help you face many of the issues you may encounter during development, so make sure you put real effort on completing them.
 
 <h3 id="id21"> 2.1. Getting started and bonding period </h3>
 
@@ -102,9 +103,30 @@ Taking the time to set up your environment correctly will save you countless hou
    - ***Use a physical Android phone.*** You can either connect it to your development environment via USB or build an APK and install it manually.
    - ***Set up an emulator using Android Studio.*** For this, you will need to install the Android Emulator component on Android Studio and create a virtual device. In the GSoC context, it should be an Android phone. You can follow this [tutorial](https://youtu.be/GhuiNcOEv1A?si=Bt0Rr6vETa27Iszw) in order to create the virtual device.
 - **Create a first version of your project.** You can either do it from scratch or clone the code repository (lg_master_web_app) that goes along with this documentation, which provides a basic and functional Flutter app that connects to Liquid Galaxy.
-- **Use GitHub from day one.** All Liquid Galaxy GSoC projects are tracked via GitHub, so make sure you commit your progress regularly and from the start! If you have never used GitHub, don’t worry, that’s what the next section is about. 
+- **Use GitHub from day one.** All Liquid Galaxy GSoC projects are tracked via GitHub, so make sure you commit your progress regularly and from the start! If you have never used GitHub, don’t worry, that’s what one of the next sections is about. 
 
-<h3 id="id23"> 2.3. GitHub methodology </h3>
+<h3 id="id23"> 2.3. Prepare your environment setup (macOS) </h3>
+
+In the GSoC context, having a macOS is not the best situation because some tools (like VirtualBox and Android emulators) can behave differently than on Windows and certain dependencies may require extra configuration. But don’t worry, not everything is lost! Before you can begin coding, you will need to set up your development environment. This setup is critical not only for testing your code locally, but also to make sure that your application is fully compatible with the official Liquid Galaxy infrastructure used at the Liquid Galaxy headquarters in Lleida (Spain). All contributors are required to create and work with a personal Liquid Galaxy virtual rig, which simulates the behaviour of the real system and allows testing and validating your application in a local environment. Please note that, **in order to successfully pass GSoC**, the final version of your application must work on the real Liquid Galaxy rigs at Lleida. **This is a non-negotiable requirement.**
+
+For most contributors, the local development setup involves using VirtualBox to run a local instance of a Liquid Galaxy rig. This virtual rig provides a safe and controlled environment for building, testing, and debugging your application without depending on remote systems. In order to avoid compatibility issues and ensure your virtual rig works the same as the real ones at the headquarters, you should carefully follow these guidelines for the VirtualBox installation:
+
+- **Use a vanilla LG configuration.** This means installing Ubuntu 16.04 with no system updates and no additional software beyond what is strictly required.
+- **Do not request additional tools or packages** to be installed on the Liquid Galaxy rigs at the headquarters, as this may cause compatibility issues or even break existing systems.
+- Make sure your app runs smoothly on both **virtual and real rigs without manual intervention or additional setup**.
+
+Taking the time to set up your environment correctly will save you countless hours of trouble later, so be patient and take the time to do it right. Once your virtual Liquid Galaxy rig is ready, you can set up your application development environment and workspace. Here’s a quick checklist of everything you need to do:
+
+- **Set up a Virtual Galaxy rig.** Start by downloading and install [**VirtualBox for macOS**](https://www.virtualbox.org/wiki/Downloads). During installation, macOS may ask you to **allow the VirtualBox kernel extension** in **System Preferences → Security & Privacy**, so make sure to allow it. You should also **enable 3D acceleration in VirtualBox** for smoother display of multiple screens. After that, you can install the vanilla LG configuration using [**this tutorial**](https://youtu.be/wzv-CiN6VeA?si=lzARoxDQWIY81poc) (just skip through the beginning, since it’s the VirtualBox installation on a Windows device).
+- **Install Flutter.** Flutter is the main framework used in most Liquid Galaxy GSoC projects, as it allows building cross-platform apps efficiently, and it integrates well with both Android devices and the Liquid Galaxy system. You can download and install Flutter from the official website, following [**this link**](https://docs.flutter.dev/get-started/install). In the case of macOS, you should extract it to a preferred folder (for example, `~/flutter`) and add Flutter to your `PATH` by adding `export PATH="$PATH:$HOME/flutter/bin"` to your shell configuration file. Finally, run `flutter doctor` in the terminal to check for any missing dependencies.
+- **Choose your IDE.** You will need an Integrated Development Environment (IDE) in order to build your app efficiently, like for example Android Studio or VSCode. Make sure you have Dart and Flutter plugins on the IDE you choose (Dart is the programming language used to develop Flutter apps). Both VSCode and Android Studio are compatible with macOS.
+- **Set up an Android Emulator (or use a physical device).** Although your project must be compatible with Liquid Galaxy, it also needs to work properly on Android devices. For this, you have two options:
+   - ***Use a physical Android phone.*** You can either connect it to your development environment via USB or build an APK and install it manually.
+   - ***Set up an emulator using Android Studio.*** For this, you will need to install the Android Emulator component on Android Studio and create a virtual device. In the GSoC context, it should be an Android phone. You can follow this [tutorial](https://youtu.be/GhuiNcOEv1A?si=Bt0Rr6vETa27Iszw) in order to create the virtual device.
+- **Create a first version of your project.** You can either do it from scratch or clone the code repository (lg_master_web_app) that goes along with this documentation, which provides a basic and functional Flutter app that connects to Liquid Galaxy.
+- **Use GitHub from day one.** All Liquid Galaxy GSoC projects are tracked via GitHub, so make sure you commit your progress regularly and from the start! If you have never used GitHub, don’t worry, that’s what one of the next sections is about. 
+
+<h3 id="id24"> 2.4. GitHub methodology </h3>
 
 All contributors will work within the official Liquid Galaxy GitHub, where your project’s repository will be hosted. This centralized approach ensures consistency across all projects, facilitates collaboration and allows mentors to track your progress. Once your personal repository is created, you will be granted access, and from there your day-to-day workflow will begin. Keep in mind that **all project repositories are private until the end of GSoC**. They will only be made public at the end of the program, once the final version of your application is ready and approved.
 
@@ -144,7 +166,7 @@ It is better to update changes into separate feature branches rather than direct
 Once your Pull Request is open, any additional commits pushed to the same feature branch will automatically be included in the Pull Request. At the end of the week (unless told otherwise), you are expected to merge the PR yourself by opening the PR on GitHub, scrolling down, clicking **“Merge pull request”** and then confirm by clicking **“Confirm merge”**.
 
 
-<h3 id="id24"> 2.4. Deliverables and documentation </h3>
+<h3 id="id25"> 2.5. Deliverables and documentation </h3>
 
 In addition to writing code, you are also expected to maintain **clear, detailed and well-organized documentation** throughout the entire duration of your GSoC project. Documentation is just as important as the code itself, as it makes sure that others (including mentors, users of your application, or even your future self) can understand, use, and build upon your work. Good documentation significantly improves the long-term value and usability of your contribution.
 
@@ -153,6 +175,8 @@ To help you manage and store all deliverables, you will receive a **shared Googl
 - **Project documentation.** This is one of the most important components of your final submission. You must maintain a document that includes setup instructions for running your application (both on Liquid Galaxy and on Android), code explanations, a usage guide (explaining how users would interact with the application), and architecture decisions (why you built things the way you did). It is also important to paste relevant code snippets into the document and explain their purpose and behaviour, and diagrams and screenshots can also be helpful to visually support your explanation. This document should be started at the beginning of your project and updated continuously as your code evolves, since waiting until the last minute will make it much harder to recall decisions or provide accurate context. This project documentation should be a **README.md** that will be included in the GitHub repository.
 - **Worklog.** You will be required to log your weekly progress in an Excel file. To begin, you will copy a pre-made template and rename the file with the following format: `Surname_Name_GSOCyear_Worklog`. In this document, you will have to record the daily and weekly work you have completed, any blockers or bugs with their possible solution, and your planned work for the upcoming week. This worklog will be extremely useful during your evaluations, as it provides a clear and consistent record of your progress, learning, and problem-solving approach.
 - **Other assets.** Basically any additional files that are part of your project or relevant for your final submission. These might include logos, media files, etc.
+
+Finally, you will also receive instructions and a deadline to submit your project to the [**GO webstore**](https://store.liquidgalaxy.eu/). Please, make sure to meet this deadline, as missing it could significantly reduce your chances of passing GSoC.
 
 <h2 id="id3"> 3. Project types and technologies </h2>
 
@@ -201,7 +225,7 @@ One of the best aspects of Liquid Galaxy development is that **you don’t need 
 
 <h3 id="id42"> 4.2. Essential Liquid Galaxy functions </h3>
 
-When developing an application for Liquid Galaxy, there are several core features and behaviours that must be implemented to ensure proper functionality and user experience. These features are essential to how your application integrates with and supports the capabilities of the Liquid Galaxy system.
+When developing an application for Liquid Galaxy, there are several core features and behaviours that must be implemented to ensure proper functionality and user experience. These features are essential to how your application integrates with and supports the capabilities of the Liquid Galaxy system. The most important function is that your app connects with the Liquid Galaxy, and it is also important to keep in mind that your app may connect on the virtual rig but not on the real one. **If your app does not connect with the real and physical Liquid Galaxy rig, you will not pass GSoC**.
 
 One of the most frequent issues in previous projects has been the lack of synchronization between the map displayed on the user’s mobile device and the Google Earth view on the Liquid Galaxy rig. **Your application must make sure that any interaction on the mobile device** (whenever a user navigates, searches for a location, or interacts with a map on their phone) **is reflected in real time on the Liquid Galaxy rig’s multiscreen setup**. This synchronization must create a unified and seamless experience across devices and **maintain consistent coordinates, camera angles and zoom levels**. It must also be **bidirectional** if necessary, which means that updates from the Liquid Galaxy rig (such as orbit animations or tour progress) should also be reflected on the mobile app interface.
 
@@ -360,6 +384,24 @@ Being aware of frequent pitfalls is crucial, as many of these mistakes are preve
 - **Improper file/meeting naming conventions.** All files and meeting names must follow the required format. For meetings, use the naming convention **GSoC_contributor_mainMentor_projectName**. For APKs and other deliverables, ensure proper versioning and naming is applied to avoid confusion and maintain organization.
 - **Misusing the Google Drive folder.** The shared Google Drive folder is an important part of project collaboration and tracking, and you should NEVER delete old APK versions. Instead, create clearly labelled subfolders for each new version. This structure ensures that past work remains accessible for reference and backup purposes.
 - **Expecting mentors to solve all blockers.** While mentors are available to guide and support you, they are not expected to resolve every technical issue for you. GSoC is an opportunity to demonstrate your initiative, problem-solving skills, and independence. You are expected to take ownership of your blockers, research solutions, and approach mentors only when necessary or when you’re truly stuck. Mentors provide high-level guidance, but you are expected to take ownership and try to solve issues autonomously.
+- **KML balloon related problems.** You may experience some problems with the KML balloons not appearing on the screen. A possible solution is to force a refresh function immediately after sending the KML files. This ensures the Liquid Galaxy rig updates instantly, and the KML balloons should then display correctly.
+- **Orbit conflicts.** While an orbit animation is in progress, avoid triggering functions that fly to a specific POI. Doing both simultaneously can cause conflicts and make the animations not work smoothly.
+- **Relaunch problems.** If you experience issues with the relaunch function, make sure that you are executing it on the MAIN SCREEN (or node) and that you are NOT running it separately on each screen.
+- **KML placement.** Make sure your KML logos are sent to the leftmost screen and that your KML balloons are sent to the rightmost screen to ensure proper visualization across the Liquid Galaxy setup.
+- **Docker issues.** Some Docker projects have experienced performance issues because they were using the CPU instead of the GPU (graphics card). If you are working with Docker, make sure to double-check that you are not making this mistake!
+- **QR code formatting**. Make sure the QR code used to connect with the Liquid Galaxy follows the exact JSON format below:
+```
+plaintext
+
+{
+  "username": "lg",
+  "ip": "",
+  "port": "22",
+  "password": "lqgalaxy",
+  "screens": "5"
+}
+
+```
 
 <h2 id="id9"> 9. Start your project </h2>
 
