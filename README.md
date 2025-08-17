@@ -608,6 +608,8 @@ lib/
 
 ```
 
+<img src="images/LGMasterWebAppMap.png" height="500" alt="LG Master Web App map">
+
 Even though you will have multiple files on this folder, the only mandatory one is `main.dart`, which is the **official entry point of your application**, and it contains the `main()` function which calls `runApp()` to launch the root widget (normally `MyApp`). **This file should ALWAYS stay directly under `lib/`, NEVER INSIDE SUBFOLDERS**. This is because Flutter expects the entry point at the root of `lib/` to properly build and run the app.
 
 Apart from `main.dart`, all other files can (and should) be organized into subfolders to keep the project clean and maintainable. Using the `lib/` folder of the **lg_master_web_app** project as an example:
