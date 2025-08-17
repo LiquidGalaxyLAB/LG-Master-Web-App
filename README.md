@@ -37,23 +37,26 @@
    9.1. [Minimum app features / screens](#id91) 
    9.2. [Code structure](#id92) 
 10. [Your whole project step by step](#id10)
-   10.1. [.dart_tool](#id101)
-   10.2. [.flutter-plugins-dependencies](#id102)
-   10.3. [.idea](#id103)
-   10.4. [android](#id104)
-   10.5. [assets](#id105)
-   10.6. [ios, linux, macos, web, windows](#id106)
-   10.7. [lib](#id107)
-   10.8. [node_server](#id108)
-   10.9. [test](#id109)
-   10.10. [.env](#id1010)
-   10.11. [.gitignore](#id1011)
-   10.12. [.metadata](#id1012)
-   10.13. [analysis_options.yaml](#id1013)
-   10.14. [lg_master_web_app.iml](#id1014)
-   10.15. [pubspec.lock](#id1015)
-   10.16. [pubspec.yaml](#id1016)
-   10.17. [README.md](#id1017)
+   10.1. [.dart_tool/](#id101)
+   10.2. [.git/](#id102)
+   10.3. [.idea/](#id103)
+   10.4. [android/](#id104)
+   10.5. [assets/](#id105)
+   10.6. [build/](#id106)
+   10.7. [images/](#id107)
+   10.8. [ios/, linux/, macos/, web/, windows/](#id108)
+   10.9. [lib/](#id107)
+   10.10. [node_server/](#id1010)
+   10.11. [test/](#id1011)
+   10.12. [.flutter-plugins-dependencies](#id1012)
+   10.13. [.env](#id1013)
+   10.14. [.gitignore](#id1014)
+   10.15. [.metadata](#id1015)
+   10.16. [analysis_options.yaml](#id1016)
+   10.17. [lg_master_web_app.iml](#id1017)
+   10.18. [pubspec.lock](#id1018)
+   10.19. [pubspec.yaml](#id1019)
+   10.20. [README.md](#id1020)
 11. [Further resources and documentation](#id11)
 12. [Projects used to create this project](#id12)  
 
@@ -384,7 +387,7 @@ Make sure you have installed the **Dart extension** for your IDE before starting
 
 ```plaintext
 
-your_Project/
+your_project/
 │
 ├── .dart_tool/
 │       └──...
@@ -418,18 +421,18 @@ your_Project/
 │    │      └── theme_provider.dart
 │    │
 │    ├── screens/
-│    │           ├── optional_files/
-│    │           │           ├── ai.dart
-│    │           │           ├── google_maps.dart
-│    │           │           ├── kml.dart
-│    │           │           ├── nodejs.dart
-│    │           │           └── qr.dart
-│    │           ├── connection_screen.dart
-│    │           ├── help_screen.dart
-│    │           ├── main_screen.dart
-│    │           ├── optional_screen.dart
-│    │           ├── settings_screen.dart
-│    │           └── splash_screen.dart
+│    │      ├── optional_files/
+│    │      │           ├── ai.dart
+│    │      │           ├── google_maps.dart
+│    │      │           ├── kml.dart
+│    │      │           ├── nodejs.dart
+│    │      │           └── qr.dart
+│    │      ├── connection_screen.dart
+│    │      ├── help_screen.dart
+│    │      ├── main_screen.dart
+│    │      ├── optional_screen.dart
+│    │      ├── settings_screen.dart
+│    │      └── splash_screen.dart
 │    │
 │    ├── services/
 │    │       └── lg_service.dart
@@ -455,6 +458,7 @@ your_Project/
 ├── windows/
 │      └──...
 │
+├── .flutter-plugins-dependencies
 ├── .env
 ├── .flutter-plugins-dependencies
 ├── .gitignore
@@ -480,41 +484,175 @@ But this is just a summary. In the next section, you will find a more detailed e
 
 <h2 id="id10"> 10. Your whole project step by step </h2>
 
-<h3 id="id101"> 10.1. .dart_tool </h3>
+Whether you are starting with the provided repository (`lg_master_web_app`) or creating a new project from scratch running the `flutter create my_project` command (replacing **“my_project”** with the actual name of your app), you might now be looking at a long list of folders and files without knowing what any of them are for. If you have never used Flutter or are not used to working with it, this can feel confusing, but don’t worry! In this section, you will learn what each folder and file does, which ones are automatically generated and managed by Flutter and which ones you will actually work with as a developer. By the end, you will know exactly where things belong and never feel lost inside a Flutter project again.
 
-<h3 id="id102"> 10.2. .flutter-plugins-dependencies </h3>
+<h3 id="id101"> 10.1. .dart_tool/ </h3>
 
-<h3 id="id103"> 10.3. .idea </h3>
+When you first open your Flutter project, you will probably notice that some folders and files start with a dot (`.`). These are **hidden folders and files**, which your operating system and development tools use to keep track of important background information. By default, most operating systems hide them because they’re not meant for everyday use, as they are used to storing internal data and making sure your project runs smoothly. One of the first hidden folder you will see is `.dart_tool/`. Think of this folder as Flutter’s toolbox. Every time you run or build your application, Flutter stores all that work here, which includes things like **building artifacts** (temporary files created when Flutter compiles the code into something your phone or computer can actually run), **dependency solutions** (records of which versions of packages your project is using) or **cached builds** (files that make re-running or rebuilding your app faster, so Flutter does not have to start from scratch every time).
 
-<h3 id="id104"> 10.4. android </h3>
+The important thing you need to remember is that **this folder is not meant for you to edit**. **It is automatically managed by Flutter and Dart, and anything you change inside it could break your project**. This is why developers usually add `.dart_tool/` to the `.gitignore` file (more on this file in later sections) so it never gets uploaded to GitHub or shared with others. **To sum up, you don’t need to do anything with this folder**. The only time you might interact with it is if your project starts acting strangely, like if dependencies seem broken or if a build fails for no clear reason. In that case, you can delete the folder entirely and run `flutter pub get`. Flutter will then automatically rebuild everything it needs.
 
-<h3 id="id105"> 10.5. assets </h3>
+<h3 id="id102"> 10.2. .git/ </h3>
 
-<h3 id="id106"> 10.6. ios, linux, macos, web, windows </h3>
+This is another hidden folder you will see in your project. When you set up Git for version control (not all projects do this, but for GSoC you should, as explained in [this section](#id23)), this folder is where all your version history (every commit, every branch, every change you’ve made) is stored. Every time you save your work with a `git commit`, Git takes a snapshot of your project and stores it inside this folder. That way, if something goes wrong, you can go back to a previous version of your project, compare changes, or even experiment with new features without fear of losing your work. 
 
-<h3 id="id107"> 10.7. lib </h3>
+It’s important to note that **you don’t edit the files inside `.git/` manually**. Instead, all interaction happens through Git commands like `git commit`, `git push`, `git merge`, etc., or through the built-in Git tools in your IDE (like Android Studio or VS Code). Even though this folder is not included in `.gitignore`, you won’t see it on GitHub when you push your code. This is because GitHub doesn’t need the `.git/` folder itself, as when you push your project to GitHub, Git only sends the relevant history and changes, it doesn’t upload the raw folder. **The `.git/` folder is for your local machine**.
 
-<h3 id="id108"> 10.8. node_server </h3>
+<h3 id="id103"> 10.3. .idea/ </h3>
 
-<h3 id="id109"> 10.9. test </h3>
+Again, another hidden folder. **This one appear if you are using a JetBrains IDE such as IntelliJ IDEA or Android Studio** (which you probably are, since it's very popular for Flutter development). The `./idea` folder is where the IDE stores all the **project-specific configuration files** that it needs to remember how you like to work. This includes things like your **code style preferences** (for example, whether braces should go on the same line or a new line), **how the IDE indexes your project** (so features like search and autocompletion work quickly), and even **workplace settings** like window layouts or what files you had open the last time you closed the project.
 
-<h3 id="id1010"> 10.10. .env </h3>
+**Most of the time, you never need to open or edit anything inside `.idea/` manually**. The IDE updates it automatically whenever you change settings through its menus or preferences panel. For example, if you change your code formatting rules in Android Studio, that change will be stored in `.idea/`. Since these settings are tied to your local development environment and personal workflow, they aren’t useful to anyone else. Another developer working on the same project might have very different preferences for how they want their IDE configured, which is why **`.idea/` is almost always listed in the `.gitignore` file**, since you don’t want to upload personal IDE settings that could clutter or conflict with someone else’s workflow.
 
-<h3 id="id1011"> 10.11. .gitignore </h3>
+<h3 id="id104"> 10.4. android/ </h3>
 
-<h3 id="id1012"> 10.12. .metadata </h3>
+The `android/` folder is where all the **Android-specific configuration** for your Flutter app is stored. While Flutter allows you to write a single codebase that runs on multiple platforms, each platform still needs a **native container** to package and run your app. The `android/` folder is exactly that container for Android. What you will find here is basically a full native Android project, just like the ones developers would create if they were building an app entirely in Java or Kotlin without Flutter. Some key parts you will find inside include **gradle build files** like `build.gradle` or `settings.gradle` (which handle how your app is compiled, which Android SDK version it uses, and how dependencies are managed), **Java/Kotlin code** (small pieces of native code that Flutter uses to communicate with the Android operating system, which you don’t usually need to touch unless you’re adding a native plugin) and the **`app/` subfolder** (which is where the most important Android-specific files for your Flutter app are).
 
-<h3 id="id1013"> 10.13. analysis_options.yaml </h3>
+Most of the time, you won’t spend much time on the `android/` folder because Flutter manages it for you. However, as your project grows, you may have to come here to adjust permissions, change app settings or customize how your app behaves on Android devices. In order to do that, the file you’ll most often interact with here is `AndroidManifest.xml`, which you can find inside `android/app/src/main/`. This file is like the blueprint of your app for the Android operating system, as it tells Android the **name and icon** of your app, the **permissions** it needs (for example, access to the Internet, the camera, or location services), the **minimum Android version** your app supports and the **entry point** of your application (which activity Android should launch first).
 
-<h3 id="id1014"> 10.14. lg_master_web_app.iml </h3>
+For example, if your Flutter app needs internet access, you will have to open `AndroidManifest.xml` and add a line like `<uses-permission android:name="android.permission.INTERNET" />`. Without it, your app would still compile, but it wouldn’t actually be allowed to go online when installed on a device. 
 
-<h3 id="id1015"> 10.15. pubspec.lock </h3>
+<h3 id="id105"> 10.5. assets/ </h3>
 
-<h3 id="id1016"> 10.16. pubspec.yaml </h3>
+The `assets/` folder is where you store all the **static resources** your Flutter app needs, like images, icons, fonts, KML files or any other files that aren’t code but are still essential for your app to function or look the way you want. If your app shows a logo (like for example in the splash screen), uses custom icons, loads specific KML files, or displays a special font, those files will be stored in this folder. However, simply placing a file inside the `assets/` folder is not enough, as Flutter needs to know which assets your project intends to use, and for that, you must also declare it in your `pubspec.yaml` file (more on this file later) under the `flutter:` section. This is how Flutter knows how to package those resources with your app when it’s built. If you skip this, the files will still be on the `assets/` folder but won’t be accessible in your code.
 
-<h3 id="id1017"> 10.17. README.md </h3>
+To see how the assets should be referenced in `pubspec.yaml`, you can check the `pubspec.yaml` file that is in the **lg_master_web_app** repository, as everything in that repository is commented and is probably easier for you to understand the structure if you see the code. A good idea to keep things clean and manageable is to keep your assets organized into subfolders (for example `/images`, `/icons`, or `/kml`) so that everything stays neat and easy to find. A messy `assets/` folder quickly becomes confusing, especially as your project grows. You will only need to come back to this folder when adding or updating resources.
+
+<h3 id="id106"> 10.6. build/ </h3>
+
+The `build/` folder is where Flutter stores all the **temporary files and compiled output generated whenever you run or build your app**. Every time you run `flutter run` or `flutter build`, Flutter compiles your Dart code, processes assets, and generates the platform-specific binaries (like APKs for Android or IPA files for iOS) inside this folder. Inside `build/`, you will usually see subfolders like `app/` or `intermediates/`, which contain compiled code, processed resources, and cached files that make subsequent builds faster. For example, Flutter might reuse previously compiled widgets or assets to avoid rebuilding everything from scratch, which helps speed up development.
+
+Most of the time, **you don’t need to touch anything inside `build/` manually**. It is automatically managed by Flutter, and any changes you make here could break your build. This is why the `build/` folder is almost always included in `.gitignore` to prevent it from being uploaded to GitHub. If something goes wrong (like a build failing unexpectedly or dependencies not working correctly) you can safely delete the entire `build/` folder, since the next time you run `flutter run` or `flutter build` Flutter will regenerate everything automatically.
+
+<h3 id="id107"> 10.7. images/ </h3>
+
+Unlike the `assets/` folder, which contains **resources used inside your app**, the `images/` folder is mainly for **documentation purposes**. This folder is not automatically generated (you have to create it yourself) and is usually where you store any images used in your project’s documentation, like in the README.md. These images could be screenshots, diagrams explaining features, icons, or any other visuals that help your documentation.
+
+<h3 id="id108"> 10.8. ios/, linux/, macos/, web/, windows/ </h3>
+
+These folders contain platform-specific configurations and projects for your Flutter app. Since GSoC focuses on developing apps for Android, you can safely ignore these folders, but it’s always useful to know what they are in case you want to develop for these platforms in the future. The `ios/` folder is the iOS equivalent of the `android/` folder. It contains an **Xcode** project, `Info.plist` files, and **Swift** or **Objective-C** code that allows your Flutter app to run on iPhones and iPads. Most of the time you wouldn’t need to touch anything here unless you need to configure iOS-specific settings, like permissions, app icons, or signing certificates.
+
+`linux/`, `macos/`, `windows/` and `web/` folders are for desktop ad web platforms. Flutter automatically generates them if you enable support for these platforms, and each folder contains the necessary native code, configuration files, and build scripts to run your app on that platform. For example, `linux/` contains **CMake** files and Linux specific code, `macos/` contains **Xcode** project files for macOS, `windows/` contains **Visual Studio** project files and `web/` contains **HTML**, **JavaScript**, and **CSS** files for running your app in a browser.
+
+<h3 id="id109"> 10.9. lib </h3>
+
+The `lib/` folder is the heart of your Flutter application, where all your app’s logic, UI, and data structures are organized. This is the folder you will spend most of your development time in, as it contains most of the files for your screens, services, models and other app logic. The exact structure will be very different depending on your project, so in order to give you an overview of how to organize it, let’s explore the `lib/` folder of the **lg_master_web_app** project, which lets remember is:
+
+```plaintext
+
+lib/
+ ├── providers/
+ │      ├── settings_provider.dart
+ │      └── theme_provider.dart
+ │
+ ├── screens/
+ │      ├── optional_files/
+ │      │           ├── ai.dart
+ │      │           ├── google_maps.dart
+ │      │           ├── kml.dart
+ │      │           ├── nodejs.dart
+ │      │           └── qr.dart
+ │      ├── connection_screen.dart
+ │      ├── help_screen.dart
+ │      ├── main_screen.dart
+ │      ├── optional_screen.dart
+ │      ├── settings_screen.dart
+ │      └── splash_screen.dart
+ │
+ ├── services/
+ │       └── lg_service.dart
+ │
+ └── main.dart
+
+```
+
+Even though you will have multiple files on this folder, the only mandatory one is `main.dart`, which is the **official entry point of your application**, and it contains the `main()` function which calls `runApp()` to launch the root widget (normally `MyApp`). **This file should ALWAYS stay directly under `lib/`, NEVER INSIDE SUBFOLDERS**. This is because Flutter expects the entry point at the root of `lib/` to properly build and run the app.
+
+Apart from `main.dart`, all other files can (and should) be organized into subfolders to keep the project clean and maintainable. Using the `lib/` folder of the **lg_master_web_app** project as an example:
+- `providers/`. In this project, this folder stores the files related to the adaptability of the app
+   - `settings_provider.dart`. File used to manage text sizes and font scaling across the app. **Part of the mandatory screens on a GSoC project**, since it is used on the settings screen.
+   - `theme_provider.dart`. File used to handle theme switching (dark or light) across the app. **Part of the mandatory screens on a GSoC project**, since it is used on the settings screen.
+- `screens/`. In this project, this folder contains all the UI screens, keeping them separated from the app’s logic.
+   - `optional_files/`. In this project, this folder stores all the files related to the optional features screen, which in this project is used to show the users some optional features they may want to implement on their app and how to do so.
+      - `ai.dart`. This screen gives information about how to integrate AI on your project to generate responses based on prompts. It sends a POST request to the Gemini API and displays the AI response on the screen.
+      - `google_maps.dart`. This screen gives information about how to integrate an external browser on your app, in this case opening a link to a Google Maps map. For that, you have to create a map in Google Maps and get a public URL to share it.
+      - `kml.dart`. This screen provides an example on how to send a KML file to the Liquid Galaxy. For this option to work, your app should first connect with the Liquid Galaxy on the connection screen.
+      - `nodejs.dart`. This screen gives information about how to integrate a Node.js server on your project. This server is external to the project, and you can find more information on this on the [`node_server/`](#id1010) section.
+      - `qr.dart`. This screen is used to read a QR file and use it to connect to the Liquid Galaxy. **Part of the mandatory screens on a GSoC project**, since it is used on one of the connection screen buttons.
+   - `connection_screen.dart`. This is the screen where the user will introduce the IP and the port related to the Liquid Galaxy, as well as other Liquid Galaxy connection options like clearing KMLs, saving credentials or disconnecting the Liquid Galaxy. **Mandatory screen on a GSoC project**.
+   - `help_screen.dart`. Screen that offers a description of the project, as well as information about the developers and the partners. **Mandatory screen on a GSoC project**.
+   - `main_screen.dart`. The first screen that shows up in your app after the splash screen, and is the screen from where you should be able to access all the app’s main features. **Mandatory screen on a GSoC project**.
+   - `optional_screen.dart`. This screen is used to present the different optional features a developer may want to implement on their application. From this screen you can access the files in `optional_files/`.
+   - `settings_screen.dart`. Screen dedicated to manage visual preferences like dark mode or font size. **Mandatory screen on a GSoC project**.
+   - `splash_screen.dart`. A splash screen is typically a welcome screen that appears when we open an app. In this case, it will display the logos of Liquid Galaxy and your project, as well as other logos related to Liquid Galaxy and to any tools you have used on your project. **Mandatory screen on a GSoC project**.
+- `services/`. In this project, this folder stores the logic of the Liquid Galaxy related services.
+   - `lg_service.dart`. File dedicated to manage everything that has to do with the connection to the Liquid Galaxy. **Part of the mandatory screens on a GSoC project**, since it is used on the connection screen to manage all the logic behind the different options like connecting to the Liquid Galaxy or clearing the KMLs.
+
+These are just small explanations of what each file does. In case you want to see what each of these files does in more detail, you can explore all of them in the **lg_master_web_app** repository, as every line of code is commented to give you a complete explanation of each file’s functionality.
+
+<h3 id="id1010"> 10.10. node_server/ </h3>
+
+If your project plans to use a Node.js backend, this server should be deployed remotely so that it hosts and runs independently from your local machine. In the optional features screen of the **lg_master_web_app** you can find an option to interact with a server. In this case, the server is deployed remotely on a cloud platform called [**Render**](https://render.com/), though there are many other free options to host a server. The code inside the `node-server/` folder here is provided ONLY for reference purposes. It is the same code that was used to create the remote server, but it is NOT executed locally. This folder is just included so you can understand how a Node.js backend is structured, how the server handles requests, and how it connects to the frontend app. In short, the code here is NOT used directly in the project, but it represents what was uploaded remotely to create a server that the app can interact with. 
+
+Inside this folder, you will find `package.json` and `server.js`. `package.json` **describes the Node.js project**, including its name, version, dependencies, and scripts used to start the server, and it defines the environment needed for the server to run. `server.json` is the **main server file where the backend logic resides**. It defines endpoints, specifies the port number where the server listens, handles incoming requests, and sends responses back to clients ("*Node.js server is running smoothly!*" if the server is running). `package.json` is not commented because JSON files do not allow comments, but `server.json` is fully commented to help you understand the logic if you want to check it.
+
+<h3 id="id1011"> 10.11. test/ </h3>
+
+The `test/` folder is where automated tests for your Flutter app are stored. These tests are critical for keeping your code reliable and ensuring that your app behaves as expected as it develops. In this folder you can find different types of tests, like **unit tests** (which focus on testing small, isolated functions or methods to verify their correctness), **widget tests** (which test individual UI components to make sure they display and behave correctly) or **integration tests** (which simulate user interactions across multiple screens to check that the app works as a whole). Even though testing might seem optional or not really important when you first start a project, it becomes increasingly valuable as your project gets more complex. Tests help catch bugs early, prevent regressions, and make your codebase easier to maintain, so it is always a good idea to keep this folder active.
+
+To create a test, inside the `test/` folder you should create a new Dart file (for example, `example_test.dart`), import the `flutter_test` package and write your test using `test()` for unit tests or `testWidgets()` for widget tests (you have an example of a widget test commented on the **lg_master_web_app** repository). Once you have your file ready, you can run `flutter test` to execute all tests in the `test/` folder or run a single test file by specifying its path, like for example `flutter test test/example_test.dart`. In IDEs like VS Code or Android Studio you can also run tests directly from the editor using the **"Run"** or **"Debug"** buttons next to each test.
+
+<h3 id="id1012"> 10.12. .flutter-plugins-dependencies </h3>
+
+We find ourselves with a hidden file again. In this case, its purpose is to **record your Flutter plugin dependencies and their versions**. Whenever you add or remove plugins in `pubspec.yaml`, Flutter automatically updates this file to keep track of the changes. **You should not edit this file manually**, as it is automatically managed by Flutter and it ensures that your project consistently knows which plugins it uses and their specific versions. Editing it manually could cause your app to stop working correctly.
+
+<h3 id="id1013"> 10.13. .env </h3>
+
+Another hidden file. In this case, the `.env` file is used to store **environment variables for your project**, such as API keys, base URLs, or other secret configuration values. These values are important for your app to function correctly but MUST remain private. **The `.env` file is not automatically created**, so if you need to use secret environment variables, you should manually create a file named `.env` and store them there. **NEVER commit this file to GitHub!!!** It contains really sensitive information, so make sure it is included in `.gitignore` to prevent accidental exposure. To use the values stored in `.env` within your Flutter project, you should reference them in your code and include the `.env` file in `pubspec.yaml` under `flutter: assets:`.
+
+<h3 id="id1014"> 10.14. .gitignore </h3>
+
+Another hidden file, `.gitignore` is a simple but very important file that tells Git **which files and folders it should not be tracked or commited** to your repository. This keeps your project clean and prevents sensitive or unnecessary files from being uploaded to GitHub. Flutter automatically provides a `.gitignore` file when you create a project, but you can modify it if you need to ignore files that weren’t ignored by default. Still, it’s always a good idea to review this file to ensure all temporary, generated, or secret files are properly ignored. For more detailed information, you can check the `.gitignore` file included in the **lg_master_web_app** repository, which is fully commented and explains both the files already included and other types of files you might want to ignore in your project.
+
+<h3 id="id1015"> 10.15. .metadata </h3>
+
+A hidden file again, `.metadata` is used internally by Flutter to keep track of important information about your project. It stores details such as the **Flutter version** used when the project was created, the **Flutter SDK channel** (stable, beta, dev, or master) or information about **plugins** that your project depends on. **Flutter automatically updates this file when needed, so you should never edit manually**. Its main purpose is to ensure your project remains consistent across different machines or environments, helping Flutter know exactly how the project was set up. For example, if you switch Flutter versions, this file helps Flutter detect and adjust accordingly.  For more detailed information, you can check the `.metadata` file included in the **lg_master_web_app** repository.
+
+<h3 id="id1016"> 10.16. analysis_options.yaml </h3>
+
+The `analysis_options.yaml` file is used to configure **static analysis** and **linting rules** for your Dart and Flutter project. Its main purpose is to enforce a consistent coding style across your codebase and to catch potential problems early, even before running the app. A **lint** is simply a guideline or rule that points out something in your code that might be a mistake, bad practice or inconsistent style. For example, a lint might warn you if you import a library but never use it or if you name a variable in a way that doesn’t match the project’s conventions.
+
+By setting up linting rules in `analysis_options.yaml`, you can make sure your project follows best practices, stays clean, and avoids common pitfalls. Inside this file, you can customize which linting package to use (such as **lints**, **flutter_lints**, or custom rules) and configure which rules to enable, disable, or enforce strictly.
+
+<h3 id="id1017"> 10.17. your_project.iml </h3>
+
+The `your_project.iml` is not part of Flutter itself, but it is created by IntelliJ IDEA or Android Studio (which is based on IntelliJ). This file acts as a sort of **project descriptor** for the IDE, telling IntelliJ/Android Studio what libraries are linked, how modules are structured, and which settings are associated with the project. **You generally don’t need to open or edit this file manually, as it is automatically generated and updated by the IDE as you work on your project**. If something ever happens to it (for example, it gets accidentally deleted or corrupted), the IDE can usually regenerate it by reopening the project.
+
+<h3 id="id1018"> 10.18. pubspec.lock </h3>
+
+The `pubspec.lock` file is automatically generated by Flutter/Dart when you run `flutter pub get`, and its main role is to **record the exact versions of all dependencies used in your project**, including transitive dependencies. It’s like a snapshot of your dependency tree at a specific moment in time. By locking the versions, it makes sure that your project builds consistently across different machines, preventing unexpected issues caused by newer versions of packages being installed automatically. While `pubspec.yaml` is where you **declare your dependencies** and their version constraints, `pubspec.lock` is **what Flutter actually installed based on those constraints**. It records the exact version used for every dependency, ensuring everyone working in the project uses the same versions.
+You generally **should not edit this file by hand**, as doing so can cause inconsistencies between what you declare in `pubspec.yaml` and what Flutter actually installs. If you need to change a dependency version, you should update `pubspec.yaml`, then run `flutter pub get` and Flutter will automatically update `pubspec.lock` to reflect the changes safely. Manual edits can break builds or cause version conflicts.
+
+<h3 id="id1019"> 10.19. pubspec.yaml </h3>
+
+The `pubspec.yaml` file is the **project manifest** and the central configuration file for your Flutter application. It declares key information and settings for the project, including **dependencies**, **assets** or **fonts**. Whenever you want to **add a new package**, **include an asset** or **update metadata**, you edit this file. After changes, running `flutter pub get` will fetch or update the specified packages and update `pubspec.lock` with the exact versions installed. For more detailed information and details on the syntax of this file, you can check the `pubspec.yaml` file included in the **lg_master_web_app** repository, which is fully commented and explains both the files already included and other types of files you might want to add to your project.
+
+<h3 id="id1020"> 10.20. README.md </h3>
+
+Finally, the `README.md` file is your project’s **front page and guide**, and one of the first thing a user sees on GitHub. It serves as the first point of contact for anyone viewing your project and should clearly explain **what your project is about**. A good **README** typically includes the **project's purpose and features** (what the app does and why it exists), the **setup and installation instructions** (how to get the project running locally), a **usage guide** (with screenshots if possible) and **contribution guidelines** (how others can contribute to your project, something really important in open-source projects like GSoC). You may notice that the `README.md` that accompanies the **lg_master_web_app** repository is INCREDIBLY long, but don’t worry! This is just because, in this project, the **README** is as important as the code, as it is a full guide for future contributors and, to be helpful, it has to be as detailed as possible. For typical projects like the development of an app, your **README** doesn’t have to be that long, although there is no defined length. The most important thing is that it provides enough information for someone to understand and use your project effectively. As long as that goal is achieved, your **README** can be as long (or short) as necessary, although it should include the logo of your project, the Liquid Galaxy and the GSoC.
 
 <h2 id="id11"> 11. Further resources and documentation </h2>
+
+Hope all you read was useful! That was a long trip, from how to set up everything to understanding how GSoC works and how your final project should look like. In case you want to explore more or something wasn’t entirely clear, here you have some extra resources:
+- [**Flutter documentation**](https://docs.flutter.dev/). The official Flutter documentation offers guides, tutorials, and API references. It can be really useful to learn how to build apps with Flutter, as it covers topics like widgets, layouts, state management, etc.
+- [**Introduction to Dart**](https://dart.dev/guides/language/language-tour). This guide provides an in-depth look at the Dart programming language. It covers syntax, data types, control flow, functions, classes, etc.
+- [**Liquid Galaxy technical documentation**](https://www.liquidgalaxy.eu/2021/02/documentation.html). Official documentation for the Liquid Galaxy project, detailing setup instructions, APIs, examples, and tutorials for connecting and controlling Liquid Galaxy systems. Crucial for understanding how to integrate your application with Liquid Galaxy hardware.
+- [**GitHub guides**](https://guides.github.com/). GitHub’s official guides, which provide tutorials on using Git and GitHub effectively, including multiple features like version control, collaboration, pull requests and repository management.
+- [**VSCode documentation**](https://code.visualstudio.com/docs). An introduction to Visual Studio Code. This guide covers installation, setup, extensions and debugging.
+- [**Liquid Galaxy wiki**](https://www.liquidgalaxy.eu/2024/05/lg-wiki.html#content-wrapper). A community-driven wiki that contains examples and solutions to many of the doubts you may encounter while developing your app.
+
+And with that, we have reached the end of this guide. Hope it is useful for your coding experience, and that you successfully complete your GSoC project while learning something along the way! Happy coding :)
+
 
 <h2 id="id12"> 12. Projects used to create this project </h2>
 

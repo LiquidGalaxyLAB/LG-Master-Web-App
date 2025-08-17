@@ -109,8 +109,7 @@ flutter:
     - assets/images/LiquidGalaxyLogo.png     # Line needed to use the LG logo on the splash screen
     - assets/images/ParcAgroLleidaLogo.jpg   # Line needed to use the Lleida Agroparc logo on the splash screen
     - assets/images/ParcLleidaLogo.jpg       # Line needed to use the Lleida Parc cientific logo on the splash screen
-    - assets/kml/sendKmlExample.kml # Line needed to use the KML file in Google Maps
-    - assets/icons/linkedin_logo.png    # Line needed to use the linkedin logo on the help screen
+    - assets/kml/sendKmlExample.kml     # Line needed to use the KML file in Google Maps
     - assets/icons/github_logo.png      # Line needed to use the github logo on the help screen
     - .env # Line needed so that the project can read the .env file
     

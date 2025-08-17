@@ -1,15 +1,31 @@
-# This file tracks properties of this Flutter project.
-# Used by Flutter tool to assess capabilities and perform upgrades etc.
-#
-# This file should be version controlled and should not be manually edited.
+# -------------------------------------------- .METADATA --------------------------------------------
+# This file tracks properties of this Flutter project
+# It is used by Flutter tool to assess capabilities and perform upgrades etc.
+# This file should be version controlled and SHOULD NOT BE MANUALLY EDITED
 
+# ------------------------ Version control ------------------------
+# 'revision' is the exact Git commit hash of the Flutter SDK that was used when this project was created or last upgraded
+# 'channel' is which Flutter release channel the project is tied to (stable, beta, dev, master)
 version:
   revision: "8defaa71a77c16e8547abdbfad2053ce3a6e2d5b"
   channel: "stable"
 
+# ------------------------ Project type ------------------------
+# Declares the type of Flutter project
+# The possible values are 'app' (full Flutter app), 'package' (Dart/Flutter package) or 'plugin' (Flutter plugin project)
 project_type: app
 
+# ------------------------ migration ------------------------
 # Tracks metadata for the flutter migrate command
+#This tool ise used during Flutter version upgrades to adapt project files
+
+# ROOT PROJECT (platform: root)
+# 'create_revision' is Flutter SDK commit hash when this platform support was added
+# 'base_revision' is Flutter SDK commit hash used as a baseline for migrations
+
+# The other blocks (platform: android, ios, linux, macos, web, windows) track the same information (create + base revision)
+# for all supported platforms in the Flutter project
+
 migration:
   platforms:
     - platform: root
@@ -34,12 +50,14 @@ migration:
       create_revision: 8defaa71a77c16e8547abdbfad2053ce3a6e2d5b
       base_revision: 8defaa71a77c16e8547abdbfad2053ce3a6e2d5b
 
-  # User provided section
-
-  # List of Local paths (relative to this file) that should be
-  # ignored by the migrate tool.
-  #
-  # Files that are not part of the templates will be ignored by default.
+  # ------------------------ USER PROVIDED SECTION ------------------------
+  # This is a section where developers can customize migration behavior
+  # It includes a list of Local paths (relative to this file) that should be ignored by the migrate tool
+  # Also files that are not part of the templates will be ignored by default
+  
+  # ------------------------ unmanaged files ------------------------
+  # It tells Flutter which files should NOT be auto-modified by flutter migrate
+  
   unmanaged_files:
     - 'lib/main.dart'
     - 'ios/Runner.xcodeproj/project.pbxproj'
