@@ -1158,6 +1158,11 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                     // listen: false indicates that this service object is just needed right now, so there's no need to listen for rebuilds
                     // The result of this operation is stored in the "lgService" variable
 
+                    await Future.delayed(const Duration(milliseconds: 50));
+                    // Future.delayed creates a Future (a value that will be available at some point in the future) that completes after a specified delay
+                    // const Duration(milliseconds: 50) specifies the length of that delay
+                    // In this case, this delay is used to create a short pause between obtaining the QR code info and the connection to the LG
+
                     bool? success = await lgService.connectToLG();
                     // Calls the method connectToLG() from the lg_service.dart file using the credentials extracted from the QR
                     // Stores it in a variable called "success"
@@ -1165,6 +1170,11 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                     // await pauses the execution of the code until connectToLG() is completed
                     // If success = true, the connection has been successful
                     // If success = false, the connection has not been successful
+
+                    await Future.delayed(const Duration(milliseconds: 50));
+                    // Future.delayed creates a Future (a value that will be available at some point in the future) that completes after a specified delay
+                    // const Duration(milliseconds: 50) specifies the length of that delay
+                    // In this case, this delay is used to create a short pause after attempting the connection
 
                     if (success == null) {
                       // If the connection attempt did not give a result (maybe there was an error):

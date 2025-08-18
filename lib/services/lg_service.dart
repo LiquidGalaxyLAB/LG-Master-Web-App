@@ -1650,7 +1650,7 @@ class LgService extends ChangeNotifier {
         <ScreenOverlay>
             <name>Logo</name>
             <Icon>
-              <href>https://raw.githubusercontent.com/lucisays/imagen/refs/heads/main/LGMasterWebAppLogo.png</href>
+              <href>https://raw.githubusercontent.com/lucisays/imagen/main/LGMasterWebAppLogo.png</href>
             </Icon>
             <overlayXY x="0" y="0" xunits="fraction" yunits="fraction"/>
             <screenXY x="0.02" y="0.725" xunits="fraction" yunits="fraction"/>
